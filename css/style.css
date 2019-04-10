@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5, h6, figure {
       margin: 0;
       list-style: none;
       display: inline;
-      font-weight: 400; }
+      font-weight: 1000; }
       .colorlib-nav ul li a {
         position: relative;
         font-size: 15px;
