@@ -37,14 +37,21 @@ class conexion {
     //  $this->server = "localhost";
     //  $this->user = "system";
     //  $this->pwsd = "Rxspo777*";
-    //  $this->database ="kardi-on";
+    //  $this->database ="kardion-demo";
     //  $this->port ="3306";
 
+
      $this->server = "localhost";
-     $this->user = "root";
-     $this->pwsd = "";
-     $this->database ="kardion";
+     $this->user = "system";
+     $this->pwsd = "Rxspo777*";
+     $this->database ="kardi-on";
      $this->port ="3306";
+
+    //  $this->server = "localhost";
+    //  $this->user = "root";
+    //  $this->pwsd = "";
+    //  $this->database ="kardion";
+    //  $this->port ="3306";
 
      $this->conexion =  new mysqli($this->server,$this->user,$this->pwsd,$this->database,$this->port);
      if( $this->conexion -> connect_errno){

@@ -25,8 +25,12 @@ $usuarioId =$_SESSION['k6']['UsuarioId'];
 //listas 
 $listapaises = $pais->getPais();
 $listaDocumentos = $persona->TipoDocumento();
-$listaPersonas = $persona->buscarTodaslasPersonas();
-if(empty($listaPersonas)){$listaPersonas = [];}
+
+// $listaPersonas = [];
+
+/*Esta lineas de codigo muestran los nombres de los pacientes en la tabla buscar paciente*/
+    $listaPersonas = $persona->buscarTodaslasPersonas();
+    if(empty($listaPersonas)){$listaPersonas = [];}
 
 //Valida que el usuario tenga los permisos para esta pantalla;
 $permisos = array(4,5,6);
@@ -213,6 +217,26 @@ if(isset($_POST['btnregister'])){
              });
 
 
+             $("#btnbuscar2").click(function (){
+                  var enviado = document.getElementById('txtbuscartexto').value
+                  var url = "../utilidades/buscarpaciente.php";
+                     $.ajax({
+                         type:"POST",
+                         url: url,
+                         data: {txtbuscartexto :enviado},
+                         success: function(data){
+                                 $("#tabla").html(data);
+                         },
+                        error: function(){
+                            console.log( "Error con el servidor" );
+                        } 
+                     });
+
+             
+                 return false;
+
+             });
+
              
              $("#btnregister").click(function (){ 
 
@@ -239,7 +263,6 @@ if(isset($_POST['btnregister'])){
                             return false; 
                         }
                     }
-                   
                    
              });
 
@@ -327,89 +350,111 @@ if(isset($_POST['btnregister'])){
                 </section>
 </div>
 
-<!------------------- Modal Conclusiones ----------------------------->
+<!------------------- Modal buscar ----------------------------->
                 <div class='modal hide fade' id='modalbuscar' role='dialog' tabindex='-1'>
                       <div class='modal-header'>
                         <button class='close' data-dismiss='modal' type='button'>&times;</button>
-                        <h3>Seleccione una persona</h3>
+                        <h3>Seleccione un paciente</h3>
                       </div>
                       <div class='modal-body'>
                         <div class="box-content">
+                        <!-- <form class='form' method="POST" id="frm_buscar" style='margin-bottom: 0;' autocomplete="off">
+                         <fieldset>
+                            <div class='span12 '>
+                                             <div class='row-fluid'>
+                                                 <div  class='span3 '>
+                                                     <div class='control-group'>
+                                                         <label class='control-label'>Nombre o correo </label>
+                                                         <div class='controls'>
+                                                         <input class='span12' id='txtbuscartexto' name="txtbuscartexto" type='text' >
+                                                         <p class='help-block'></p>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                                 <button class="btn btn-inverse" style="margin-top:25px" name="btnbuscar2" id="btnbuscar2">
+                                                      <i class="icon-search"></i>
+                                                      Buscar
+                                                </button>                                      
+                                             </div>
+                            </div>
+                            </fieldset>
+                        </form> -->
 
                                 <!----------------------- Tabla ------------------------------------->   
-
-                                <div class='responsive-table'>
-                                    <div class='scrollable-area'>
-                                        <table class='data-table table table-bordered table-striped' data-pagination-records='10' data-pagination-top-bottom='false' style='margin-bottom:0;'>
-                                        <thead>
-                                            <tr>
-                                            <th>
-                                                Nombre
-                                            </th>
-                                            <th>
-                                                Correo
-                                            </th>
-                                            <th>
-                                                Estado
-                                            </th>
-                                            <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        
-                                            <?php 
-                                                foreach ($listaPersonas as $key => $value) {
-                                                    $nombre = $value['Nombre'];
-                                                    $correo = $value['Correo'];
-                                                    $estado = $value['Estado'];
-                                                    $perid = $value['PersonaId'];
-                                                    $peronaencript = base64_encode($perid);// encriptamos los id para enviarlos por parametro
-                                                    echo "
-                                                    <tr>
-                                                        <td>$nombre</td>
-                                                        <td>$correo</td>
-                                                        <td> ";
-                                                            if($estado == 'Activo'){
-                                                                echo "<span class='label label-success'>$estado</span>";
-                                                            }else{
-                                                                echo "<span class='label label-important'>$estado</span>";
-                                                            }
-                                                        
-                                                    echo " </td>
-                                                        <td>
-                                                                <div class='text-center'>
-                                                                <a class='btn btn-primary' id='btn$perid' href='#'>
-                                                                    <i class='icon-ok'></i>
-                                                                    Seleccionar 
-                                                                </a>
-                                                                </div>
-                                                            </td>      
-                                                        </tr>
-                                                        
-                                                        <script>
-                                                                $('#btn$perid').click(function (){
-                                                                        swal({
-                                                                                title: 'Hecho!',
-                                                                                text: 'Datos Guardados correctamente!',
-                                                                                type: 'success',
-                                                                                icon: 'success'
-                                                                        }).then(function() {
-                                                                                window.location = 'nuevo_prueba_paso2.php?persona=$peronaencript';
-                                                                        });
-
-                                                                });
-                                                        </script>
-                                                    ";
-                                                
-
-                                                }
+                                <div id="tabla">
+                                    <div class='responsive-table'>
+                                        <div class='scrollable-area'>
+                                            <table class='data-table table table-bordered table-striped' data-pagination-records='10' data-pagination-top-bottom='false' style='margin-bottom:0;'>
+                                            <thead>
+                                                <tr>
+                                                <th>
+                                                    Nombre
+                                                </th>
+                                                <th>
+                                                    Correo
+                                                </th>
+                                                <th>
+                                                    Estado
+                                                </th>
+                                                <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                             
-                                            ?>
-                                        
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                 </div>                                     
+                                                <?php 
+                                                    foreach ($listaPersonas as $key => $value) {
+                                                        $nombre = $value['Nombre'];
+                                                        $correo = $value['Correo'];
+                                                        $estado = $value['Estado'];
+                                                        $perid = $value['PersonaId'];
+                                                        $peronaencript = base64_encode($perid);// encriptamos los id para enviarlos por parametro
+                                                        echo "
+                                                        <tr>
+                                                            <td>$nombre</td>
+                                                            <td>$correo</td>
+                                                            <td> ";
+                                                                if($estado == 'Activo'){
+                                                                    echo "<span class='label label-success'>$estado</span>";
+                                                                }else{
+                                                                    echo "<span class='label label-important'>$estado</span>";
+                                                                }
+                                                            
+                                                        echo " </td>
+                                                            <td>
+                                                                    <div class='text-center'>
+                                                                    <a class='btn btn-primary' id='btn$perid' href='#'>
+                                                                        <i class='icon-ok'></i>
+                                                                        Seleccionar 
+                                                                    </a>
+                                                                    </div>
+                                                                </td>      
+                                                            </tr>
+                                                            
+                                                            <script>
+                                                                    $('#btn$perid').click(function (){
+                                                                            swal({
+                                                                                    title: 'Hecho!',
+                                                                                    text: 'Datos Guardados correctamente!',
+                                                                                    type: 'success',
+                                                                                    icon: 'success'
+                                                                            }).then(function() {
+                                                                                    window.location = 'nuevo_prueba_paso2.php?persona=$peronaencript';
+                                                                            });
+
+                                                                    });
+                                                            </script>
+                                                        ";
+                                                    
+
+                                                    }
+                                                
+                                                ?>
+                                            
+                                            </tbody>
+                                            </table>
+                                        </div>
+                                    </div> 
+                                </div>                                    
                                 <!----------------------- Tabla ------------------------------------->   
                         </div>
                       </div>
@@ -423,7 +468,7 @@ if(isset($_POST['btnregister'])){
 <div class='modal hide fade' id='modalnuevo' role='dialog' tabindex='-1'>
                       <div class='modal-header'>
                         <button class='close' data-dismiss='modal' type='button'>&times;</button>
-                        <h3>Complete los datos de la persona</h3>
+                        <h3>Complete los datos del paciente</h3>
                       </div>
                       <div class='modal-body'>
                         <div class="box-content">
