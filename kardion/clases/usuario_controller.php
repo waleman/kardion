@@ -141,7 +141,6 @@ class usuario extends conexion{
    }
 
 
-
    public function ListarUsuarios($master){
     $query = "select  u.UsuarioId,u.Usuario,r.Nombre as Rol,u.Estado from usuarios as u , roles as r
     where r.RolId = u.RolId

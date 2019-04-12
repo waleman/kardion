@@ -326,10 +326,10 @@ if(isset($_POST['btnenviar'])){
 
                                          <div  class='span2 '>
                                                             <div class='control-group'>
-                                                                <label class='control-label'>Prioridad de la prueba</label>
+                                                                <label class='control-label'>Prioridad (Entrega)</label>
                                                                 <div class='controls' >
                                                                   <select id="cboprioridad" name="cboprioridad" >
-                                                                      <option value='3' selected >Rutina - 24 horas</option>
+                                                                      <option value='3' selected >Rutinaria - 72 horas</option>
                                                                       <!-- <option value='2'  >Preferente - 12 horas</option>
                                                                       <option value='1'  >Urgente - Lo antes posible</option> -->
                                                                   </select>
@@ -499,7 +499,7 @@ if(isset($_POST['btnenviar'])){
                                        <div class="text-center">
                                             <input type="submit" class="btn btn-primary btn-large" value="Guardar y enviar prueba" name="btnenviar" id="btnenviar"/>
                                             
-                                              <a href="lista_pruebas.php" class="btn btn-danger btn-large" >Canlear</a>                                  
+                                              <a href="lista_pruebas.php" class="btn btn-danger btn-large" >Cancelar</a>                                  
                                         </div>
                                     </div>
                             </form>

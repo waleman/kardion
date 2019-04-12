@@ -379,13 +379,13 @@ if ($primermin <= 12){
   <table >
     <tr>
                               
-                                <td  style="text-align:center; padding-left: 50px; padding-right: 30px;  padding-top:65px;">
+                                <td  style="text-align:center; padding-left: 10px; padding-right: 30px;  padding-top:65px;">
                                     <?php 
                                         if($doctor_firma ){
                                             echo "<img class='firmaimg'  src='../public/firmas/$doctor_firma'>";
                                         }
                                         if($doctor_nombre){
-                                            echo" <h6> Dr. $doctor_nombre <br>";
+                                            echo"<br>  Dr. $doctor_nombre <br>";
                                         }
                                         if($doctor_titulo){
                                             echo "$doctor_titulo <br>" ;
@@ -394,12 +394,12 @@ if ($primermin <= 12){
                                             echo "N° colegiado : $doctor_nocolegiado <br>";
                                         }
                                         if($doctor_correo){
-                                            echo " $doctor_correo </h6> ";
+                                            echo " $doctor_correo  ";
                                         }
                                      ?>
                                 </td>
-                                <td style="width:500px; padding-top:105px">
-                                 <h6><b>Nota:</b> La monitorización cardiaca remota es una prueba cardiológica complementaria en el estudio de alteraciones de ritmo cardiaco. Que aporta valor pronóstico y diagnóstico independiente. No sustituye a otras pruebas cardiológicas como el ECG de 12 derivaciones o la prueba de esfuerzo convencional. El resultado y las recomendaciones de esta prueba son específicas para este estudio y no deberian extrapolarse a otras. Para obtener un juicio clínico definitivo sobre su salud cardiovascular deberías consultar este resultado con tu médico.</h6>
+                                <td style="width:500px; padding-top:155px">
+                                 <h6 style="color:#968f8f"><b>Nota:</b> La monitorización cardiaca remota es una prueba cardiológica complementaria en el estudio de alteraciones de ritmo cardiaco. Que aporta valor pronóstico y diagnóstico independiente. No sustituye a otras pruebas cardiológicas como el ECG de 12 derivaciones o la prueba de esfuerzo convencional. El resultado y las recomendaciones de esta prueba son específicas para este estudio y no deberian extrapolarse a otras. Para obtener un juicio clínico definitivo sobre su salud cardiovascular deberías consultar este resultado con tu médico.</h6>
                                 </td>
                               
                                 
@@ -422,7 +422,7 @@ if(!empty($datosanexos)){
         <p> Este informe contiene los siguientes archivos anexos, puedes verlos en los siguientes enlaces. </p>
         <?php
              $direccionweb = $_SERVER['HTTP_HOST'];
-             $direccionarchivo = "/public/anexos/";
+             $direccionarchivo = "/kardion/public/anexos/";
              $i = 0;
              foreach ($datosanexos as $key => $value) {
                  $i ++;

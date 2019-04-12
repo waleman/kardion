@@ -68,13 +68,15 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                         }
 
                         if(!$archivos || empty($archivos)){/*Error al obtener archivos*/}
-                        // print_r($antecedentes);
+                         print_r($antecedentes);
                               
                     
             //Asignar datos
                 $nombre = $Persona["PrimerNombre"]." ". $Persona["SegundoNombre"]." ".$Persona["PrimerApellido"]. " ". $Persona["SegundoApellido"] ; 
                 $sexo = $Persona["Sexo"];
                 $Fechanac = $Persona["FechaNacimiento"];
+                $altura  = (int)$Persona["Altura"];
+                $peso = (int)$Persona["Peso"];
                 if($Fechanac){// calcular la edad del paciente
                     $cumpleanos = new DateTime($Fechanac);
                     $hoy = new DateTime();
@@ -84,16 +86,18 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                     $edad  ="No definida";
                 }
 
-                /* peso y altura enviados en la prueba */
-                $altura =(int)$Datos[0]['Altura'] ;
-                $peso =(int)$Datos[0]['Peso'] ;
-                /* peso y altura guardado desde el perfil del paciente */
-                if(!$peso || $peso == 0 ){
-                        if(isset($antecedentes[0]['Peso'])){ $peso =$antecedentes[0]['Peso'];}else{ $peso =0;}  
+                if($altura == 0 || $peso == 0){
+                        /* peso y altura enviados en la prueba */
+                        $altura =(int)$Datos[0]['Altura'] ;
+                         $peso =(int)$Datos[0]['Peso'] ;
                 }
-                if(!$altura || $altura == 0 ){
-                        if(isset($antecedentes[0]['Altura'])){ $altura =$antecedentes[0]['Altura'];}else{ $altura=0;}     
-                }
+
+              
+                
+
+                
+              
+             
                 /* si no existe ninguno de los dos se asigna valor 0 */
                 if($peso == 0 || $altura==0){
                         $masa = 0;
@@ -101,6 +105,9 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                         $convertir = $altura/100;
                         $masa = round(($peso/($convertir*$convertir)),2);
                 }
+
+
+
                 
                 $tension =$Datos[0]['Tension'] ; 
                 $momentomaximo =$Datos[0]['MomentoMaximo'];
@@ -266,11 +273,11 @@ if(isset($_POST['btnguardar'])){
 }
 //finalizar 
 if(isset($_POST['btnfin'])){
-      $finalizar =  $pruebas->finalizarprueba($PruebaId);
+     $finalizar =  $pruebas->finalizarprueba($PruebaId);
       //$finalizar = true;
        if($finalizar){
-               $finalizar2=  $pruebas->finalizarPruebaasignada($PruebaId);
-             // $finalizar2 = true;
+          $finalizar2=  $pruebas->finalizarPruebaasignada($PruebaId);
+          //$finalizar2 = true;
                 if($finalizar2){
 
                         echo"<script>
@@ -279,13 +286,13 @@ if(isset($_POST['btnfin'])){
                                 console.log(data);
                               });
 
-                                // swal({
-                                //         title: 'Hecho!',
-                                //         text: 'Prueba finalizada correctamente!',
-                                //         type: 'success'
-                                // }).then(function() {
-                                //         window.location = 'lista_pruebas_dr.php';
-                                // });
+                                 swal({
+                                         title: 'Hecho!',
+                                         text: 'Prueba finalizada correctamente!',
+                                         type: 'success'
+                                 }).then(function() {
+                                         window.location = 'lista_pruebas_dr.php';
+                                 });
                          </script>";
 
                 }else{
@@ -461,11 +468,20 @@ if(isset($_POST['btnfin'])){
                                                                                     </div>
                                                                                          
                                                                             </div>
-                                                                            <div  class='span2 '>
+                                                                            <div  class='span1 '>
                                                                                     <div class='control-group'>
                                                                                                 <label class='control-label'>Edad</label>
                                                                                                 <div class='controls'>
                                                                                                 <input class='span12' id='mtxtedad' name="mtxtedad" type='text' value="<?=$edad?>" disabled >
+                                                                                                </div>
+                                                                                    </div>
+                                                                                         
+                                                                            </div>
+                                                                            <div  class='span2 '>
+                                                                                    <div class='control-group'>
+                                                                                                <label class='control-label'>Fecha nacimiento</label>
+                                                                                                <div class='controls'>
+                                                                                                <input class='span12' id='txtfechanac' name="txtfechanac" type='text' value="<?=$Fechanac?>" disabled >
                                                                                                 </div>
                                                                                     </div>
                                                                                          
@@ -521,7 +537,7 @@ if(isset($_POST['btnfin'])){
                                                                             </div>
                                                                             <div  class='span2 '>
                                                                                     <div class='control-group'>
-                                                                                                <label class='control-label'>Momento de máximo esfuerzo(H:m:s)</label>
+                                                                                                <label class='control-label'>Hora de máximo esfuerzo(H:m:s)</label>
                                                                                                 <div class='controls'>
                                                                                                 <input class='span12' id='mtxtmomentomaximo' name="mtxtmomentomaximo" type='text' value="<?=$momentomaximo?>" disabled >
                                                                                                 </div>
