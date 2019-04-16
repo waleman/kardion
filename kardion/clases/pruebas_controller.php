@@ -83,13 +83,14 @@ class pruebas extends conexion{
 
     
     public function VerPruebasFinalizadas($master){
-        $query="select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado, pru.PruebaEstadoId,pru.FM
-        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe , pruebas_resueltas as pr
+        $query="select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado, pru.PruebaEstadoId,pru.FM,us.Usuario as UC
+        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe , pruebas_resueltas as pr,usuarios as us 
         where pru.PersonaId = per.PersonaId
         and pru.PruebaTipoId = pt.PruebaTipoId
         and pru.CentroId = c.CentroId
         and pru.PruebaEstadoId = pe.PruebaEstadoId
         and pru.PruebaId = pr.PruebaId
+        and pru.UC = us.UsuarioId 
         and pru.PruebaEstadoId  = '5'
         and c.MasterCompaniaId = '$master'";
        // print_r($query);
@@ -103,17 +104,19 @@ class pruebas extends conexion{
     }
 
     public function VerPruebasFinalizadasPorCentrosPermitidos($master,$usuario){
-        $query="select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId,pru.FM
-        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe , pruebas_resueltas as pr
-        where pru.PersonaId = per.PersonaId
-        and pru.PruebaTipoId = pt.PruebaTipoId
-        and pru.CentroId = c.CentroId
-        and pru.PruebaEstadoId = pe.PruebaEstadoId
-        and pru.PruebaEstadoId  = '5' 
-        and c.MasterCompaniaId = '$master'
+        $query="
+        select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId,pru.FM ,us.Usuario as UC
+        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe,usuarios as us 
+        where pru.PersonaId = per.PersonaId 
+        and pru.PruebaTipoId = pt.PruebaTipoId 
+        and pru.CentroId = c.CentroId 
+        and pru.PruebaEstadoId = pe.PruebaEstadoId 
+        and pru.UC = us.UsuarioId 
+        and pru.PruebaEstadoId = '5' 
+        and c.MasterCompaniaId = '$master' 
         and c.CentroId in (select CentroId from usuarios_permisos_centros where UsuarioId= '$usuario')";
         $resp = parent::ObtenerRegistros($query);
-        //print_r($query);
+      // print_r($query);
         if(empty($resp)){
             return false;
         }else{
@@ -123,12 +126,13 @@ class pruebas extends conexion{
 
 
     public function VerPruebasPendientesPorCentrosPermitidos($master,$usuario){
-        $query="select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId
-        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe
+        $query="select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId,us.Usuario
+        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe,usuarios as us
         where pru.PersonaId = per.PersonaId
         and pru.PruebaTipoId = pt.PruebaTipoId
         and pru.CentroId = c.CentroId
         and pru.PruebaEstadoId = pe.PruebaEstadoId
+        and per.PersonaId = us.PersonaId
         and (pru.PruebaEstadoId  = '1' or  pru.PruebaEstadoId  = '2' or  pru.PruebaEstadoId  = '3')
         and c.MasterCompaniaId = '$master'
         and c.CentroId in (select CentroId from usuarios_permisos_centros where UsuarioId= '$usuario')";
@@ -386,6 +390,17 @@ class pruebas extends conexion{
             return true;
         }else{
             return false;
+        }
+    }
+
+    public function VefiricarArchivo($codigo){
+        $query ="select count(*) as cantidad from pruebas_archivos where Codigo = '$codigo'";
+        $resp = parent::ObtenerRegistros($query);
+
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp[0]['cantidad'];
         }
     }
 

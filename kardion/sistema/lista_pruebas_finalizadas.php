@@ -95,6 +95,9 @@ if(empty($ListaPruebas)){
                                                       Centro
                                                   </th>
                                                   <th>
+                                                    Enviada por
+                                                  </th>
+                                                  <th>
                                                       Estado
                                                   </th>
                                                 </tr>
@@ -110,13 +113,16 @@ if(empty($ListaPruebas)){
                                                         $estado = $value['Estado'];
                                                         $estadoId = $value['PruebaEstadoId']; 
                                                         $fechaentrega = $value['FM'];
+                                                        $UC = $value['UC'];
                                                             echo "  
                                                             <tr>
                                                               <td>$Persona</td>
                                                               <td>$Fecha</td>
                                                               <td>$fechaentrega</td>
                                                               <td>$Prioridad</td>
-                                                              <td>$Centro</td>";
+                                                              <td>$Centro</td>
+                                                              <td>$UC</td>
+                                                              ";
                                                               echo "<td> ";
                                                               if( $estadoId == 1){
                                                                echo "<span class='label label-danger'>$estado</span</td>";

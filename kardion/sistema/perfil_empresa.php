@@ -15,7 +15,7 @@ echo $_html->PrintBodyOpen();
 echo $_html->PrintHeader();
 
 //definimos los permisos para esta pantalla;
-$permisos = array(4,5);
+$permisos = array(4,5,6);
 $rol = $_SESSION['k6']['RolId'];
 $permiso = $_roles->buscarpermisos($rol,$permisos);
 if(!$permiso){

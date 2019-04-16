@@ -10,7 +10,7 @@ class roles extends conexion {
         $direccion = "";
         switch ($rol) {
             case 1: //superusuario
-            $direccion = "dashboard.php";
+            $direccion = "portal_master.php";
                  break;
             case 2://administrador
             $direccion = "dashboard_.php";

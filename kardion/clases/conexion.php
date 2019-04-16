@@ -35,6 +35,7 @@ class conexion {
 
  public function __construct(){
     //  $this->server = "160.153.133.187";
+    //  $this->server = "localhost";
     //  $this->user = "system";
     //  $this->pwsd = "Rxspo777*";
     //  $this->database ="kardion-demo";

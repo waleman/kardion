@@ -21,15 +21,7 @@ echo $html->LoadJquery("sistema"); //cargamos todas las librerias Jquery del sis
 echo $html->PrintBodyOpen(); //cargamos la primera parte del body
 echo $html->PrintHeader(); //cargamos el header
 //----------------------------------------------------------------------------------------------------
-$cantidad_centros = $dashboard->Emp_cantidad_centros($master);
-$cantidad_usuarios = $dashboard->Emp_cantidad_usuarios($master);
-$cantidad_aparatos = $dashboard->Emp_cantidad_aparatos($master);
-$cantidad_total_fin = $dashboard->Emp_cantidad_pruebasFinalizadas($master);
-$cantidad_total_pruebas = $dashboard->Emp_cantidad_pruebas($master);
-$inicio = date("Y-m-01"); //fecha inicio mes actual
-$fin = date("Y-m-t");//fecha fin mes actual
-$cantidad_mes_pruebas = $dashboard->Emp_cantidad_pruebas_mes($master,$inicio,$fin);
-$cantidad_mes_fin =$dashboard->Emp_cantidad_pruebasFinalizadas_mes($master,$inicio,$fin);
+
 
 ?>
 
@@ -53,7 +45,23 @@ $cantidad_mes_fin =$dashboard->Emp_cantidad_pruebasFinalizadas_mes($master,$inic
                           </div>
                         </div>
                         <?php
-                              if($rol != 6){?>
+                              if($rol != 6){
+                                //datos del dashboard
+                                $cantidad_centros = $dashboard->Emp_cantidad_centros($master);
+                                $cantidad_usuarios = $dashboard->Emp_cantidad_usuarios($master);
+                                $cantidad_aparatos = $dashboard->Emp_cantidad_aparatos($master);
+                                $cantidad_total_fin = $dashboard->Emp_cantidad_pruebasFinalizadas($master);
+                                $cantidad_total_pruebas = $dashboard->Emp_cantidad_pruebas($master);
+                                $inicio = date("Y-m-01"); //fecha inicio mes actual
+                                $fin = date("Y-m-t");//fecha fin mes actual
+                                $cantidad_mes_pruebas = $dashboard->Emp_cantidad_pruebas_mes($master,$inicio,$fin);
+                                $cantidad_mes_fin =$dashboard->Emp_cantidad_pruebasFinalizadas_mes($master,$inicio,$fin);
+                                
+                                
+                                
+                        ?>
+
+                              
 
                         
                                 <!-- -------------------------------------------------------------------------- -->

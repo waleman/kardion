@@ -16,7 +16,17 @@ $permisos = array(4,5,6);
 $rol = $_SESSION['k6']['RolId'];
 $permiso = $roles->buscarpermisos($rol,$permisos);
 if(!$permiso){
-  header("Location: accesoprohibido.php");
+ // header("Location: accesoprohibido.php");
+  echo"<script>
+  swal({
+          title: 'Wow!',
+          text: 'No tienes permiso para acceder a este modulo',
+          type: 'error',
+          icon: 'error'
+  }).then(function() {
+          window.location = 'accesoprohibido.php';
+  });
+ </script>";
 }
 //buscamos el codigo master para seleccionar los centros asociados al usuario
 $master = $_SESSION['k6']['MasterCompaniaId'];
@@ -66,110 +76,123 @@ if(isset($_GET['persona'])){
 
 if(isset($_POST['btnenviar'])){
 
-      $fcprimermin ="";
-      if(isset($_POST['txtfcprimerminuto'])){
-        $fcprimermin = $_POST['txtfcprimerminuto'];
-      }
-      $fcsegundomin = "";
-      if(isset($_POST['txtfcsegundominuto'])){
-        $fcsegundomin =$_POST['txtfcsegundominuto'];
-      }
-      $fcmomento = "";
-      if(isset( $_POST['txtfcmaximo'])){
-        $fcmomento = $_POST['txtfcmaximo'];
-      }
-      $tension = "";
-      if(isset($_POST['txttension'])){
-        $tension = $_POST['txttension'];
-      }
-      $peso = "";
-      if(isset($_POST['txtpeso'])){
-        $peso = $_POST['txtpeso'];
-      }
-      $altura ="";
-      if(isset($_POST['txtaltura'])){
-        $altura =$_POST['txtaltura'];
-      }
-      $dolorcabeza ="";
-      if(isset($_POST['txtdolorcabeza'])){
-        $dolorcabeza =$_POST['txtdolorcabeza'];
-      }
-      $mareo = "";
-      if(isset($_POST['txtmareo'])){
-        $mareo =$_POST['txtmareo'];
-      }
-      $nauseas ="";
-      if(isset($_POST['txtnauseas'])){
-        $nauseas =$_POST['txtnauseas'];
-      }
-      $faltaaire="";
-      if(isset($_POST['txtfaltaaire'])){
-        $faltaaire =$_POST['txtfaltaaire'];
-      }
-      $dolorpecho ="";
-      if(isset($_POST['txtdolorpecho'])){
-        $dolorpecho =$_POST['txtdolorpecho'];
-      }
-      $palpitaciones="";
-      if(isset($_POST['txtpalpitaciones'])){
-        $palpitaciones =$_POST['txtpalpitaciones'];
-      }
-      $desmayo ="";
-      if(isset($_POST['txtdesmayo'])){
-        $desmayo =$_POST['txtdesmayo'];
-      }
 
+              $fcprimermin ="";
+              if(isset($_POST['txtfcprimerminuto'])){
+                $fcprimermin = $_POST['txtfcprimerminuto'];
+              }
+              $fcsegundomin = "";
+              if(isset($_POST['txtfcsegundominuto'])){
+                $fcsegundomin =$_POST['txtfcsegundominuto'];
+              }
+              $fcmomento = "";
+              if(isset( $_POST['txtfcmaximo'])){
+                $fcmomento = $_POST['txtfcmaximo'];
+              }
+              $tension = "";
+              if(isset($_POST['txttension'])){
+                $tension = $_POST['txttension'];
+              }
+              $peso = "";
+              if(isset($_POST['txtpeso'])){
+                $peso = $_POST['txtpeso'];
+              }
+              $altura ="";
+              if(isset($_POST['txtaltura'])){
+                $altura =$_POST['txtaltura'];
+              }
+              $dolorcabeza ="";
+              if(isset($_POST['txtdolorcabeza'])){
+                $dolorcabeza =$_POST['txtdolorcabeza'];
+              }
+              $mareo = "";
+              if(isset($_POST['txtmareo'])){
+                $mareo =$_POST['txtmareo'];
+              }
+              $nauseas ="";
+              if(isset($_POST['txtnauseas'])){
+                $nauseas =$_POST['txtnauseas'];
+              }
+              $faltaaire="";
+              if(isset($_POST['txtfaltaaire'])){
+                $faltaaire =$_POST['txtfaltaaire'];
+              }
+              $dolorpecho ="";
+              if(isset($_POST['txtdolorpecho'])){
+                $dolorpecho =$_POST['txtdolorpecho'];
+              }
+              $palpitaciones="";
+              if(isset($_POST['txtpalpitaciones'])){
+                $palpitaciones =$_POST['txtpalpitaciones'];
+              }
+              $desmayo ="";
+              if(isset($_POST['txtdesmayo'])){
+                $desmayo =$_POST['txtdesmayo'];
+              }
 
-  $datos = array(
-    "codigo" => $_POST["codigo"],
-    "personaid" => $personaId,
-    "centroid" => $_POST['cbocentro'],
-    "aparatoid" => $_POST['cbodispositivo'],
-    "fecha" => $_POST['txtfecha'],
-    "altura" => $altura,
-    "peso" => $peso,
-    "tension" => $tension,
-    "frecuenciacardiaca" => $_POST['txtfc'],
-    "momentomaximo" =>$_POST['txtmomento'] ,
-    "fcmomemento" => $_POST['txtfcmaximo'],
-    "fcprimerminuto" => $_POST['txtfcprimerminuto'],
-    "fcsegudnominuto" => $_POST['txtfcsegundominuto'],
-    "pruebatipoid" => $_POST['cboprioridad'],
-    "usuarioid" => $usuarioId,
-    "sintomas" => $_POST['txtsintomas'],
-    "dolorcabeza" => $dolorcabeza,
-    "mareo" => $mareo,
-    "nauseas" => $nauseas,
-    "faltaaire" => $faltaaire,
-    "dolorpecho" => $dolorpecho,
-    "palpitaciones" => $palpitaciones,
-    "desmayo" => $desmayo
-  );
+          $datos = array(
+            "codigo" => $_POST["codigo"],
+            "personaid" => $personaId,
+            "centroid" => $_POST['cbocentro'],
+            "aparatoid" => $_POST['cbodispositivo'],
+            "fecha" => $_POST['txtfecha'],
+            "altura" => $altura,
+            "peso" => $peso,
+            "tension" => $tension,
+            "frecuenciacardiaca" => $_POST['txtfc'],
+            "momentomaximo" =>$_POST['txtmomento'] ,
+            "fcmomemento" => $_POST['txtfcmaximo'],
+            "fcprimerminuto" => $_POST['txtfcprimerminuto'],
+            "fcsegudnominuto" => $_POST['txtfcsegundominuto'],
+            "pruebatipoid" => $_POST['cboprioridad'],
+            "usuarioid" => $usuarioId,
+            "sintomas" => $_POST['txtsintomas'],
+            "dolorcabeza" => $dolorcabeza,
+            "mareo" => $mareo,
+            "nauseas" => $nauseas,
+            "faltaaire" => $faltaaire,
+            "dolorpecho" => $dolorpecho,
+            "palpitaciones" => $palpitaciones,
+            "desmayo" => $desmayo
+          );
 
-   $resp = $pruebas->CrearPrueba($datos);
+          $verificarArchivo = $pruebas->VefiricarArchivo($_POST["codigo"]);
+          if($verificarArchivo == 0){
+               echo"<script>
+               swal({
+                       title: 'Atención!',
+                       text: 'Debe adjuntar el archvio de la prueba, localizado en su dispositivo ECG',
+                       type: 'error',
+                       icon: 'error'
+               });
+             </script>";
+          }else{
+              $resp = $pruebas->CrearPrueba($datos);
+              if($resp){
+                echo"<script>
+                swal({
+                        title: 'Hecho!',
+                        text: 'Prueba enviada',
+                        type: 'success',
+                        icon: 'success'
+                }).then(function() {
+                        window.location = 'lista_pruebas.php';
+                });
+              </script>";
+              }else{
+                echo"<script>
+                swal({
+                        title: 'Error!',
+                        text: 'Error al enviar la prueba',
+                        type: 'error',
+                        icon: 'error'
+                });
+              </script>";
+              }
+          }
 
-   if($resp){
-    echo"<script>
-    swal({
-            title: 'Hecho!',
-            text: 'Prueba enviada',
-            type: 'success',
-            icon: 'success'
-    }).then(function() {
-            window.location = 'lista_pruebas.php';
-    });
-   </script>";
-  }else{
-    echo"<script>
-    swal({
-            title: 'Eror!',
-            text: 'Error al enviar la prueba',
-            type: 'error',
-            icon: 'error'
-    });
-   </script>";
-  }
-
+        
+    
 
 
 }

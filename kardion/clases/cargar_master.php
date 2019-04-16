@@ -348,47 +348,17 @@ class cargar extends conexion {
                   
                         <ul class='nav nav-stacked'>
                             <li class=''>
-                                <a href='dashboard.php' class='color-gris'>
+                                <a href='portal_master.php' class='color-gris'>
                                     <i class='icon-dashboard'></i>
                                     <span>Inicio</span>
                                 </a>
                             </li>
                             <li class=''>
-                                <a href='lista_centros.php'  class='color-azul'>
-                                    <i class='icon-group'></i>
-                                    <span>Centros </span>
+                                <a href='lista_dispositivos_master.php'  class='color-azul'>
+                                    <i class='icon-bolt'></i>
+                                    <span>Dispositivos</span>
                                 </a>
                             </li>
-                           
-                            
-                         
-
-                            <li>
-                            <a href='lista_pruebas.php'  class='color-verde'>
-                               <i class='icon-file-alt'></i>
-                               <span>Pruebas</span>
-                            </a>
-                           </li>
-
-                           <li>
-                           <a href='lista_pruebas_finalizadas.php' class='color-amarillo'>
-                           <i class='icon-ok'></i>
-                              <span>Pruebas finalizadas</span>
-                           </a>
-                          </li>
-                          <li class=''>
-                          <a href='lista_usuarios.php'  class='color-naranja'>
-                              <i class='icon-user'></i>
-                              <span>Usuarios</span>
-                          </a>
-                         </li>
-                          <li class=''>
-                          <a href='lista_dispositivos.php'  class='color-rojo'>
-                              <i class='icon-bolt'></i>
-                              <span>Dispositivos</span>
-                          </a>
-                      </li>
-                      
                         </ul>
                         </div>
                     </nav>

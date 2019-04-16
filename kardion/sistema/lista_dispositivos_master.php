@@ -1,5 +1,5 @@
 <?php 
-require_once("../clases/cargar.php");
+require_once("../clases/cargar_master.php");
 require_once("../clases/dispositivos_controller.php");
 require_once("../clases/roles_controller.php");
 $html = new cargar;
@@ -12,10 +12,10 @@ echo $html->LoadJquery("sistema");
 echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>";
 echo $html->PrintBodyOpen();
 echo $html->PrintHeader();
-
 //definimos los permisos para esta pantalla;
-$permisos = array(4,5);
+$permisos = array(1,2);
 $rol = $_SESSION['k6']['RolId'];
+$master = $_SESSION['k6']['MasterCompaniaId'];
 $permiso = $roles->buscarpermisos($rol,$permisos);
 if(!$permiso){
   echo"<script>
@@ -31,9 +31,12 @@ if(!$permiso){
 die();
 }
 //buscamos el codigo master para seleccionar los centros asociados al usuario
-$master = $_SESSION['k6']['MasterCompaniaId'];
 
-$ListaDispositivos = $dispositivos->dispositivos_companias($master);
+
+
+
+
+$ListaDispositivos = $dispositivos->Dispostivios();
 
 if(empty($ListaDispositivos)){
     $ListaDispositivos =[];
@@ -65,7 +68,7 @@ if(empty($ListaDispositivos)){
                         </div>
                        <!-- ----------------------------------------- -->
                        <form method="post">
-                            <a class="btn btn-primary btn-large" href="vincular_dispositivo.php" name="btnnuevo" >+ Agregar dispositivos</a>
+                            <a class="btn btn-primary btn-large" href="nuevo_dispostivo_master.php" name="btnnuevo" > Registrar Dispositivo</a>
                            
                        </form>
                         <br>
@@ -74,7 +77,7 @@ if(empty($ListaDispositivos)){
                             <div class='row-fluid'>
                                     <div class='span12 box bordered-box orange-border' style='margin-bottom:0;'>
                                     <div class="box-header blue-background">
-                                      <div class="title">Dispositivos ligados a la empresa</div>
+                                      <div class="title">Dispositivos</div>
                                       <div class="actions">
                                         <a class="btn box-collapse btn-mini btn-link" href="#"><i></i>
                                         </a>
@@ -93,11 +96,15 @@ if(empty($ListaDispositivos)){
                                                     Dispositivo
                                                 </th>
                                                 <th>
-                                                    Centro
+                                                    Modelo
+                                                </th>
+                                                <th>
+                                                   Foto
                                                 </th>
                                                 <th>
                                                     Estado
                                                 </th>
+                                               
                                                 <th>
                                                     Acciones
                                                 </th>
@@ -110,27 +117,35 @@ if(empty($ListaDispositivos)){
                                                         $nombre = $value['Nombre'];
                                                         $CodigoSerie = $value['Serie'];
                                                         $estado= $value['Estado'];
-                                                        $centroId = $value['CentroId'];
+                                                        $Modelo = $value['Modelo'];
                                                         $aparatoId = $value['AparatoId'];
-                                                         $ct = $dispositivos->dispositivos_centros($centroId);
-                                                         
-                                                         $ct_nombre = $ct[0]['Nombre'];
+                                                        $tipoestado = $value['TipoEstadoId'];
+                                                        $imagen = $value['Imagen'];
+                                                     
+                                           
                                                             echo "  
                                                             <tr>
                                                                 <td>$CodigoSerie</td>
                                                                 <td>$nombre</td>
-                                                                <td>$ct_nombre  </td>
-                                                                <td> ";
-                                                                if( $estado == "Asignado"){
+                                                                <td>$Modelo  </td>
+                                                                <td style='text-align:center'>
+                                                                 <img src='$imagen' height='60' width='60'>
+                                                                </td>
+                                                                <td style='text-align:center'> ";
+                                                                if( $tipoestado == 1){//En inventario
                                                                 echo "<span class='label label-success'>$estado</span>";
-                                                                }else{
-                                                                echo "<span class='label label-warning'>$estado</span>";
+                                                                }else if( $tipoestado == 2){//Alquilado
+                                                                echo "<span class='label' style='background-color: #9C27B0'>$estado</span>";
+                                                                }else if( $tipoestado == 3){//Vendido
+                                                                  echo "<span class='label label-warning'>$estado</span>";
+                                                                }else if( $tipoestado == 4){//En mal estado
+                                                                  echo "<span class='label label-important'>$estado</span>";
                                                                 }
                                                                 
                                                             echo"   </td>
                                                                 <td>
                                                                     <div class='text-center'>
-                                                                    <a class='btn btn-success btn-medium' href='editar_dispositivos.php?id=$aparatoId'>
+                                                                    <a class='btn btn-success btn-medium' href='editar_dispositivos_master.php?id=$aparatoId'>
                                                                     <i class='icon-pencil'></i>
                                                                         Editar
                                                                     </a>

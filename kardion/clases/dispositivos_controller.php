@@ -118,6 +118,24 @@ public function vincular($master,$aparatoid,$usuario){
 }
 
 
+//solo para Master usuario
+public function Dispostivios(){
+    $query ="
+    select a.AparatoId,a.Nombre,a.Serie,a.Imagen,am.Nombre as Modelo,ae.Nombre as Estado,ae.TipoEstadoId
+    from aparatos as a,aparatos_companias as ac,aparatos_modelos as am, aparatos_estado as ae 
+    where a.AparatoId = ac.AparatoId
+    and a.ModeloId = am.ModeloId
+    and a.TipoEstadoId = ae.TipoEstadoId
+    ";
+    $datos = parent::ObtenerRegistros($query);
+    if(empty($datos)){
+         return false;
+     }else{
+         return $datos;
+     }
+}
+
+
 
 }
 

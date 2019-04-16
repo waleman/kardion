@@ -17,12 +17,25 @@ class configuracion extends conexion {
             ('$correo','$password','1','Activo','$master','$CodigoActivacion')";
             $datos = parent::NonQuery($query);
             if($datos){
-                echo "Usuario creado exitosamente";
+                echo "Usuario creado exitosamente  <br>";
+                $id = $this->LastInsertedId();
+                $this->CrearMasterCompania($master,$id);
             }else{
-                echo "Error al crear  usuario";
+                echo "Error al crear  usuario  <br>";
             }
         }else{
-            echo "el usuario  ya esta creado";
+            echo "el usuario  ya esta creado  <br>";
+        }
+    }
+
+
+    public function CrearMasterCompania($master,$usuarioId){
+        $query ="insert into mastercompania (MasterCompaniaId,Nombre,Estado,UsuarioId)value('$master','Kardion','Activo','$usuarioId')";
+        $datos = parent::NonQuery($query);
+        if($datos){
+            echo "compania creada <br>";
+        }else{
+            echo "Error al crear la master compania  <br>";
         }
     }
 
@@ -35,6 +48,17 @@ class configuracion extends conexion {
             }else{
                return false;
             }
+   }
+
+
+   public function LastInsertedId(){
+       $query = "select UsuarioId from usuarios order by UsuarioId desc limit 1";
+       $datos = parent::ObtenerRegistros($query);
+       if(empty($datos)){
+           return false;
+       }else{
+           return $datos[0]['UsuarioId'];
+       }
    }
 
 

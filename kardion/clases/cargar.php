@@ -39,7 +39,17 @@ class cargar extends conexion {
             $dato = parent::ObtenerRegistros($query);
             return $dato[0]['Usuario'];
         }else{
-          //  echo"<script language='javascript'>window.location='../login.php'</script>;";
+            echo"<script language='javascript'>window.location='../login.php'</script>;";
+        }
+    }
+
+    public function roldata(){
+        $rol = $_SESSION['k6'];
+        if(isset($_SESSION['k6'])){
+            $rolid = $_SESSION['k6']['RolId'];
+            return $rolid;
+        }else{
+            echo"<script language='javascript'>window.location='../login.php'</script>;";
         }
     }
 
@@ -341,6 +351,33 @@ class cargar extends conexion {
 
 
     public function PrintSideMenu(){
+        $rol =$this->roldata();
+        if($rol ==  4){ //propietario
+            $dash ="dashboard.php";
+            $centros ="lista_centros.php";
+            $pruebas = "lista_pruebas.php";
+            $finalizadas ="lista_pruebas_finalizadas.php";
+            $usuarios ="lista_usuarios.php'";
+            $aparatos ="lista_dispositivos.php";
+            $lock = "";
+        }else if($rol == 5){ //asistente
+            $dash ="dashboard.php";
+            $centros ="#";
+            $pruebas = "lista_pruebas.php";
+            $finalizadas ="lista_pruebas_finalizadas.php";
+            $usuarios ="#'";
+            $aparatos ="#";
+            $lock = " <i class='icon-lock text-right' style ='color:#FFBF00'></i>";
+        }else if($rol == 6){//recepcion
+            $dash ="dashboard.php";
+            $centros ="#";
+            $pruebas = "lista_pruebas.php";
+            $finalizadas ="lista_pruebas_finalizadas.php";
+            $usuarios ="#'";
+            $aparatos ="#";
+            $lock =  "<i class='icon-lock text-right' style ='color:#FFBF00'></i>";
+        }
+
         return "
         
                         <nav class='main-nav-fixed' id='main-nav'>
@@ -348,44 +385,48 @@ class cargar extends conexion {
                   
                         <ul class='nav nav-stacked'>
                             <li class=''>
-                                <a href='dashboard.php' class='color-gris'>
+                                <a href='$dash' class='color-gris'>
                                     <i class='icon-dashboard'></i>
                                     <span>Inicio</span>
                                 </a>
                             </li>
                             <li class=''>
-                                <a href='lista_centros.php'  class='color-azul'>
+
+                                <a href='$centros'  class='color-azul'>
                                     <i class='icon-group'></i>
                                     <span>Centros </span>
+                                     $lock
                                 </a>
                             </li>
                            
-                            
-                         
 
                             <li>
-                            <a href='lista_pruebas.php'  class='color-verde'>
+                            <a href='$pruebas'  class='color-verde'>
                                <i class='icon-file-alt'></i>
                                <span>Pruebas</span>
+                            
                             </a>
                            </li>
 
                            <li>
-                           <a href='lista_pruebas_finalizadas.php' class='color-amarillo'>
+                           <a href='$finalizadas' class='color-amarillo'>
                            <i class='icon-ok'></i>
                               <span>Pruebas finalizadas</span>
+                             
                            </a>
                           </li>
                           <li class=''>
-                          <a href='lista_usuarios.php'  class='color-naranja'>
+                          <a href='$usuarios  class='color-naranja'>
                               <i class='icon-user'></i>
                               <span>Usuarios</span>
+                              $lock
                           </a>
                          </li>
                           <li class=''>
-                          <a href='lista_dispositivos.php'  class='color-rojo'>
+                          <a href='$aparatos'  class='color-rojo'>
                               <i class='icon-bolt'></i>
                               <span>Dispositivos</span>
+                              $lock
                           </a>
                       </li>
                       

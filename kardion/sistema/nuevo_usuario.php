@@ -11,6 +11,7 @@ $html->sessionDataSistem();
 echo $html->PrintHead();
 echo $html->LoadCssSystem("sistema");
 echo $html->LoadJquery("sistema");
+echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>";
 echo $html->PrintBodyOpen();
 echo $html->PrintHeader();
 //definimos los permisos para esta pantalla;
@@ -18,7 +19,17 @@ $permisos = array(4,5);
 $rol = $_SESSION['k6']['RolId']; // Rol del usuario que esta logado
 $permiso = $roles->buscarpermisos($rol,$permisos);
 if(!$permiso){
-  header("Location: accesoprohibido.php");
+ // header("Location: accesoprohibido.php");
+  echo"<script>
+  swal({
+          title: 'Error!',
+          text: 'No tienes permiso para acceder a este modulo',
+          type: 'error',
+          icon: 'error'
+  }).then(function() {
+          window.location = 'accesoprohibido.php';
+  });
+ </script>";
 }
 //buscamos el codigo master para seleccionar los centros asociados al usuario
 $master = $_SESSION['k6']['MasterCompaniaId'];
@@ -84,7 +95,7 @@ $listaEstados = [
                     let correo =document.getElementById('txtusuario').value;
                     let veri = isEmail(correo);
                     if(!veri){
-                        let val = "Debe incresar un correo valido";
+                        let val = "Debe ingresar un correo valido";
                         mostrar(val);
                         return false;
                     }else{
@@ -148,6 +159,25 @@ $listaEstados = [
                                                             }
                                                         }
                                                     }
+                                                    echo"<script>
+                                                    swal({
+                                                            title: 'Hecho!',
+                                                            text: 'Usuario creado exitosamente!',
+                                                            type: 'success',
+                                                            icon: 'success'
+                                                    }).then(function() {
+                                                            window.location = 'lista_usuarios.php';
+                                                    });
+                                                   </script>";
+                                            }else{
+                                                echo"<script>
+                                                swal({
+                                                        title: 'Error!',
+                                                        text: 'Error al crear el usuario',
+                                                        type: 'error',
+                                                        icon: 'error'
+                                                });
+                                               </script>";
                                             }
                                 }else{
                                     echo "
@@ -156,7 +186,7 @@ $listaEstados = [
                                             <h4>
                                             Error
                                             </h4>
-                                            El correo con el que esta intentando crear el usuario. Ya esta en uso.
+                                                 El correo con el que esta intentando crear el usuario. Ya esta en uso.
                                             <br/>
                                         </div>
                                     ";

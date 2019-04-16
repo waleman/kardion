@@ -9,6 +9,7 @@ $html->sessionDataSistem();
 echo $html->PrintHead();
 echo $html->LoadCssSystem("sistema");
 echo $html->LoadJquery("sistema");
+echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>";
 echo $html->PrintBodyOpen();
 echo $html->PrintHeader();
 
@@ -17,7 +18,19 @@ $permisos = array(4,5,6);
 $rol = $_SESSION['k6']['RolId'];
 $permiso = $roles->buscarpermisos($rol,$permisos);
 if(!$permiso){
-  header("Location: accesoprohibido.php");
+  //header("Location: accesoprohibido.php");
+  echo"<script>
+  swal({
+          title: 'Error',
+          text: 'No tienes permiso para acceder a este modulo',
+          type: 'error',
+          icon: 'error'
+  }).then(function() {
+          window.location = 'accesoprohibido.php';
+  });
+ </script>";
+
+ die();
 }
 //buscamos el codigo master para seleccionar los centros asociados al usuario
 $master = $_SESSION['k6']['MasterCompaniaId'];
