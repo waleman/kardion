@@ -139,75 +139,24 @@ $AsignadoId = $datosDispositivos['0']["AsignadoId"];
                           <div class="control-group">
                             <label class="control-label">Numero de serie / SN</label>
                             <div class="controls">
-                              <input class="span12" id="address-line2" placeholder="Numero de serie" type="number">
-                              <small class="muted">Description for street field</small>
+                              <input class="span12" id="address-line2" placeholder="Numero de serie" type="text">
                             </div>
                           </div>
                           
-                          <div class="control-group">
-                            <label class="control-label">Company</label>
-                            <div class="controls">
-                              <div class="input-append">
-                                <input class="span6" id="appendedInputButtons1" type="text">
-                                <button class="btn" type="button">
-                                  <i class="icon-building"></i>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
+                        
+
                         </div>
                       </fieldset>
-                      <hr class="hr-normal">
-                      <fieldset>
-                        <div class="span4 box">
-                          <div class="lead">
-                            <i class="icon-ambulance contrast"></i>
-                            Dapibus suscipit arcu
-                          </div>
-                          <small class="muted">Proin eu nibh ut urna tristique rhoncus. Sed euismod, quam sed dignissim imperdiet, nulla leo vehicula mi, a sagittis lacus augue nec sapien.</small>
-                        </div>
-                        <div class="span7 offset1">
-                          <div class="control-group">
-                            <label class="control-label">Disabled input</label>
-                            <div class="controls">
-                              <input class="span12" disabled="" id="full-name1" type="text">
-                              <p class="help-block"></p>
-                            </div>
-                          </div>
-                          <div class="control-group">
-                            <div class="controls">
-                              <label class="checkbox inline">
-                                <input id="inlineCheckbox1" type="checkbox" value="option1">
-                                Inline 1
-                              </label>
-                              <label class="checkbox inline">
-                                <input id="inlineCheckbox2" type="checkbox" value="option2">
-                                Inline 2
-                              </label>
-                              <label class="checkbox inline">
-                                <input id="inlineCheckbox3" type="checkbox" value="option3">
-                                Inline 3
-                              </label>
-                            </div>
-                          </div>
-                          <div class="control-group">
-                            <label class="control-label">Money</label>
-                            <div class="controls">
-                              <div class="input-prepend input-append">
-                                <span class="add-on">$</span>
-                                <input class="span6 text-right" id="appendedPrependedInput" type="text">
-                                <span class="add-on">.00</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </fieldset>
+                   
                       <div class="form-actions" style="margin-bottom: 0;">
-                        <div class="text-right">
-                          <div class="btn btn-primary btn-large">
-                            <i class="icon-save"></i>
-                            Save
-                          </div>
+                        <div class="text-center">
+                          
+                        
+                                <input class="btn btn-primary  btn-large" name="btnregister" id="btnregister" value="Guardar" type="submit" />  
+                                <a class="btn btn-danger  btn-large" name="btncancelar" id="btncancelar" href="lista_dispositivos_master.php">Cancelar </a>                   
+                                <br><br>
+            
+                            
                         </div>
                       </div>
                     </form>
@@ -218,12 +167,6 @@ $AsignadoId = $datosDispositivos['0']["AsignadoId"];
                                     <!-------------------------------------- Datos Generales -->
                         
                        
-                            <div class='text-center'>
-                                <input class="btn btn-primary  btn-large" name="btnregister" id="btnregister" value="Guardar" type="submit" />  
-                                <a class="btn btn-danger  btn-large" name="btncancelar" id="btncancelar" href="lista_dispositivos.php">Cancelar </a>                   
-                                <br><br>
-            
-                            </div>
                        
                      </form>
                   <div id="snackbar">
