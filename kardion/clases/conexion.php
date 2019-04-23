@@ -42,6 +42,14 @@ class conexion {
     //  $this->port ="3306";
 
 
+    //  $this->server = "160.153.133.187";
+    //  $this->server = "localhost";
+    //  $this->user = "system";
+    //  $this->pwsd = "Rxspo777*";
+    //  $this->database ="kardion-demo";
+    //  $this->port ="3306";
+
+
     //  $this->server = "localhost";
     //  $this->user = "system";
     //  $this->pwsd = "Rxspo777*";

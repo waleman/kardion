@@ -33,6 +33,7 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
 
         //obtener el codigo de la prueba que tiene asignada
             $PruebaId = $pruebas->BuscarCodigoPruebaAsignada($usuarioid);
+            echo " el codigo de la prueba es $PruebaId";
             $pruebaidEncripted =  base64_encode($PruebaId);
         //obtenemos los datos de la prueba
             $Datos = $pruebas->BuscarPruebaAsignada($PruebaId);
@@ -68,7 +69,7 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                         }
 
                         if(!$archivos || empty($archivos)){/*Error al obtener archivos*/}
-                         print_r($antecedentes);
+                         //print_r($antecedentes);
                               
                     
             //Asignar datos

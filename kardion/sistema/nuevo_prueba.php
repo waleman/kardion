@@ -279,7 +279,7 @@ if(isset($_POST['btnregister'])){
                      return false;
             });
 
-                $('#cboprovincia').on('change', function() {
+            $('#cboprovincia').on('change', function() {
                         var url = "../utilidades/ciudades.php";
                         $.ajax({
                             type:"POST",
@@ -354,15 +354,15 @@ if(isset($_POST['btnregister'])){
                 <div class='modal hide fade' id='modalbuscar' role='dialog' tabindex='-1'>
                       <div class='modal-header'>
                         <button class='close' data-dismiss='modal' type='button'>&times;</button>
-                        <h3>Seleccione un paciente</h3>
+                        <h3>Buscar un paciente</h3>
                       </div>
                       <div class='modal-body'>
                         <div class="box-content">
-                        <!-- <form class='form' method="POST" id="frm_buscar" style='margin-bottom: 0;' autocomplete="off">
+                        <form class='form' method="POST" id="frm_buscar" style='margin-bottom: 0;' autocomplete="off">
                          <fieldset>
                             <div class='span12 '>
-                                             <div class='row-fluid'>
-                                                 <div  class='span3 '>
+                                             <div class='row-fluid '>
+                                                 <div  class='span4 '>
                                                      <div class='control-group'>
                                                          <label class='control-label'>Nombre o correo </label>
                                                          <div class='controls'>
@@ -378,11 +378,16 @@ if(isset($_POST['btnregister'])){
                                              </div>
                             </div>
                             </fieldset>
-                        </form> -->
+                        </form>
 
                                 <!----------------------- Tabla ------------------------------------->   
                                 <div id="tabla">
-                                    <div class='responsive-table'>
+                                <div style="text-align:center">
+                                <h2>Escriba el nombre o el correo del paciente que busca.</h2>
+                                <img style="width:400px" src="../assets/images/running.png">
+                                </div>
+                               
+                                    <!-- <div class='responsive-table'>
                                         <div class='scrollable-area'>
                                             <table class='data-table table table-bordered table-striped' data-pagination-records='10' data-pagination-top-bottom='false' style='margin-bottom:0;'>
                                             <thead>
@@ -453,7 +458,7 @@ if(isset($_POST['btnregister'])){
                                             </tbody>
                                             </table>
                                         </div>
-                                    </div> 
+                                    </div>  -->
                                 </div>                                    
                                 <!----------------------- Tabla ------------------------------------->   
                         </div>
