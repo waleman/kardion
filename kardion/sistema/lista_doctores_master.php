@@ -1,9 +1,9 @@
 <?php 
 require_once("../clases/cargar_master.php");
-require_once("../clases/dispositivos_controller.php");
+require_once("../clases/dr.php");
 require_once("../clases/roles_controller.php");
 $html = new cargar;
-$dispositivos = new dispositivos;
+$dr = new dr;
 $roles = new roles;
 $html->sessionDataSistem();
 echo $html->PrintHead();
@@ -31,21 +31,49 @@ if(!$permiso){
 die();
 }
 //buscamos el codigo master para seleccionar los centros asociados al usuario
-
-
-
-
-
-$ListaDispositivos = $dispositivos->Dispostivios();
-
-if(empty($ListaDispositivos)){
-    $ListaDispositivos =[];
+$ListaDoctores = $dr->todos();
+if(empty($ListaDoctores)){
+    $ListaDoctores =[];
 }
 
+
+
+if(isset($_POST['txtdrid'])){
+    $codigo = $_POST['txtdrid'];
+    $status = $_POST['txtvalor'];
+    $conf = $dr->verificarDr($codigo,$status);
+    if($conf){
+        echo"<script>
+        swal({
+                title: 'Hecho!',
+                text: 'Cambios realizados!',
+                type: 'success',
+                icon: 'success'
+        }).then(function() {
+                window.location = 'lista_doctores_master.php';
+        });
+        </script>";
+    }else{
+        echo"<script>
+        swal({
+                title: 'Error!',
+                text: 'No se ha podido realizar el cambio',
+                type: 'error',
+                icon: 'error'
+        });
+      </script>"; 
+    }
+}
 
 ?>
 
 
+
+<script>
+    $(document).ready(function(){
+
+    });
+</script>
 
 <div id='wrapper'>
 <div id='main-nav-bg'></div>
@@ -61,23 +89,23 @@ if(empty($ListaDispositivos)){
                             <div class='page-header'>
                               <h1 class='pull-left'>
                                 <!-- <i class='icon-bar-chart'></i> -->
-                                <span>Lista de dispositivos</span>
+                                <span>Lista de doctores</span>
                               </h1>
                             </div>
                           </div>
                         </div>
                        <!-- ----------------------------------------- -->
-                       <form method="post">
+                       <!-- <form method="post">
                             <a class="btn btn-primary btn-large" href="nuevo_dispositivos_master.php" name="btnnuevo" > Registrar Dispositivo</a>
                            
-                       </form>
+                       </form> -->
                         <br>
 
                         
                             <div class='row-fluid'>
                                     <div class='span12 box bordered-box orange-border' style='margin-bottom:0;'>
                                     <div class="box-header blue-background">
-                                      <div class="title">Dispositivos</div>
+                                      <div class="title">Doctores</div>
                                       <div class="actions">
                                         <a class="btn box-collapse btn-mini btn-link" href="#"><i></i>
                                         </a>
@@ -86,72 +114,69 @@ if(empty($ListaDispositivos)){
                                     <div class='box-content box-no-padding'>
                                         <div class='responsive-table'>
                                         <div class='scrollable-area'>
+
+                                        <form method="post">
+                                        <input type="hidden" name="txtdrid" id="txtdrid">
+                                        <input type="hidden" name="txtvalor" id="txtvalor">
                                             <table class='data-table table table-bordered table-striped' data-pagination-records='25' data-pagination-top-bottom='false' style='margin-bottom:10px;'>
                                             <thead>
                                                 <tr>
                                                 <th>
-                                                   # Serie
+                                                   Usuario
                                                 </th>
                                                 <th>
-                                                    Dispositivo
-                                                </th>
-                                                <th>
-                                                    Modelo
-                                                </th>
-                                                <th>
-                                                   Foto
+                                                   Nombre
                                                 </th>
                                                 <th>
                                                     Estado
                                                 </th>
-                                               
                                                 <th>
-                                                    Acciones
+                                                   Permitir acceso
                                                 </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             <?php
                                          
-                                                    foreach ($ListaDispositivos as $key => $value) {
+                                                    foreach ($ListaDoctores as $key => $value) {
+                                                        $id = $value['UsuarioId'];
+                                                        $usuario = $value['Usuario'];
                                                         $nombre = $value['Nombre'];
-                                                        $CodigoSerie = $value['Serie'];
-                                                        $estado= $value['Estado'];
-                                                        $Modelo = $value['Modelo'];
-                                                        $aparatoId = $value['AparatoId'];
-                                                        $tipoestado = $value['TipoEstadoId'];
-                                                        $imagen = $value['Imagen'];
-                                                     
-                                           
+                                                        $verificado= $value['Verificado'];
+                                                        $estado = $value['Estado'];
                                                             echo "  
                                                             <tr>
-                                                                <td>$CodigoSerie</td>
+                                                                <td>$usuario</td>
                                                                 <td>$nombre</td>
-                                                                <td>$Modelo  </td>
-                                                                <td style='text-align:center'>
-                                                                 <img src='$imagen' height='60' width='60'>
-                                                                </td>
                                                                 <td style='text-align:center'> ";
-                                                                if( $tipoestado == 1){//En inventario
+                                                                if( $estado == 'Activo'){//Activo
                                                                 echo "<span class='label label-success'>$estado</span>";
-                                                                }else if( $tipoestado == 2){//Alquilado
-                                                                echo "<span class='label' style='background-color: #9C27B0'>$estado</span>";
-                                                                }else if( $tipoestado == 3){//Vendido
+                                                                }else if( $estado == 'Pendiente'){//Pendiente
                                                                   echo "<span class='label label-warning'>$estado</span>";
-                                                                }else if( $tipoestado == 4){//En mal estado
+                                                                }else {//Otro
                                                                   echo "<span class='label label-important'>$estado</span>";
                                                                 }
-                                                                
-                                                            echo"   </td>
-                                                                <td>
-                                                                    <div class='text-center'>
-                                                                    <a class='btn btn-success btn-medium' href='editar_dispositivos_master.php?id=$aparatoId'>
-                                                                    <i class='icon-pencil'></i>
-                                                                        Editar
-                                                                    </a>
-                                                                    </div>
-                                                                </td>
+                                                            echo"<td style='text-align:center'> ";
+                                                            
+                                                            if($verificado == 0){
+                                                                echo "<button class='btn btn-danger' style='margin-bottom:5px' id='btnact$id' name='btnact$id'>
+                                                                <i class='icon-thumbs-down'> Sin Acceso</i> 
+                                                              </button>";
+                                                            }else{
+                                                                echo "<button class='btn btn-success' style='margin-bottom:5px' id='btnact$id' name='btnact$id'>
+                                                                <i class='icon-thumbs-up'> Con Acceso</i>
+                                                              </button>";
+                                                            }
+                                                            echo"
+                                                            </td>
                                                             </tr>
+                                                            <script>
+                                                                $('#btnact$id').click(function(){
+                                                                    $('#txtdrid').val('$id');
+                                                                    $('#txtvalor').val('$verificado');
+                                                                });
+                                                            </script>
+
                                                             ";
                                                         
                                                     }
@@ -159,6 +184,7 @@ if(empty($ListaDispositivos)){
                                             
                                             </tbody>
                                             </table>
+                                            </form> 
                                         </div>
                                         </div>
                                     </div>

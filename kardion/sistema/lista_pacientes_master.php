@@ -1,9 +1,10 @@
 <?php 
 require_once("../clases/cargar_master.php");
-require_once("../clases/dispositivos_controller.php");
+require_once("../clases/personas_controller.php");
 require_once("../clases/roles_controller.php");
+
 $html = new cargar;
-$dispositivos = new dispositivos;
+$personas = new personas;
 $roles = new roles;
 $html->sessionDataSistem();
 echo $html->PrintHead();
@@ -33,13 +34,10 @@ die();
 //buscamos el codigo master para seleccionar los centros asociados al usuario
 
 
-
-
-
-$ListaDispositivos = $dispositivos->Dispostivios();
-
-if(empty($ListaDispositivos)){
-    $ListaDispositivos =[];
+$ListaPacientes = $personas->buscarTodaslasPersonas();
+//print_r($ListaPacientes);
+if(empty($ListaPacientes)){
+    $ListaPacientes =[];
 }
 
 
@@ -61,23 +59,23 @@ if(empty($ListaDispositivos)){
                             <div class='page-header'>
                               <h1 class='pull-left'>
                                 <!-- <i class='icon-bar-chart'></i> -->
-                                <span>Lista de dispositivos</span>
+                                <span>Lista de pacientes</span>
                               </h1>
                             </div>
                           </div>
                         </div>
                        <!-- ----------------------------------------- -->
-                       <form method="post">
+                       <!-- <form method="post">
                             <a class="btn btn-primary btn-large" href="nuevo_dispositivos_master.php" name="btnnuevo" > Registrar Dispositivo</a>
                            
-                       </form>
+                       </form> -->
                         <br>
 
                         
                             <div class='row-fluid'>
                                     <div class='span12 box bordered-box orange-border' style='margin-bottom:0;'>
                                     <div class="box-header blue-background">
-                                      <div class="title">Dispositivos</div>
+                                      <div class="title">Pacientes</div>
                                       <div class="actions">
                                         <a class="btn box-collapse btn-mini btn-link" href="#"><i></i>
                                         </a>
@@ -90,64 +88,50 @@ if(empty($ListaDispositivos)){
                                             <thead>
                                                 <tr>
                                                 <th>
-                                                   # Serie
+                                                   Nombre del paciente
                                                 </th>
                                                 <th>
-                                                    Dispositivo
+                                                    Correo
                                                 </th>
                                                 <th>
-                                                    Modelo
+                                                    Estado de la cuenta
                                                 </th>
                                                 <th>
-                                                   Foto
-                                                </th>
-                                                <th>
-                                                    Estado
+                                                   Acciones
                                                 </th>
                                                
-                                                <th>
-                                                    Acciones
-                                                </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             <?php
                                          
-                                                    foreach ($ListaDispositivos as $key => $value) {
+                                                    foreach ($ListaPacientes as $key => $value) {
                                                         $nombre = $value['Nombre'];
-                                                        $CodigoSerie = $value['Serie'];
+                                                        $correo = $value['Correo'];
                                                         $estado= $value['Estado'];
-                                                        $Modelo = $value['Modelo'];
-                                                        $aparatoId = $value['AparatoId'];
-                                                        $tipoestado = $value['TipoEstadoId'];
-                                                        $imagen = $value['Imagen'];
+                                                        $id = $value['PersonaId'];
+                                                   
                                                      
                                            
                                                             echo "  
                                                             <tr>
-                                                                <td>$CodigoSerie</td>
                                                                 <td>$nombre</td>
-                                                                <td>$Modelo  </td>
-                                                                <td style='text-align:center'>
-                                                                 <img src='$imagen' height='60' width='60'>
-                                                                </td>
+                                                                <td>$correo  </td>
                                                                 <td style='text-align:center'> ";
-                                                                if( $tipoestado == 1){//En inventario
+                                                                if( $estado == 'Activo'){//activo
                                                                 echo "<span class='label label-success'>$estado</span>";
-                                                                }else if( $tipoestado == 2){//Alquilado
+                                                                }else if( $estado == 'Pendiente'){//pendiente
                                                                 echo "<span class='label' style='background-color: #9C27B0'>$estado</span>";
-                                                                }else if( $tipoestado == 3){//Vendido
+                                                                }else {//otro
                                                                   echo "<span class='label label-warning'>$estado</span>";
-                                                                }else if( $tipoestado == 4){//En mal estado
-                                                                  echo "<span class='label label-important'>$estado</span>";
                                                                 }
                                                                 
                                                             echo"   </td>
                                                                 <td>
                                                                     <div class='text-center'>
-                                                                    <a class='btn btn-success btn-medium' href='editar_dispositivos_master.php?id=$aparatoId'>
-                                                                    <i class='icon-pencil'></i>
-                                                                        Editar
+                                                                    <a class='btn btn-success btn-medium' href='detalles_pacientes_master.php?id=$id'>
+                                                                    <i class='icon-eye-open'></i>
+                                                                        Ver
                                                                     </a>
                                                                     </div>
                                                                 </td>

@@ -332,7 +332,7 @@ class cargar extends conexion {
           });
 
           $('#btnperfil').click(function(){
-            window.location='perfil_empresa.php';
+            window.location='perfil_master.php';
         }); 
       });
     </script>
@@ -359,6 +359,18 @@ class cargar extends conexion {
                                     <span>Dispositivos</span>
                                 </a>
                             </li>
+                            <li class=''>
+                                <a href='lista_doctores_master.php'  class='color-azul'>
+                                    <i class='icon-stethoscope'></i>
+                                    <span>Doctores</span>
+                                </a>
+                             </li>
+                             <li class=''>
+                             <a href='lista_pacientes_master.php'  class='color-azul'>
+                                 <i class='icon-group'></i>
+                                 <span>Pacientes</span>
+                             </a>
+                          </li>
                         </ul>
                         </div>
                     </nav>
