@@ -160,12 +160,12 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                 if($fcmomentomaximo && $frecuenciacardica){
                         $a50 = ($fcmomentomaximo-$frecuenciacardica)*0.5+($frecuenciacardica);
                         $a60 = ($fcmomentomaximo-$frecuenciacardica)*0.6+($frecuenciacardica);
-                        $a61 = ($fcmomentomaximo-$frecuenciacardica)*0.61+($frecuenciacardica);
+                        $a65 = ($fcmomentomaximo-$frecuenciacardica)*0.65+($frecuenciacardica);
                         $a70 = ($fcmomentomaximo-$frecuenciacardica)*0.7+($frecuenciacardica);
-                        $a71 = ($fcmomentomaximo-$frecuenciacardica)*0.71+($frecuenciacardica);
-                        $a84 = ($fcmomentomaximo-$frecuenciacardica)*0.84+($frecuenciacardica);
+                        $a75 = ($fcmomentomaximo-$frecuenciacardica)*0.75+($frecuenciacardica);
+                        $a80 = ($fcmomentomaximo-$frecuenciacardica)*0.8+($frecuenciacardica);
                         $a85 = ($fcmomentomaximo-$frecuenciacardica)*0.85+($frecuenciacardica);
-                        $a94 = ($fcmomentomaximo-$frecuenciacardica)*0.94+($frecuenciacardica);
+                        $a90 = ($fcmomentomaximo-$frecuenciacardica)*0.9+($frecuenciacardica);
                         $a95 = ($fcmomentomaximo-$frecuenciacardica)*0.95+($frecuenciacardica);
                         $a100 = ($fcmomentomaximo-$frecuenciacardica)*1+($frecuenciacardica);
                         $primermin = $fcmomentomaximo - $fcprimerminuto;
@@ -177,12 +177,12 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                 }else{
                         $a50 = 0;
                         $a60 = 0;
-                        $a61 = 0;
+                        $a65 = 0;
                         $a70 = 0;
-                        $a71 = 0;
-                        $a84 = 0;
+                        $a75 = 0;
+                        $a80 = 0;
                         $a85 = 0;
-                        $a94 = 0;
+                        $a90 = 0;
                         $a95 = 0;
                         $a100 =0;
                         $primermin = 0;
@@ -328,6 +328,14 @@ if(isset($_POST['btnfin'])){
         background-color: #b2e8ff;
 }
 
+.redimportant{
+        background-color: #fef17c !important; 
+}
+
+.greennotimportant{
+        background-color: #b9f5c0 !important;  
+}
+
 
 
 </style>
@@ -335,6 +343,7 @@ if(isset($_POST['btnfin'])){
 <script>
     
     $(document).ready(function(){
+
 
           $("#btnper").click(function(e){
                 $('#modalperfil').modal('show');
@@ -369,7 +378,6 @@ if(isset($_POST['btnfin'])){
                  return false;
           })
           $("#btnlimpiardiagnostico").click(function(){
-               
                 valor = '';
                  $('#txtprediagnostico').val(valor);
                  return false;
@@ -527,15 +535,6 @@ if(isset($_POST['btnfin'])){
 
                                                                 </div>
                                                                 <div class='row-fluid'>
-                                                                           <div  class='span2 '>
-                                                                                    <div class='control-group'>
-                                                                                                <label class='control-label'>Frecuencia cardiaca en reposo(lpm)</label>
-                                                                                                <div class='controls'>
-                                                                                                <input class='span12' id='mtxtfc' name="mtxtfc" type='text' value="<?=$frecuenciacardica?>"  >
-                                                                                                </div>
-                                                                                    </div>
-                                                                                         
-                                                                            </div>
                                                                             <div  class='span2 '>
                                                                                     <div class='control-group'>
                                                                                                 <label class='control-label'>Hora de máximo esfuerzo(H:m:s)</label>
@@ -545,11 +544,20 @@ if(isset($_POST['btnfin'])){
                                                                                     </div>
                                                                                          
                                                                             </div>
+                                                                           <div  class='span2 '>
+                                                                                    <div class='control-group'>
+                                                                                                <label class='control-label'>Frecuencia cardiaca <strong>en reposo</strong>(lpm)</label>
+                                                                                                <div class='controls'>
+                                                                                                <input class='span12 redimportant' id='mtxtfc' name="mtxtfc" type='text' value="<?=$frecuenciacardica?>"  >
+                                                                                                </div>
+                                                                                    </div>
+                                                                                         
+                                                                            </div>
                                                                             <div  class='span2 '>
                                                                                     <div class='control-group'>
-                                                                                                <label class='control-label'>FC momento máximo esfuerzo(lpm)</label>
+                                                                                                <label class='control-label'>FC momento <strong>máximo esfuerzo</strong> (lpm)</label>
                                                                                                 <div class='controls'>
-                                                                                                <input class='span12' id='mtxtfcmomento' name="mtxtfcmomento" type='text' value="<?=$fcmomentomaximo?>"  >
+                                                                                                <input class='span12 redimportant' id='mtxtfcmomento' name="mtxtfcmomento" type='text' value="<?=$fcmomentomaximo?>"  >
                                                                                                 </div>
                                                                                     </div>
                                                                                          
@@ -568,7 +576,7 @@ if(isset($_POST['btnfin'])){
                                                                                     <div class='control-group'>
                                                                                                 <label class='control-label'>FC primer minuto de recuperación(lpm)</label>
                                                                                                 <div class='controls'>
-                                                                                                <input class='span12' id='mtxtfcprimerminuto' name="mtxtfcprimerminuto" type='text' value="<?=$fcprimerminuto?>"  >
+                                                                                                <input class='span12 redimportant' id='mtxtfcprimerminuto' name="mtxtfcprimerminuto" type='text' value="<?=$fcprimerminuto?>"  >
                                                                                                 </div>
                                                                                     </div>
                                                                                          
@@ -577,7 +585,7 @@ if(isset($_POST['btnfin'])){
                                                                                     <div class='control-group'>
                                                                                                 <label class='control-label'>FC segundo minuto de recuperación(lpm)</label>
                                                                                                 <div class='controls'>
-                                                                                                <input class='span12' id='mtxtsegundomunuto' name="mtxtsegundomunuto" type='text' value="<?=$fcsegundominuto?>"  >
+                                                                                                <input class='span12 redimportant' id='mtxtsegundomunuto' name="mtxtsegundomunuto" type='text' value="<?=$fcsegundominuto?>"  >
                                                                                                 </div>
                                                                                     </div>
                                                                                          
@@ -711,15 +719,15 @@ if(isset($_POST['btnfin'])){
                                                                                                 <div class='control-group'>
                                                                                                                 <label class='control-label'>60%</label>
                                                                                                                 <div class='controls'>
-                                                                                                                <input class='span12' id='txta60.aximo' name="txta60" type='text' value="<?=$a60?>" disabled >
+                                                                                                                <input class='span12' id='txta60' name="txta60" type='text' value="<?=$a60?>" disabled >
                                                                                                                 </div>
                                                                                                 </div>   
                                                                                         </div>
                                                                                         <div  class='span2'>
                                                                                                 <div class='control-group'>
-                                                                                                                <label class='control-label'>61%</label>
+                                                                                                                <label class='control-label'>65%</label>
                                                                                                                 <div class='controls'>
-                                                                                                                <input class='span12' id='txta61' name="txta61" type='text' value="<?=$a61?>" disabled >
+                                                                                                                <input class='span12' id='txta65' name="txta65" type='text' value="<?=$a65?>" disabled >
                                                                                                                 </div>
                                                                                                 </div>   
                                                                                         </div>
@@ -733,9 +741,9 @@ if(isset($_POST['btnfin'])){
                                                                                         </div>
                                                                                         <div  class='span2 '>
                                                                                                 <div class='control-group'>
-                                                                                                                <label class='control-label'>71%</label>
+                                                                                                                <label class='control-label'>75%</label>
                                                                                                                 <div class='controls'>
-                                                                                                                <input class='span12' id='txta84' name="txta84" type='text' value="<?=$a71?>" disabled >
+                                                                                                                <input class='span12' id='txta75' name="txta75" type='text' value="<?=$a75?>" disabled >
                                                                                                                 </div>
                                                                                                 </div>   
                                                                                         </div>
@@ -747,9 +755,9 @@ if(isset($_POST['btnfin'])){
                                                                       <br style="display:none">
                                                                                          <div  class='span2'>
                                                                                                 <div class='control-group'>
-                                                                                                                <label class='control-label'>84%</label>
+                                                                                                                <label class='control-label'>80%</label>
                                                                                                                 <div class='controls'>
-                                                                                                                <input class='span12' id='txta84' name="txta84" type='text' value="<?=$a84?>" disabled >
+                                                                                                                <input class='span12' id='txta80' name="txta80" type='text' value="<?=$a80?>" disabled >
                                                                                                                 </div>
                                                                                                 </div>   
                                                                                         </div>
@@ -763,9 +771,9 @@ if(isset($_POST['btnfin'])){
                                                                                         </div>
                                                                                         <div  class='span2'>
                                                                                                 <div class='control-group'>
-                                                                                                                <label class='control-label'>94%</label>
+                                                                                                                <label class='control-label'>90%</label>
                                                                                                                 <div class='controls'>
-                                                                                                                <input class='span12' id='txta94' name="txta94" type='text' value="<?=$a94?>" disabled >
+                                                                                                                <input class='span12' id='txta90' name="txta90" type='text' value="<?=$a90?>" disabled >
                                                                                                                 </div>
                                                                                                 </div>   
                                                                                         </div>
@@ -832,7 +840,7 @@ if(isset($_POST['btnfin'])){
                                                                                         <div class="control-group">
                                                                                                 <label class="control-label" for="txtprediagnostico">Conclusiones y recomendaciones</label>
                                                                                                 <div class="controls">
-                                                                                                <textarea class="char-max-length input-block-level" maxlength="480" id="txtrecomendaciones" name="txtrecomendaciones" placeholder="Escriba las conclusiones y recomendaciones" rows="5" style="margin: 0px; width: 100%; height: 110px;" ><?php echo$conclusiones; ?></textarea>
+                                                                                                <textarea class="char-max-length input-block-level" maxlength="580" id="txtrecomendaciones" name="txtrecomendaciones" placeholder="Escriba las conclusiones y recomendaciones" rows="5" style="margin: 0px; width: 100%; height: 110px;" ><?php echo$conclusiones; ?></textarea>
                                                                                                 </div>
                                                                                         </div>
                                                                                 </div>
@@ -950,7 +958,7 @@ if(isset($_POST['btnfin'])){
                                                         <li  data-id='1'>
                                                            <a id='btndia1'>
                                                              <div class='lista'>        
-                                                                   <p> Ritmo sinusal predominante durante el estudio. /r/n </p>
+                                                                   <p> Ritmo sinusal predominante durante el estudio. </p>
                                                               </div>
                                                             </a>
                                                         </li>
@@ -1024,7 +1032,7 @@ if(isset($_POST['btnfin'])){
                                                          <script>
                                                                  $('#btndia1').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Ritmo sinusal predominante durante el estudio. \n';
+                                                                         valor = valor + ' ' + 'Ritmo sinusal predominante durante el estudio. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1036,7 +1044,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia2').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'La frecuencia cardiaca mínima registrada de <?=$frecuenciacardica?> lpm y frecuencia máxima de <?=$fcmomentomaximo?> lpm. \n';
+                                                                         valor = valor + ' ' + 'La frecuencia cardiaca mínima registrada de <?=$frecuenciacardica?> lpm y frecuencia máxima de <?=$fcmomentomaximo?> lpm. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1048,7 +1056,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia3').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + ' Hubo varios picos de FC relacionados  con el tipo de actividad fisica registrada. \n';
+                                                                         valor = valor + ' ' + ' Hubo varios picos de FC relacionados  con el tipo de actividad fisica registrada. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1060,7 +1068,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia4').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + ' La tasa de recuperación de frecuencia cardíaca despues de finalizado el pico de esfuerzo final  fue de <?=$primermin?>  lpm al 1er min y de <?=$segundomin?> lpm al 2 min, considerada normal. \n';
+                                                                         valor = valor + ' ' + ' La tasa de recuperación de frecuencia cardíaca despues de finalizado el pico de esfuerzo final  fue de <?=$primermin?>  lpm al 1er min y de <?=$segundomin?> lpm al 2 min, considerada normal.<br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1084,7 +1092,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia6').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Extrasistoles ventriculares y supraventriculares aislados - frecuentes,  monomorfos,  durante el esfuerzo y la recuperacion. \n';
+                                                                         valor = valor + ' ' + 'Extrasistoles ventriculares y supraventriculares aislados - frecuentes,  monomorfos,  durante el esfuerzo y la recuperacion. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1096,7 +1104,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia7').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Salvas de taquicardia auricular autolimitada. \n';
+                                                                         valor = valor + ' ' + 'Salvas de taquicardia auricular autolimitada. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1108,7 +1116,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia8').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Salva de TV no sostenida. \n';
+                                                                         valor = valor + ' ' + 'Salva de TV no sostenida. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1120,7 +1128,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia9').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Bloqueo rama derecha frecuencia dependiente. \n';
+                                                                         valor = valor + ' ' + 'Bloqueo rama derecha frecuencia dependiente.<br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1132,7 +1140,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia10').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Alteraciones de la repolarización significativos, con frecuencias elevadas y persisten despues de finalizado el esfuerzo. \n';
+                                                                         valor = valor + ' ' + 'Alteraciones de la repolarización significativos, con frecuencias elevadas y persisten despues de finalizado el esfuerzo. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',

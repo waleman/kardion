@@ -90,13 +90,13 @@ $datosanexos =$con->ObtenerRegistros($query6);
 if($frecuenciaMomentoMaximo && $frecuenciaCariacaReposo){
     $a50 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.5+($frecuenciaCariacaReposo);
     $a60 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.6+($frecuenciaCariacaReposo);
-    $a61 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.61+($frecuenciaCariacaReposo);
+    $a65 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.65+($frecuenciaCariacaReposo);
     $a70 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.7+($frecuenciaCariacaReposo);
-    $a71 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.71+($frecuenciaCariacaReposo);
+    $a75 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.75+($frecuenciaCariacaReposo);
     $a80 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.8+($frecuenciaCariacaReposo);
-    $a81 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.81+($frecuenciaCariacaReposo);
+    $a85 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.85+($frecuenciaCariacaReposo);
     $a90 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.9+($frecuenciaCariacaReposo);
-    $a91 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.91+($frecuenciaCariacaReposo);
+    $a95 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.95+($frecuenciaCariacaReposo);
     $a100 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*1+($frecuenciaCariacaReposo);
     $primermin = $frecuenciaMomentoMaximo - $fcprimerminuto;
     $segundomin =$fcprimerminuto -$fcsegundominuto;
@@ -105,13 +105,13 @@ if($frecuenciaMomentoMaximo && $frecuenciaCariacaReposo){
 }else{
     $a50 = 0;
     $a60 = 0;
-    $a61 = 0;
+    $a65 = 0;
     $a70 = 0;
-    $a71 = 0;
+    $a75 = 0;
     $a80 = 0;
-    $a81 = 0;
+    $a85 = 0;
     $a90 = 0;
-    $a91 = 0;
+    $a95 = 0;
     $a100 = 0;
     $primermin = 0;
     $segundomin =0;
@@ -348,19 +348,19 @@ if ($primermin <= 12){
         <tr>
             <td class="izquierda encabezado"> % FC por zonas</td>
             <td class="gris">50 - 60</td>
-            <td class="azul">61 - 70</td>
-            <td class="verde">71 - 80</td>
-            <td class="amarillo">81 - 90</td>
-            <td class="rojo">91 - 100</td>
+            <td class="azul">65 - 70</td>
+            <td class="verde">75 - 80</td>
+            <td class="amarillo">85 - 90</td>
+            <td class="rojo">95 - 100</td>
             <td class="gris">2 min : <?=$segundomin?> lpm </td>
         </tr>
         <tr>
             <td class="izquierda encabezado">FC lpm</td>
             <td class="gris"><?=$a50?> - <?=$a60?></td>
-            <td class="azul"><?=$a61?> - <?=$a70?></td>
-            <td class="verde"><?=$a71?> - <?=$a80?></td>
-            <td class="amarillo"><?=$a81?> - <?=$a90?></td>
-            <td class="rojo"><?=$a91?> - <?=$a100?></td>
+            <td class="azul"><?=$a65?> - <?=$a70?></td>
+            <td class="verde"><?=$a75?> - <?=$a80?></td>
+            <td class="amarillo"><?=$a85?> - <?=$a90?></td>
+            <td class="rojo"><?=$a95?> - <?=$a100?></td>
             <td class="gris">
                 <?php echo"<img class='check' src='$imagen' alt=''>"?>
             </td>
@@ -433,7 +433,7 @@ if(!empty($datosanexos)){
                  $i ++;
                 $archivo = $value['Archivo'];
                 $direccion = $direccionweb . $direccionarchivo .$archivo;
-                echo" <a href='http://$direccion'  target='_blank'>http://$direccion </a> <br>";
+                echo" <a href='https://$direccion'  target='_blank'>http://$direccion </a> <br>";
              }
         
         ?>
