@@ -33,7 +33,7 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
 
         //obtener el codigo de la prueba que tiene asignada
             $PruebaId = $pruebas->BuscarCodigoPruebaAsignada($usuarioid);
-            echo " el codigo de la prueba es $PruebaId";
+            //echo " el codigo de la prueba es $PruebaId";
             $pruebaidEncripted =  base64_encode($PruebaId);
         //obtenemos los datos de la prueba
             $Datos = $pruebas->BuscarPruebaAsignada($PruebaId);
@@ -78,6 +78,8 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                 $Fechanac = $Persona["FechaNacimiento"];
                 $altura  = (int)$Persona["Altura"];
                 $peso = (int)$Persona["Peso"];
+                $mail = $Persona["Correo"];
+        
                 if($Fechanac){// calcular la edad del paciente
                     $cumpleanos = new DateTime($Fechanac);
                     $hoy = new DateTime();
@@ -93,12 +95,7 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                          $peso =(int)$Datos[0]['Peso'] ;
                 }
 
-              
-                
-
-                
-              
-             
+            
                 /* si no existe ninguno de los dos se asigna valor 0 */
                 if($peso == 0 || $altura==0){
                         $masa = 0;
@@ -106,10 +103,7 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                         $convertir = $altura/100;
                         $masa = round(($peso/($convertir*$convertir)),2);
                 }
-
-
-
-                
+       
                 $tension =$Datos[0]['Tension'] ; 
                 $momentomaximo =$Datos[0]['MomentoMaximo'];
                 $sintomas = $Datos[0]['Sintomas'];
@@ -280,6 +274,11 @@ if(isset($_POST['btnfin'])){
           $finalizar2=  $pruebas->finalizarPruebaasignada($PruebaId);
           //$finalizar2 = true;
                 if($finalizar2){
+                        /* PRUEBA */
+
+                        $mail = $pruebas->EnviarMaiilPruebaFinalizada($PruebaId,$mail);
+
+
 
                         echo"<script>
                              $.post( '../utilidades/pdf_finalizar.php?id=$PruebaId', function( data ) {
@@ -309,6 +308,7 @@ if(isset($_POST['btnfin'])){
               })</script>";
        }
 }
+
 
 
 
@@ -858,6 +858,7 @@ if(isset($_POST['btnfin'])){
                                                                                         </div>
                                                                                 </div>
                                                                 </div>
+
 
                                                               
                      <!-------------------------AGREGAR ANEXOS-------------------------------- ----->

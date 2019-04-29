@@ -395,7 +395,7 @@ class usuario extends conexion{
                                                <table border='0' cellpadding='50' cellspacing='0' style='margin-left: auto;margin-right: auto;width:600px;text-align:center;' width='600'>
                                                    <tr>
                                                        <td align='center' valign='top'>
-                                                           <img  width='200' height='120' src='https://www.kardion.es/kardion/public/logos/kardionlateral.png' style='outline:none; text-decoration:none;border:none,display:block;' width='100' />
+                                                           <img  width='400' height='140' src='https://www.kardion.es/kardion/public/logos/kardionlateral.png' style='outline:none; text-decoration:none;border:none,display:block;' width='100' />
                                                        </td>
                                                    </tr>
                                                </table>
@@ -463,8 +463,8 @@ class usuario extends conexion{
 
         
         ";
-        $cabeceras = 'From: kardion@kardion.com' . "\r\n" .
-                     'Reply-To: no-reply@kardion.com' . "\r\n" .
+        $cabeceras = 'From: kardion@kardion.es' . "\r\n" .
+                     'Reply-To: no-reply@kardion.es' . "\r\n" .
                      'Content-type:text/html'. "\r\n" .
                      'X-Mailer: PHP/' . phpversion();
         
@@ -492,7 +492,7 @@ class usuario extends conexion{
         $url = "https://".$direccionweb . "/kardion/login.php" ;
 
         $para      = $email;
-        $titulo    = 'Confirme su cuenta - Kardi-on';
+        $titulo    = 'Hemos recuperado tu contraseña - KARDI-ON';
         $mensaje   = "
                                <!DOCTYPE html>
                                <html xmlns='http://www.w3.org/1999/xhtml'>
@@ -537,7 +537,7 @@ class usuario extends conexion{
                                                <table border='0' cellpadding='50' cellspacing='0' style='margin-left: auto;margin-right: auto;width:600px;text-align:center;' width='600'>
                                                    <tr>
                                                        <td align='center' valign='top'>
-                                                           <img  width='200' height='120' src='https://www.kardion.es/kardion/public/logos/kardionlateral.png' style='outline:none; text-decoration:none;border:none,display:block;' width='100' />
+                                                           <img  width='400' height='140' src='https://www.kardion.es/kardion/public/logos/kardionlateral.png' style='outline:none; text-decoration:none;border:none,display:block;' width='100' />
                                                        </td>
                                                    </tr>
                                                </table>
@@ -602,8 +602,8 @@ class usuario extends conexion{
 
         
         ";
-        $cabeceras = 'From: kardion@kardion.com' . "\r\n" .
-                     'Reply-To: no-reply@kardion.com' . "\r\n" .
+        $cabeceras = 'From: kardion@kardion.es' . "\r\n" .
+                     'Reply-To: no-reply@kardion.es' . "\r\n" .
                      'Content-type:text/html'. "\r\n" .
                      'X-Mailer: PHP/' . phpversion();
         

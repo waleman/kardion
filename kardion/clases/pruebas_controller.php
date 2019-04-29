@@ -359,8 +359,6 @@ class pruebas extends conexion{
     }
 
 
-
-
     public function PruebasPersona($personaId){
         $query = "select pru.PruebaId,CONCAT(per.PrimerNombre, ' ' ,per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad,
         c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId,pru.Archivo
@@ -404,5 +402,25 @@ class pruebas extends conexion{
         }
     }
 
+    public function EnviarMaiilPruebaFinalizada($pruebaId,$email){
+        $_SESSION['pruebamail'] = $pruebaId;
+        ob_start();
+        require '../utilidades/mails/pruebafinalizada.php';
+        $html = ob_get_clean();
+
+        $para      = $email;
+        $titulo    = 'El resultado de su prueba esta listo - KARDI-ON';
+        $mensaje   = $html;
+
+        $cabeceras = 'From: kardion@kardion.es' . "\r\n" .
+        'Reply-To: no-reply@kardion.com' . "\r\n" .
+        'Content-type:text/html'. "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+        mail($para, $titulo, $mensaje, $cabeceras);
+
+      
+
+    }
 
 }

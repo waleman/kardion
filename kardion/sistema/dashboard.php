@@ -147,15 +147,15 @@ echo $html->PrintHeader(); //cargamos el header
                                                         <small>Entregadas</small>
                                                         <div class="text-success icon-ok align-right"></div>
                                                       </div>
-                                                      <!-- <div class="box-content box-statistic">
-                                                        <h3 class="title text-info">123</h3>
-                                                        <small>Pending</small>
-                                                        <div class="text-info icon-time align-right"></div>
-                                                      </div>
-                                                    </div> -->
+                                                    </div>
                                                   </div>
                                                 </div>
-                                              </div>
+                                </div>
+
+                                <div class="row-fluid">
+                                  
+                                   <!-- <iframe src="../public/manuales/manual_empresa.pdf" style="width:100%; height:500px;" frameborder="0"></iframe> -->
+                                </div>
 
                                 <!-- ----------------------------------------------------------------------------------- -->
 
