@@ -148,10 +148,10 @@ class personas extends conexion{
 
 
 
-
-    public function nuevapersona_register($primernombre,$primerapellido,$correo){
-        $query ="insert into personas (PrimerNombre,PrimerApellido,Correo)values('$primernombre','$primerapellido','$correo')";
-       // print_r($query);
+ 
+    public function nuevapersona_register($primernombre,$primerapellido,$correo,$fechanac,$genero){
+        $query ="insert into personas (PrimerNombre,PrimerApellido,Correo,FechaNacimiento,Sexo)values('$primernombre','$primerapellido','$correo','$fechanac','$genero')";
+        print_r($query);
         $resp = parent::NonQuery($query);
             if ($resp == 1 ){
                 return true;

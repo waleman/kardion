@@ -227,7 +227,7 @@ class cargardr extends conexion {
             <meta name='viewport' content='width=device-width, initial-scale=1.0'>
             <meta http-equiv='X-UA-Compatible' content='ie=edge'>
             <link rel='shortcut icon' href='../assets/images/kardion.png' />
-            <title>Kardion</title>";
+            <title>Kardi-on</title>";
     }
 
     public function PrintBodyOpen(){
@@ -251,7 +251,7 @@ class cargardr extends conexion {
                 <div class='navbar navbar-fixed-top'>
                 <div class='navbar-inner'>
                     <div class='container-fluid'>
-                    <a class='brand' href='index.html'>
+                    <a class='brand' href='#'>
                         <i class='icon-heart'></i>
                         <span class='hidden-phone'>Kardi-on</span>
                     </a>

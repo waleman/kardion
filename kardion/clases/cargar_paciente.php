@@ -250,7 +250,7 @@ class cargar extends conexion {
                 <div class='navbar navbar-fixed-top'>
                 <div class='navbar-inner'>
                     <div class='container-fluid'>
-                    <a class='brand' href='index.html'>
+                    <a class='brand' href='#'>
                         <i class='icon-heart'></i>
                         <span class='hidden-phone'>Kardi-on</span>
                     </a>

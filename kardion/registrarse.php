@@ -16,6 +16,7 @@
         $usuarios  = new usuario;
         echo $Recursos->LoadJquery();
         echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>";
+        echo "<script src='assets/javascripts/jquery.mask.js'></script>";
         echo $Recursos->LoadCssLogin();
 
          
@@ -24,8 +25,10 @@
     ?>
 
     <script>
+
     
           $(document).ready(function(){
+            
 
                 function mostrar(texto) {
                     // Get the snackbar DIV
@@ -105,6 +108,7 @@
 
   <?php 
             if (isset($_POST['btnregister'])){
+             // print_r($_POST);
                 $correo = $_POST['txtcorreo'];
                 $password = $_POST['txtpassword'];
                 $soy = $_POST['cbosoy'];
@@ -124,8 +128,16 @@
                     if(isset($_POST['txtdoctornombre'])){
                       $doctornombre = $_POST['txtdoctornombre'];
                     }
-
-
+                $genero = "";
+                if(isset($_POST['cbogenero'])){
+                  $genero = $_POST['cbogenero'];
+                }
+                $fechanac="";
+                if(isset($_POST['txtfechanac'])){
+                  $fechanac = $_POST['txtfechanac'];
+                }
+                
+                
                 
 
               $verificar = $usuarios->check_not_busy($correo);
@@ -146,11 +158,11 @@
 
                   if($soy == 7){
                     //creamos el perfil de la persona 
-                     $verpersona = $personas->nuevapersona_register($primernombre,$primerapellido,$correo);
+                     $verpersona = $personas->nuevapersona_register($primernombre,$primerapellido,$correo,$fechanac,$genero);
                         if($verpersona){
                           $id = $personas->BuscarId($correo);
                           $check = $usuarios->CrearUsuarioPacienteconPassword($correo,'',$id,'0',$password);
-                          $usuarios->eviarEmail($correo);
+           
                         }else{
                           $check = false;
                           echo "
@@ -167,21 +179,18 @@
 
                     
                   }else if($soy ==3){
-
                     $check=  $usuarios->CrearUsuarioDoctor($correo,$password,$doctornombre);
-                    $usuarios-> eviarEmail($correo);
-
-
+              
                   }else if($soy ==4){
                     $check = $usuarios->register($correo,$password,$nombre);
-                    $usuarios-> eviarEmail($correo);
+                   
                   }else{
-                     // print_r('No entro esta mierdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+                    
                   }
 
                 
                   if($check){
-                    // echo"<script language='javascript'>window.location='login.php'</script>;";
+                    $usuarios-> eviarEmail($correo);
 
                     echo"<script>
                             swal({
@@ -229,23 +238,7 @@
                             <fieldset>
                                 <div class='span4 text-center' ><br><br>
                                    <img  width="200px" src="public/logos/kardion.png" alt="">
-                                <!-- <div class='lead'>
-                                    <i class='icon-lightbulb text-contrast'></i>
-                                    Por que pedimos esta informacion ?
-                                </div> -->
-                                <!-- <small class=''>
-                                     Para verificar la identidad del solicitante y los datos almacenados en nuestro sistema.
-                                </small>
-                                <br>
-                                <br>
-                                <small class=''>
-                                      No te preocues Kardi-on no utilizara tus datos personales con fines negativos.
-                                </small>
-                                <br>
-                                <br>
-                                <small class=''>
-                                      Recuerda que debes proporcionar un correo electronico valido  ya que enviaremos un email de confirmacion
-                                </small> -->
+                             
                                 </div>
                                 <div class='span7 offset1'>
                                       <div class='row-fluid'>
@@ -313,8 +306,6 @@
 
                                     <div class='row-fluid' id="datospaciente" style="display:none">
                                         <div  class='span7 '>
-
-
                                               <div  class='span6 '>
                                                      <div class='control-group'>
                                                          <label class='control-label'>Primer Nombre</label>
@@ -333,7 +324,26 @@
                                                          </div>
                                                      </div>
                                                  </div>
-
+                                        </div>
+                                        <div  class='span7 ' style="margin-left:0px;">
+                                               <div  class='span6'>
+                                                     <div class='control-group'>
+                                                        <label class='control-label'>Fecha de nacimiento</label>
+                                                        <div class="controls">
+                                                        <input  class='span12' name="txtfechanac"  id="txtfechanac" data-mask="99-99-9999" data-rule-dateiso="true" data-rule-required="true"  placeholder="DD-MM-YYYY" type="text">
+                                                    </div>
+                                                
+                                                            <div class='control-group'>
+                                                                <label class='control-label'>Genero</label>
+                                                                <div class='controls'>
+                                                                        <select id="cbogenero" name="cbogenero" >
+                                                                            <option value='0' selected disabled>-- Seleccione una --</option>
+                                                                            <option value='Masculino'  >Masculino</option>
+                                                                            <option value='Femenino'  >Femenino</option>
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+                                                </div>
                                         </div>
                                     </div>
 

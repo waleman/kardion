@@ -74,33 +74,7 @@ if(empty($ListaPruebas)){
                           </div>
                         </div>
 
-                        <div class="span6 box" >
-                         
-                                <div class="row-fluid">
-                                    <div class="span4">
-                                        <div class="box-content box-statistic">
-                                            <h3 class="title text-error">1</h3>
-                                            <small>Medicos en linea</small>
-                                            <div class="text-error icon-stethoscope align-right"></div>
-                                        </div>
-                                    </div>
-                                    <div class="span4">
-                                        <div class="box-content box-statistic">
-                                                <h3 class="title text-warning"><?=$cantidad?></h3>
-                                                <small>Pendientes</small>
-                                                <div class="text-warning icon-book align-right"></div>
-                                        </div>
-                                    </div>
-                                    <div class="span4">
-                                        <div class="box-content box-statistic">
-                                                <h3 class="title text-primary">0</h3>
-                                                <small>Finalizadas</small>
-                                                <div class="text-primary icon-lock align-right"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                         <br>
                         <form method="POST">
                          <input class="btn btn-primary" style="margin-bottom:5px" value="Asigname una prueba" type="submit" id="btnasignar" name="btnasignar">

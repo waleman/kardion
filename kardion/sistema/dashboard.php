@@ -150,9 +150,64 @@ echo $html->PrintHeader(); //cargamos el header
                                                     </div>
                                                   </div>
                                                 </div>
-                                </div>
+
+
+                                                <div class="span12" >
+                                                  <div class="box-header">
+                                                    <h3 class="title">Enlaces rapidos</h3>
+                                                  </div>
+                                                    <div class="span3 box">
+                                                      <div class="box-content">
+                                                        <div class="row-fluid">
+                                                          <div class="span12 box-quick-link blue-background">
+                                                            <a href="../public/manuales/manual_empresa.pdf" target="_blank">
+                                                              <div class="header">
+                                                                <div class="icon-book"></div>
+                                                              </div>
+                                                              <div class="content">Manual de usuario</div>
+                                                            </a>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <!-- <div class="span3 box">
+                                                      <div class="box-content">
+                                                        <div class="row-fluid">
+                                                          <div class="span12 box-quick-link green-background">
+                                                            <a>
+                                                              <div class="header">
+                                                                <div class="icon-bullhorn"></div>
+                                                              </div>
+                                                              <div class="content">Contacta con nosotros</div>
+                                                            </a>
+                                                          </div>
+                                                    
+                                                        
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <div class="span3 box">
+                                                      <div class="box-content">
+                                                        <div class="row-fluid">
+                                                          <div class="span12 box-quick-link red-background">
+                                                            <a>
+                                                              <div class="header">
+                                                                <div class="icon-bug"></div>
+                                                              </div>
+                                                              <div class="content">Reportar un problema</div>
+                                                            </a>
+                                                          </div>
+                                                    
+                                                        
+                                                        </div>
+                                                      </div>
+                                                    </div> -->
+                                                  </div>
+                                              </div>
 
                                 <div class="row-fluid">
+
+                                
                                   
                                    <!-- <iframe src="../public/manuales/manual_empresa.pdf" style="width:100%; height:500px;" frameborder="0"></iframe> -->
                                 </div>

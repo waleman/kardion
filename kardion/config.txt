@@ -1,0 +1,5 @@
+#moneda:€;
+#peso :kg;
+#medida:cm;
+#empresa_interprete:Centro Medico San Martin;
+#correo_notificaciones:info@kardion.es;

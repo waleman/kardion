@@ -18,6 +18,7 @@ $html->sessionDataSistem(); //iniciamos la sesion en el navegador
         $permiso = $roles->buscarpermisos($rol,$permisos);
         if(!$permiso){
         header("Location: accesoprohibido.php");
+        die();
         }
 echo $html->PrintHead(); //Cargamos en header
 echo $html->LoadCssSystem("sistema"); // cargamos todas las librerias css del sistema interno
@@ -268,7 +269,7 @@ if(isset($_POST['btnguardar'])){
 }
 //finalizar 
 if(isset($_POST['btnfin'])){
-     $finalizar =  $pruebas->finalizarprueba($PruebaId);
+     $finalizar =  $pruebas->finalizarprueba($PruebaId,$usuarioid);
       //$finalizar = true;
        if($finalizar){
           $finalizar2=  $pruebas->finalizarPruebaasignada($PruebaId);

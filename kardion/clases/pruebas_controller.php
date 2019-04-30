@@ -347,8 +347,9 @@ class pruebas extends conexion{
         }
     }
 
-    public function finalizarprueba($pruebaid){
-        $query ="update pruebas set PruebaEstadoId = '5' where PruebaId = '$pruebaid'";
+    public function finalizarprueba($pruebaid,$usuario){
+        $date = date('d-m-Y');
+        $query ="update pruebas set PruebaEstadoId = '5',UM ='$usuario',FM='$date' where PruebaId = '$pruebaid'";
         //print_r( $query);
         $datos = parent::NonQuery($query);
         if ($datos == 1 ){

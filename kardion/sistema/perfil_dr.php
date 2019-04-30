@@ -80,7 +80,7 @@ if(isset($_POST['btnregister'])){
                         });
                     </script>";
               }else{
-                  // mostrar un erro al guardar
+                  // mostrar un error al guardar
                   echo "<script>
                   swal({
                     title: 'Error!',
@@ -146,6 +146,44 @@ if(isset($_POST['btnregister'])){
 <div id='wrapper'>
 <div id='main-nav-bg'></div>
 
+<script>
+$(document).ready(function(){
+
+  function mostrar(texto) {
+              // Get the snackbar DIV
+              document.getElementById("errorMensaje").innerText= texto;
+              var x = document.getElementById("snackbar");
+              // Add the "show" class to DIV
+              x.className = "show";
+              // After 3 seconds, remove the show class from DIV
+              setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+          }
+
+  $('#btnregister').click(function(){
+
+      if(!$('#txtnombre').val()){
+        let val = "Debe escribir un nombre";
+        mostrar(val);
+        return false;
+      }else if(!$('#txttitulo').val()){
+        let val = "Debe escribir un titulo medico";
+        mostrar(val);
+        return false;
+      }else if(!$('#txtcolegiado').val()){
+        let val = "Debe escribir su numero de colegiado";
+        mostrar(val);
+        return false;
+      }else{
+       
+        return true;
+      }
+    
+      
+  });
+
+});
+</script>
+
 <?php
 //cargamos el menu lateral
        echo $html->PrintSideMenu();
@@ -171,92 +209,119 @@ if(isset($_POST['btnregister'])){
                            <div class='row-fluid'>
 
                                  <!-------------------------------------- Datos Generales -->
-                                    <fieldset>
-                                         <div class='span7 offset1'>
-                                             <div class='row-fluid'>
-                                                 <div  class='span4 offset1'>
-                                                     <div class='control-group'>
-                                                         <label class='control-label'>Nombre</label>
-                                                         <div class='controls'>
-                                                         <input class='span12' id='txtnombre' name="txtnombre" type='text' value="<?=$nombre?>">
-                                                         <p class='help-block'></p>
-                                                         </div>
-                                                     </div>
-                                                 </div>
-                                                 <div  class='span4 offset1'>
-                                                     <div class='control-group'>
-                                                         <label class='control-label'>Titulo</label>
-                                                         <div class='controls'>
-                                                         <input class='span12' id='txttitulo' name="txttitulo" type='text' value="<?=$titulo?>">
-                                                         <p class='help-block'></p>
-                                                         </div>
-                                                     </div>
-                                                 </div>
-                                            </div>
+                                  
 
-                                            <div class='row-fluid'>
-                                                 <div  class='span4 offset1'>
-                                                     <div class='control-group'>
-                                                         <label class='control-label'>Telefono</label>
-                                                         <div class='controls'>
-                                                         <input class='span12' id='txttelefono' name="txttelefono" type='text' value="<?=$telefono?>">
-                                                         <p class='help-block'></p>
-                                                         </div>
-                                                     </div>
-                                                 </div>
-                                                 <div  class='span4 offset1'>
-                                                     <div class='control-group'>
-                                                         <label class='control-label'>Correo</label>
-                                                         <div class='controls'>
-                                                         <input class='span12' id='txtcorreo' name="txtcorreo" type='text' value="<?=$correo?>">
-                                                         <p class='help-block'></p>
-                                                         </div>
-                                                     </div>
-                                                 </div>
-                                            </div>
+                                <!--------------------------------------Datos Generales ----->
 
-                                            <div class='row-fluid'>
-                                                 <div  class='span4 offset1'>
-                                                     <div class='control-group'>
-                                                         <label class='control-label'>No. colegiado</label>
-                                                         <div class='controls'>
-                                                         <input class='span12' id='txtcolegiado' name="txtcolegiado" type='text' value="<?=$colegio?>">
-                                                         <p class='help-block'></p>
-                                                         </div>
-                                                     </div>
-                                                 </div>
-                                                 <div class="span4 offset1">
-
-                                                      <div class="box-content">
-                                                        <strong>Firma</strong>
-                                                        <div>
-                                                          <a class="file-input-wrapper btn">
-                                                            <input name="file" id="file" title="Buscar una imagen" type="file" style="left: -183px; top: 0.600021px;">
-                                                          </a>
+                                <div class="span12 box box-nomargin" style="margin-left:0px;">
+                                  <div class="box-header blue-background">
+                                    <div class="title">
+                                      Datos que se muestran en los informes medicos
+                                    </div>
+                                    <div class="actions">
+                                      <a class="btn box-collapse btn-mini btn-link" href="#"><i></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <div class="box-content">
+                                              <!-- contenido de la caja ---->
+                                                 
+                                                <div class='span7 offset1'>
+                                                <br>
+                                                   <div class="alert alert-info">
+                                                      <a class="close" data-dismiss="alert" href="#">×</a>
+                                                      Los siguientes datos serán mostrados en cada uno de los informes médicos
+                                                      <strong>FINALIZADOS</strong> por su cuenta.
+                                                     
+                                                    </div>
+                                                    <div class='row-fluid'>
+                                                        <div  class='span4 offset1'>
+                                                            <div class='control-group'>
+                                                                <label class='control-label'>Nombre y Apellido</label>
+                                                                <div class='controls'>
+                                                                <input class='span12' id='txtnombre' name="txtnombre" type='text' value="<?=$nombre?>">
+                                                                <p class='help-block'></p>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                      </div>
+                                                        <div  class='span4 offset1'>
+                                                            <div class='control-group'>
+                                                                <label class='control-label'>Titulo</label>
+                                                                <div class='controls'>
+                                                                <input class='span12' id='txttitulo' name="txttitulo" type='text' value="<?=$titulo?>">
+                                                                <p class='help-block'></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class='row-fluid'>
+                                                        <div  class='span4 offset1'>
+                                                            <div class='control-group'>
+                                                                <label class='control-label'>Telefono</label>
+                                                                <div class='controls'>
+                                                                <input class='span12' id='txttelefono' name="txttelefono" type='text' value="<?=$telefono?>">
+                                                                <p class='help-block'></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div  class='span4 offset1'>
+                                                            <div class='control-group'>
+                                                                <label class='control-label'>Correo</label>
+                                                                <div class='controls'>
+                                                                <input class='span12' id='txtcorreo' name="txtcorreo" type='text' value="<?=$correo?>">
+                                                                <p class='help-block'></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class='row-fluid'>
+                                                        <div  class='span4 offset1'>
+                                                            <div class='control-group'>
+                                                                <label class='control-label'>No. colegiado</label>
+                                                                <div class='controls'>
+                                                                <input class='span12' id='txtcolegiado' name="txtcolegiado" type='text' value="<?=$colegio?>">
+                                                                <p class='help-block'></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span4 offset1">
+                                                              <div class="box-content">
+                                                                <strong>Firma</strong>
+                                                                <div>
+                                                                  <a class="file-input-wrapper btn">
+                                                                    <input name="file" id="file" title="Buscar una imagen" type="file" style="left: -183px; top: 0.600021px;">
+                                                                  </a>
+                                                                </div>
+                                                              </div>
+                                                        </div>  
+                                                    </div>
 
-                                                 </div>  
-                                            </div>
+                                                    </div>
 
-                                        </div>
+                                                    <div class="row-fluid">
+                                                    <div class="box-content">
+                                                      <?php 
+                                                        if($firma){
+                                                          echo "<img style='width: 230px;' src='../public/firmas/$firma'>";
+                                                        }else{
+                                                          echo "<img style='width: 230px;' src='../assets/images/foto.png'>";
+                                                        }
+                                                      ?>
+                                                      <img src="">
+                                                   
+                                                      <br><br>
+                                                   
+                                                    </div>
 
-                                        <div class="row-fluid">
-                                        <div class="box-content">
-                                          <?php 
-                                            if($firma){
-                                              echo "<img style='width: 230px;' src='../public/firmas/$firma'>";
-                                            }else{
-                                              echo "<img style='width: 230px;' src='../assets/images/foto.png'>";
-                                            }
-                                          ?>
-                                          <img src="">
-                                        </div>
 
 
+                                                </div>
+                           
+                                              <!-- contenido de la caja ---->
+                                  </div>
+                                </div>
 
-                                        </div>
-                                    </fieldset>
+                                <!----------------------------------------------------------->
                            </div>
 
                            <hr class='hr-normal'>
@@ -266,6 +331,9 @@ if(isset($_POST['btnregister'])){
                                   <br><br>
                             </div>
                         </form>
+                        <div id="snackbar">
+                        <label id="errorMensaje"></label>
+                    </div>
 
 
 
