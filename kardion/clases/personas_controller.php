@@ -56,6 +56,39 @@ class personas extends conexion{
     }
 
 
+    public function EditarPersona($datos = array() , $usuario){
+        $date = date('d-m-Y');
+        if(!empty($datos)){
+            $personaId = $datos['personaId'];
+            $genero = $datos['genero'];
+            $primernombre = $datos['primernombre'];
+            $segundonombre = $datos['segundonombre'];
+            $primerapellido = $datos['primerapellido'];
+            $segundoapellido = $datos['segundoapellido'];
+            $tipodocumento = $datos['tipodocumento'];
+            $numerodocumento = $datos['numerodocumento'];
+            $movil = $datos['movil'];
+            $telefono = $datos['telefono'];
+            $fechanac = $datos['fechanac'];
+            $codigopostal = $datos['codigopostal'];
+            $direccion = $datos['direccion'];
+
+            $query="UPDATE personas set
+             PrimerNombre = '$primernombre',SegundoNombre = '$segundonombre',PrimerApellido = '$primerapellido', SegundoApellido = '$segundoapellido',
+             Direccion = '$direccion',Telefono = '$telefono', Movil = '$movil', NumeroDocumento = '$numerodocumento', TipoDocumentoId = '$tipodocumento',
+             FechaNacimiento = '$fechanac',Sexo = '$genero',CodigoPostal = '$codigopostal',FM = '$date', UM = '$usuario' where PersonaId ='$personaId'";
+             //print_r($query);
+            $resp = parent::NonQuery($query);
+            if ($resp == 1 ){
+                return true;
+            }else{
+                return false;
+            }   
+        }else{
+            return false;
+        }
+    }
+
     public function GuardarPersona($datos = array()){
         $date = date('Y-m-d');
         if(!empty($datos)){
