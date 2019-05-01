@@ -371,6 +371,40 @@ class cargar extends conexion {
                                  <span>Pacientes</span>
                              </a>
                           </li>
+                          <li class=''>
+                              <a class='dropdown-collapse' href='#'><i class='icon-cogs'></i>
+                                <span>Configuracion</span>
+                                <i class='icon-angle-down angle-down'></i>
+                                </a>
+                        
+                                <ul class='nav nav-stacked'>
+                                    <li class=''>
+                                        <a href='notificaciones_master.php'>
+                                            <i class='icon-caret-right'></i>
+                                            <span>Notificaicones</span>
+                                        </a>
+                                     </li>
+                                    <!-- <li class=''>
+                                    <a href='form_components.html'>
+                                        <i class='icon-caret-right'></i>
+                                        <span>Form components</span>
+                                    </a>
+                                    </li>
+                                    <li class=''>
+                                    <a href='validations.html'>
+                                        <i class='icon-caret-right'></i>
+                                        <span>Validations</span>
+                                    </a>
+                                    </li>
+                                    <li class=''>
+                                    <a href='wizard.html'>
+                                        <i class='icon-caret-right'></i>
+                                        <span>Wizard</span>
+                                    </a>
+                                    </li> --->
+                                </ul>
+                                </li>
+                             <li>
                         </ul>
                         </div>
                     </nav>

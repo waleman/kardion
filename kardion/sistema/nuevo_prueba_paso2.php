@@ -129,6 +129,7 @@ if(isset($_POST['btnenviar'])){
               if(isset($_POST['txtdesmayo'])){
                 $desmayo =$_POST['txtdesmayo'];
               }
+           
 
           $datos = array(
             "codigo" => $_POST["codigo"],

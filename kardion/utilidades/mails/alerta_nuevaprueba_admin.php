@@ -4,22 +4,16 @@ require_once ('../clases/conexion.php');
 //instanciamos 
 $con = new conexion;
 
-if(isset($_SESSION['pruebamail'])){
+if(isset($_SESSION['centromail'])){
 $date = date("d-m-Y");
-$pruebaid = $_SESSION['pruebamail'];
+$centroid = $_SESSION['centromail'];
 
-$query ="
-    select c.Nombre as Centro,CONCAT(p.PrimerNombre, ' ', p.PrimerApellido) as Paciente
-    from pruebas  as pru ,centros as c, personas as p
-    where pru.CentroId = c.CentroId
-    and pru.PersonaId = p.PersonaId
-    and PruebaId = $pruebaid;
-";
+$query ="select Nombre from centros where CentroId = '$centroid'";
 
 $datos = $con->ObtenerRegistros($query);
-$nombreCentro = $datos[0]['Centro'];
-$nombrePaciente = $datos[0]['Paciente'];
+$nombreCentro = $datos[0]['Nombre'];
 
+ 
 }
 
 
@@ -84,25 +78,18 @@ $nombrePaciente = $datos[0]['Paciente'];
                             <table border='0' cellpadding='0' cellspacing='0' width='100%'>
                                 <tr>
                                     <td align='center' valign='top'>
-                                        <h2 style='color: #49bf67 !important'>El resultado de su prueba esta listo</h2>
+                                        <h2 style='color: #49bf67 !important'>Nueva prueba publicada</h2>
                                     </td>
                                 </tr>
-                                <!-- <tr>
-                                    <td align='center' style='border-top: 1px solid #dce1e5;border-bottom: 1px solid #dce1e5;' valign='top'>
-                                        <p style='margin: 1em 0;'>
-                                            <strong>:</strong>
-                                            john.doe
-                                        </p>
-                                    </td>
-                                </tr> -->
+
                                 <tr>
                                     <td align='center' valign='top'>
                                         <p style='margin: 1em 0;'>
-                                        Estimado/a <?=$nombrePaciente?>,
+                                         Se ha enviado una nueva prueba
                                         <br>
                                         
                                             <br>
-                                          <strong><?=$nombreCentro?> </strong> ha publicado un nuevo documento en el portal del paciente el dia <?=$date?>. 
+                                          <strong><?=$nombreCentro?> </strong> ha publicado una nueva prueba en el portal el día <?=$date?>  y se encuentra pendiente de interpretación. 
                                           
                                           <br> <br> Recuerde que puede ver la prueba haciendo click en el boton de abajo o en su defecto en la siguiente direccion <a href="https://www.kardion.es">www.kardion.es</a>
                                         </p>

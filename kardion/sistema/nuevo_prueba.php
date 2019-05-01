@@ -701,9 +701,9 @@ if(isset($_POST['btnregister'])){
                       </form>
                 </div>
 <!------------------- Modal Nuevo paciente ----------------------------->
-                            <div id="snackbar" style="background-color: #980a00 !important;">
-                                        <label id="errorMensaje"></label>
-                            </div>
+ <div id="snackbar" style="background-color: #980a00 !important;">
+             <label id="errorMensaje"></label>
+ </div>
 
 <?php 
 

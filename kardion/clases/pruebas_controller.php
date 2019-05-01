@@ -42,7 +42,9 @@ class pruebas extends conexion{
         //print_r($query);
         $datos = parent::NonQuery($query);
         if ($datos == 1 ){
+            $this->EnviarMailPruebaPublicada($centroid);
             return true;
+            
         }else{
             return false;
         }
@@ -408,20 +410,51 @@ class pruebas extends conexion{
         ob_start();
         require '../utilidades/mails/pruebafinalizada.php';
         $html = ob_get_clean();
-
         $para      = $email;
         $titulo    = 'El resultado de su prueba esta listo - KARDI-ON';
         $mensaje   = $html;
-
         $cabeceras = 'From: kardion@kardion.es' . "\r\n" .
         'Reply-To: no-reply@kardion.com' . "\r\n" .
         'Content-type:text/html'. "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
         mail($para, $titulo, $mensaje, $cabeceras);
+    }
 
-      
+    public function EnviarMailPruebaPublicada($centroId){
+        /*obeneter la lista de correos agregados para enviar */
+        require_once('notificacion_controller.php');
+        $_notificacion = new notificacion;
+        $listacorreos = $_notificacion->ListaCorreos_enviar();
+        if(empty($listacorreos)){
+            $listacorreos = array();
+        }
+         /*obeneter la plantilla de mail a enviar */
+        $_SESSION['centromail'] = $centroId;
+        ob_start();
+        require '../utilidades/mails/alerta_nuevaprueba_admin.php';
+        $html =ob_get_clean(); 
+
+        /* enviar los correos*/
+        foreach($listacorreos as $key=>$value){
+            $correo = $value['Correo'];
+            $para      = $correo;
+            $titulo    = 'Nueva prueba pendiente - KARDI-ON';
+            $mensaje   = $html;
+            $cabeceras = 'From: kardion@kardion.es' . "\r\n" .
+            'Reply-To: no-reply@kardion.com' . "\r\n" .
+            'Content-type:text/html'. "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+             mail($para, $titulo, $mensaje, $cabeceras); 
+        }
+        return $html;
 
     }
+
+
+    
+
+
+
 
 }
