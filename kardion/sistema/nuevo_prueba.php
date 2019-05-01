@@ -85,6 +85,23 @@ if(isset($_POST['btnregister'])){
             'usuario'=>$usuarioId
         );
 
+        $verificar =$persona->buscarCorreoenUso($correo);
+
+        if ($verificar > 0){
+                     $person = $persona->BuscarId($correo);
+                     // encriptamos los id para enviarlos por parametro
+                     $peronaencript =base64_encode($person);
+                     echo"<script>
+                        swal({
+                                title: 'Aviso!',
+                                text: 'El correo ya fue registrado anteriorente!',
+                                type: 'info',
+                                icon: 'info'
+                        }).then(function() {
+                                window.location = 'nuevo_prueba_paso2.php?persona=$peronaencript';
+                        });
+                      </script>";
+        }else{
                 $resp = $persona->GuardarPersona($datos);
                 if($resp){
                     //crear usuario
@@ -93,9 +110,7 @@ if(isset($_POST['btnregister'])){
                     //creamos el usuario apartir de los datos (el usuario estara pendiente de activacion)
                     $resp2 =$userdata->CrearUsuarioPaciente($correo,$master,$personaId,$usuarioId);
                     // eviar email al usuario  para que active su cuenta
-
                     $userdata->eviarEmail($correo);
-
                     if($resp2){
                         $peronaencript =base64_encode($personaId);// encriptamos los id para enviarlos por parametro
                         echo"<script>
@@ -129,8 +144,8 @@ if(isset($_POST['btnregister'])){
                     });
                 </script>";
                 }
+        }
     }
- 
 
 
 ?>
@@ -252,7 +267,10 @@ if(isset($_POST['btnregister'])){
                     }else if(!document.getElementById('txtfechanac').value){
                         mostrar("Debe escribir la fecha de nacimiento");
                         return false;
-                    }else{
+                    }else if(document.getElementById('cbogenero').value == 0){
+                        mostrar("Debe seleccionar un genero");
+                        return false;
+                    } else{
                        
                         let email = document.getElementById('txtemail').value;
                         let verificarmail =isEmail(email);
