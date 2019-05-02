@@ -125,6 +125,86 @@ class dashboard extends conexion{
     }
 
 
+    // Dashboard Master
+
+    public function Master_cantidad_pruebasfinalizadas(){
+        $query="select count(*) as cantidad from pruebas 
+            where PruebaEstadoId  = '5'";
+            //print_r($query);
+            $resp = parent::ObtenerRegistros($query);
+            if(empty($resp)){
+                return false;
+            }else{
+                return $resp[0]['cantidad'];
+            }
+
+
+    }
+
+    public function Master_cantidad_pruebasfinalizadas_mes($inico,$fin){
+        $query="select count(*) as cantidad from pruebas  as pru 
+        where   pru.FC  between  '$inico' and '$fin'";
+        // print_r($query);
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp[0]['cantidad'];
+        }
+    }
+
+    public function Master_cantidad_pacientes(){
+        $query="select count(*) as cantidad from personas as p, usuarios as u
+        where u.PersonaId = p.PersonaId
+        ";
+        // print_r($query);
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp[0]['cantidad'];
+        }
+    }
+
+
+
+    public function Master_cantidad_empresas(){
+        $query="select count(*) as cantidad from mastercompania 
+        ";
+        // print_r($query);
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp[0]['cantidad'];
+        }
+
+
+    }
+
+    public function Master_cantidad_dr(){
+        $query="select count(*) as cantidad from usuarios where RolId= 3
+        ";
+        // print_r($query);
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp[0]['cantidad'];
+        }
+    }
+
+    public function Master_cantidad_dr_verificados(){
+        $query="select count(*) as cantidad from usuarios where RolId= 3 and Verificado = 1
+        ";
+        // print_r($query);
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp[0]['cantidad'];
+        }
+    }
 
     
 
