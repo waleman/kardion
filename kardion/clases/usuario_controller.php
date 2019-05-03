@@ -612,6 +612,22 @@ class usuario extends conexion{
     }
 
 
+    public function EnviarMaiilProtecciondeDatos($email){
+        ob_start();
+        require '../utilidades/mails/protecciondedatos.php';
+        $html = ob_get_clean();
+        $para      = $email;
+        $titulo    = 'Proteccion de Datos - KARDI-ON';
+        $mensaje   = $html;
+        $cabeceras = 'From: kardion@kardion.es' . "\r\n" .
+        'Reply-To: no-reply@kardion.com' . "\r\n" .
+        'Content-type:text/html'. "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+        mail($para, $titulo, $mensaje, $cabeceras);
+        return $mensaje;
+    }
+
 
 
     public function activar($codigo){

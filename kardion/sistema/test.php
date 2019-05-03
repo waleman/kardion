@@ -1,12 +1,11 @@
 <?php
 require_once("../clases/cargar.php");
-require_once("../clases/centros_controller.php");
 require_once("../clases/roles_controller.php");
-require_once("../clases/pruebas_controller.php");
+require_once("../clases/usuario_controller.php");
 $html = new cargar;
-$centros= new centros;
+
 $roles = new roles;
-$_pruebas = new pruebas;
+$_pruebas = new usuario;
 $html->sessionDataSistem();
 echo $html->PrintHead();
 echo $html->LoadCssSystem("sistema");
@@ -46,7 +45,7 @@ echo $html->PrintSideMenu();
                         </div>
                          <!-- -------------------------------------------- -->
                         <?php
-                            echo $_pruebas->EnviarMailPruebaPublicada("1");
+                          //  echo $_pruebas->EnviarMaiilProtecciondeDatos();
                         ?>    
                          <!-- -------------------------------------------- -->
                        </div>

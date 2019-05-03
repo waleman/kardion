@@ -190,6 +190,7 @@
 
                 
                   if($check){
+                    $usuarios->EnviarMaiilProtecciondeDatos($correo);
                     $usuarios-> eviarEmail($correo);
 
                     echo"<script>
@@ -359,7 +360,10 @@
                                         </div>
                                     </div>
 
-                                    <div class='row-fluid'>
+                                  
+                                </div>
+
+                                <div class='row-fluid'>
                                         <div  class='span7 '>
                                             <div class='control-group'>
                                             <label class='checkbox inline'>
@@ -370,7 +374,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                             </fieldset>
                             <hr class='hr-normal'>
                         

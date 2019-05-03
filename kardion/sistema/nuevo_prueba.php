@@ -109,9 +109,14 @@ if(isset($_POST['btnregister'])){
                     $personaId = $persona->BuscarId($correo);
                     //creamos el usuario apartir de los datos (el usuario estara pendiente de activacion)
                     $resp2 =$userdata->CrearUsuarioPaciente($correo,$master,$personaId,$usuarioId);
-                    // eviar email al usuario  para que active su cuenta
-                    $userdata->eviarEmail($correo);
+                   
                     if($resp2){
+                        //enviar email de proteccion de datos
+                        $userdata->EnviarMaiilProtecciondeDatos($correo);
+                        // enviar email al usuario  para que active su cuenta
+                        $userdata->eviarEmail($correo);
+                        
+
                         $peronaencript =base64_encode($personaId);// encriptamos los id para enviarlos por parametro
                         echo"<script>
                         swal({
