@@ -44,7 +44,7 @@ if(isset($_POST['txtbuscartexto'])){
                 $correo = $value['Correo'];
                 $estado = $value['Estado'];
                 $perid = $value['PersonaId'];
-                $peronaencript = base64_encode($perid);// encriptamos los id para enviarlos por parametro
+               
                 echo "
                 <tr>
                     <td>$nombre</td>
@@ -75,7 +75,7 @@ if(isset($_POST['txtbuscartexto'])){
                                             type: 'success',
                                             icon: 'success'
                                     }).then(function() {
-                                            window.location = 'nuevo_prueba_paso2.php?persona=$peronaencript';
+                                            window.location = 'nuevo_prueba_paso2.php?persona=$perid';
                                     });
 
                             });

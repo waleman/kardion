@@ -9,13 +9,14 @@
     <meta content='Flat administration template for Twitter Bootstrap.' name='description'>
     <link href="assets/stylesheets/login.css" rel="stylesheet" >
     <link href="assets/stylesheets/toast.css" rel="stylesheet" >
+    
 
     <!------ Include the above in your HEAD tag ---------->
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
       
-
+    <script src="assets/javascripts/login.js" ></script>
     <?php 
          session_start();  
          require_once('clases/usuario_controller.php');
@@ -29,11 +30,7 @@
          echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>";
          
     ?>
-
-           
-
     <script>
-    
           $(document).ready(function(){
 
                 function mostrar(texto) {
@@ -177,7 +174,7 @@
                                     }
                              };
                         }
-                ?>
+?>
   
 <section class="login-block">
   <div class="container">
@@ -208,50 +205,44 @@
                   <div class="copy-text">
                   
                     <br>
-                    Olvide mi contraseña<a href="recuperar.php"> Recuperar</a>
+                    Olvidé mi contraseña<a href="recuperar.php"> Recuperar</a>
                     <!-- <br>
                    Correo de confirmacion<a href="recuperar.php"> Recuperar</a> -->
                   </div>
            <br>
         </div>
-              <div class="col-md-8 banner-sec">
-                      <div class="carousel-item ">
-                        <img class="d-block img-fluid" src="assets/images/01.jpg" >
-                        <div class="carousel-caption d-none d-md-block">
-                                <div class="banner-text">
-                                    <h2>
-                                    <!-- <img  width="200px" src="public/logos/kardionwhite.png" alt="">
-                                     -->
-                                    </h2>
-                                    <!-- <p>Lorem ipsum dolor sit amet, conset labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p> -->
-                                </div>	
-                        </div>
-                      </div>
-                      <div class="carousel-item ">
-                        <img class="d-block img-fluid" src="assets/images/02.jpg" >
-                        <div class="carousel-caption d-none d-md-block">
-                                <div class="banner-text">
-                                    <h2>
-                                    <!-- <img  width="200px" src="public/logos/kardionwhite.png" alt="">
-                                     -->
-                                    </h2>
-                                    <!-- <p>Lorem ipsum dolor sit amet, conset labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p> -->
-                                </div>	
-                        </div>
-                      </div>
-                      <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="assets/images/03.jpg" >
-                        <div class="carousel-caption d-none d-md-block">
-                                <div class="banner-text">
-                                    <h2>
-                                    <!-- <img  width="200px" src="public/logos/kardionwhite.png" alt="">
-                                     -->
-                                    </h2>
-                                    <!-- <p>Lorem ipsum dolor sit amet, conset labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p> -->
-                                </div>	
-                        </div>
-                      </div>
-                 
+              <div class="col-md-8 ">
+              <br>
+                 <div class="slidershow">
+              
+                        <ul class="slider">
+                          <li>
+                            <img src="assets/images/01.jpg" alt="">
+                            <section class="caption">
+                              <!-- <h1>Lorem ipsum 1</h1>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci quis ipsa, id quidem quisquam unde.</p> -->
+                            </section>
+                          </li>
+                          <li>
+                            <img src="assets/images/02.jpg" alt="">
+                            <section class="caption">
+                              <!-- <h1>Lorem ipsum 2</h1>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci quis ipsa, id quidem quisquam unde.</p> -->
+                            </section>
+                          </li>
+                          <li>
+                            <img src="assets/images/03.jpg" alt="">
+                            <section class="caption">
+                              <!-- <h1>Lorem ipsum 3</h1>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci quis ipsa, id quidem quisquam unde.</p> -->
+                            </section>
+                          </li>
+                        </ul>   
+
+                        <ol class="pagination">
+	                    	</ol>
+	
+                </div>  
               </div>
           
                       </div>	   

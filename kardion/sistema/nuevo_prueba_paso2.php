@@ -52,7 +52,7 @@ echo $html->PrintHeader(); //cargamos el header
 
 $datospersonales= array();
 if(isset($_GET['persona'])){
-   $personaId =base64_decode($_GET['persona']);
+   $personaId =$_GET['persona'];
    //$usuarioPruebaId =base64_decode($_GET['usuario']);
    $datospersonales = $personas->BuscarUna($personaId);
    $nombre =  "". $datospersonales["PrimerNombre"] . " " . $datospersonales["SegundoNombre"] . " ". $datospersonales["PrimerApellido"] . " " . $datospersonales["SegundoApellido"] ;
@@ -75,7 +75,6 @@ if(isset($_GET['persona'])){
 
 
 if(isset($_POST['btnenviar'])){
-
 
               $fcprimermin ="";
               if(isset($_POST['txtfcprimerminuto'])){
@@ -154,7 +153,8 @@ if(isset($_POST['btnenviar'])){
             "faltaaire" => $faltaaire,
             "dolorpecho" => $dolorpecho,
             "palpitaciones" => $palpitaciones,
-            "desmayo" => $desmayo
+            "desmayo" => $desmayo,
+            "comentario" => $_POST['txtentrenamiento']
           );
 
           $verificarArchivo = $pruebas->VefiricarArchivo($_POST["codigo"]);
@@ -454,6 +454,19 @@ if(isset($_POST['btnenviar'])){
                                                         </div>
                                                     </div>
                                     </div>
+                                    <br>
+                                    <div class="row-fluid">
+                                                  <div  class='span8 '>
+                                                      <div class="control-group">
+                                                        <label class="control-label" for="txtentrenamiento">Comentarios sobre la sesión de entrenamiento</label>
+                                                        <div class="controls">
+                                                          <textarea id="txtentrenamiento" name="txtentrenamiento" placeholder="Escriba comentarios sobre el metodo de entrenamiento" rows="5" style="margin: 0px; width: 100%; height: 110px;"></textarea>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                                    </div>
+
+                                    <br>  
                                     <div class="row-fluid">
                                                   <div  class='span9 '>
                                                     <div class="control-group">

@@ -370,7 +370,13 @@ class cargar extends conexion {
                                  <i class='icon-group'></i>
                                  <span>Pacientes</span>
                              </a>
-                          </li>
+                             </li>
+                             <li class=''>
+                             <a href='historial_pruebas_master.php'  class='color-azul'>
+                                 <i class='icon-bar-chart'></i>
+                                 <span>Historial de pruebas</span>
+                             </a>
+                             </li>
                           <li class=''>
                               <a class='dropdown-collapse' href='#'><i class='icon-cogs'></i>
                                 <span>Configuracion</span>

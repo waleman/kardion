@@ -94,7 +94,7 @@ if($frecuenciaMomentoMaximo && $frecuenciaCariacaReposo){
     $a95 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*0.95+($frecuenciaCariacaReposo);
     $a100 = ($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)*1+($frecuenciaCariacaReposo);
     $primermin = $frecuenciaMomentoMaximo - $fcprimerminuto;
-    $segundomin =$fcprimerminuto -$fcsegundominuto;
+    $segundomin =$frecuenciaMomentoMaximo -$fcsegundominuto;
     $indicecrono = round(((($frecuenciaMomentoMaximo)/(220-(int)$edad))*100),2);
     $resumencrono = round(((($frecuenciaMomentoMaximo-$frecuenciaCariacaReposo)/((220-(int)$edad)-$frecuenciaCariacaReposo)) *100),2);
 }else{
@@ -114,12 +114,17 @@ if($frecuenciaMomentoMaximo && $frecuenciaCariacaReposo){
     $resumencrono = 0;
 }
 $imagen = "";
-if ($primermin <= 12){
+$texto = "";
+
+if ($primermin < 12){
     $imagen="../assets/images/triste.png";
+    $texto ="Podrias mejorar";
 }else if($primermin >=13 && $primermin <30 ){
     $imagen="../assets/images/normal.png";
+    $texto ="Bueno";
 }else if($primermin >= 30){
     $imagen="../assets/images/feliz.png";
+    $texto ="Excelente";
 }
 ?>
 
@@ -214,20 +219,20 @@ if ($primermin <= 12){
             color: black;
         }
         .gris{
-            background-color:#A9D0F5;
+            background-color:#1c83d6;
         }
         .azul{
-            background-color:#0099cb;
+            background-color:#4fd056;
         }
 
         .verde{
-            background-color:#009971;
+            background-color:#f7e545;
         }
         .amarillo{
-            background-color:#f29d0a;
+            background-color:#ff9800;
         }
         .rojo{
-            background-color:#d6454b;
+            background-color:#f44336;
         }
 
         .letrapeque{
@@ -294,7 +299,6 @@ if ($primermin <= 12){
                         $x++; }?>
                     <?php if($pa == 1){ echo" <td><img class='check' src='../assets/images/check.png'> Palpitaciones</td>"; 
                         $x++; }
-                        
                         if($x == 0){
                             echo" <td><img class='check' src='../assets/images/check.png'> Niguno</td>";
                         }
@@ -311,6 +315,15 @@ if ($primermin <= 12){
             <h5>INCIDENCIAS DURANTE LA SESIÓN</h5>
             <div class='cuadro'>
                 $sintomas
+            </div>
+        </div>
+        ";
+    }else{
+        echo "
+        <div class='principal'>
+            <h5>INCIDENCIAS DURANTE LA SESIÓN</h5>
+            <div class='cuadro'>
+                No se han reportado incidencias durante la prueba.
             </div>
         </div>
         ";
@@ -338,7 +351,7 @@ if ($primermin <= 12){
             <td class="verde">Zona 3</td>
             <td class="amarillo">Zona 4</td>
             <td class="rojo">Zona 5</td>
-            <td class="gris">1 min : <?=$primermin?> lpm</td>
+            <td class="encabezado">1 min : <?=$primermin?> lpm</td>
         </tr>
         <tr>
             <td class="izquierda encabezado"> % FC por zonas</td>
@@ -347,7 +360,7 @@ if ($primermin <= 12){
             <td class="verde">75 - 80</td>
             <td class="amarillo">85 - 90</td>
             <td class="rojo">95 - 100</td>
-            <td class="gris">2 min : <?=$segundomin?> lpm </td>
+            <td class="encabezado">2 min : <?=$segundomin?> lpm </td>
         </tr>
         <tr>
             <td class="izquierda encabezado">FC lpm</td>
@@ -356,8 +369,11 @@ if ($primermin <= 12){
             <td class="verde"><?=$a75?> - <?=$a80?></td>
             <td class="amarillo"><?=$a85?> - <?=$a90?></td>
             <td class="rojo"><?=$a95?> - <?=$a100?></td>
-            <td class="gris">
-                <?php echo"<img class='check' src='$imagen' alt=''>"?>
+            <td class="encabezado">
+                <?php 
+                echo"<img class='check' src='$imagen' alt=''><br> ";
+                echo $texto;
+                ?>
             </td>
         </tr>
     </table>

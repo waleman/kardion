@@ -108,7 +108,7 @@
 
   <?php 
             if (isset($_POST['btnregister'])){
-             // print_r($_POST);
+          
                 $correo = $_POST['txtcorreo'];
                 $password = $_POST['txtpassword'];
                 $soy = $_POST['cbosoy'];
@@ -190,7 +190,7 @@
 
                 
                   if($check){
-                    $usuarios->EnviarMaiilProtecciondeDatos($correo);
+                    //$usuarios->EnviarMaiilProtecciondeDatos($correo);
                     $usuarios-> eviarEmail($correo);
 
                     echo"<script>

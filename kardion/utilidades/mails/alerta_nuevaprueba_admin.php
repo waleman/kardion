@@ -13,6 +13,9 @@ $query ="select Nombre from centros where CentroId = '$centroid'";
 $datos = $con->ObtenerRegistros($query);
 $nombreCentro = $datos[0]['Nombre'];
 
+$direccionweb = $_SERVER['HTTP_HOST'];
+$url = "https://".$direccionweb . "/kardion/login.php" ;
+
  
 }
 
@@ -91,13 +94,13 @@ $nombreCentro = $datos[0]['Nombre'];
                                             <br>
                                           <strong><?=$nombreCentro?> </strong> ha publicado una nueva prueba en el portal el día <?=$date?>  y se encuentra pendiente de interpretación. 
                                           
-                                          <br> <br> Recuerde que puede ver la prueba haciendo click en el boton de abajo o en su defecto en la siguiente direccion <a href="https://www.kardion.es">www.kardion.es</a>
+                                          <br> <br> Recuerde que puede ver la prueba haciendo click en el boton de abajo o en su defecto en la siguiente direccion <a href="<?$direccionweb?>"><?=$direccionweb?></a>
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align='center' bgcolor='#49bf67' valign='top'>
-                                        <h3><a href="https://kardion.es" style="color: #ffffff !important">Ver prueba</a></h3>
+                                        <h3><a href="<?=$direccionweb?>" style="color: #ffffff !important">Ver prueba</a></h3>
                                     </td>
                                 </tr>
                             </table>

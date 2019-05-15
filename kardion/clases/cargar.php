@@ -26,7 +26,10 @@ class cargar extends conexion {
             $master = $_SESSION['k6']['MasterCompaniaId'];
             $query="select Nombre from mastercompania where MasterCompaniaId = '$master'";
             $dato = parent::ObtenerRegistros($query);
-            return $dato[0]['Nombre'];
+            if(!empty($dato)){
+                return $dato[0]['Nombre'];
+            }
+            
         }else{
             echo"<script language='javascript'>window.location='../login.php'</script>;";
         }

@@ -85,24 +85,24 @@ $nombreCentro = $datos[0]['Nombre'];
                                 <tr>
                                     <td  valign='top'>
                                         <p style='margin: 1em 0;'>
-                                        <strong>Responsable</strong> CENTRO MÉDICO SAN MARTIN
+                                        <strong>Responsable :</strong> CENTRO MÉDICO SAN MARTÍN
                                         </p>
                                         <p style='margin: 1em 0;'>
-                                        <strong>Finalidad</strong> Proporcionarle un resultado exacto en las pruebas realizadas
+                                        <strong>Finalidad :</strong> Proporcionarle un resultado exacto en las pruebas realizadas
                                         </p>
                                         <p style='margin: 1em 0;'>
-                                        <strong>Destinatarios</strong> Equipo de médicos interpretes. 
+                                        <strong>Destinatarios :</strong> Equipo de médicos interpretes. 
                                         </p>
                                         <p style='margin: 1em 0;'>
-                                        <strong>Derechos</strong>Acceder, rectificar y suprimir los datos, como se explica en la información adicional
+                                        <strong>Derechos :</strong> Acceder, rectificar y suprimir los datos, como se explica en la información adicional
                                         </p>
                                         <p style='margin: 1em 0;'>
-                                        <strong>Información Adicional</strong>  
-                                           Pruede consultar la informacion adicional y detallada sobre la Proteccion de Datos  en el siguiente enlace <a href="http://www.rglopd.com/">www.rglopd.com/</a>
+                                        <strong>Información Adicional :</strong>  
+                                           Pruede consultar la información adicional y detallada sobre la Protección de Datos  en el siguiente enlace <a href="http://www.rglopd.com/">www.rglopd.com/</a>
                                         </p>
                                         <br>
                                         <p>
-                                        Hemos enviado un correo adicional para verificar su cuenta en KARDI-ON. Al verificar su cuenta usted está aceptando las políticas de Protección de datos.
+                                        Hemos enviado un correo adicional para verificar su cuenta en KARDI-ON. Al verificar su cuenta, usted está aceptando las políticas de Protección de datos.
                                         </p>
                                     </td>
                                 </tr>

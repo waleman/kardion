@@ -9,13 +9,13 @@ $html = new cargar;
 $roles = new roles;
 $persona = new personas;
 $userdata = new usuario;
+
 $html->sessionDataSistem();
 echo $html->PrintHead();
 echo $html->LoadCssSystem("sistema");
 echo $html->LoadJquery("sistema");
 echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>";
 echo $html->PrintBodyOpen();
-
 echo $html->PrintHeader();
 
 //buscamos el codigo master para seleccionar los centros asociados al usuario
@@ -25,8 +25,6 @@ $usuarioId =$_SESSION['k6']['UsuarioId'];
 //listas 
 $listapaises = $pais->getPais();
 $listaDocumentos = $persona->TipoDocumento();
-
-// $listaPersonas = [];
 
 /*Esta lineas de codigo muestran los nombres de los pacientes en la tabla buscar paciente*/
     $listaPersonas = $persona->buscarTodaslasPersonas();
@@ -47,6 +45,7 @@ if(!$permiso){
           window.location = 'accesoprohibido.php';
   });
 </script>";
+die();
 }
 
 
@@ -89,8 +88,7 @@ if(isset($_POST['btnregister'])){
 
         if ($verificar > 0){
                      $person = $persona->BuscarId($correo);
-                     // encriptamos los id para enviarlos por parametro
-                     $peronaencript =base64_encode($person);
+                    
                      echo"<script>
                         swal({
                                 title: 'Aviso!',
@@ -98,7 +96,7 @@ if(isset($_POST['btnregister'])){
                                 type: 'info',
                                 icon: 'info'
                         }).then(function() {
-                                window.location = 'nuevo_prueba_paso2.php?persona=$peronaencript';
+                                window.location = 'nuevo_prueba_paso2.php?persona=$person';
                         });
                       </script>";
         }else{
@@ -115,9 +113,6 @@ if(isset($_POST['btnregister'])){
                         $userdata->EnviarMaiilProtecciondeDatos($correo);
                         // enviar email al usuario  para que active su cuenta
                         $userdata->eviarEmail($correo);
-                        
-
-                        $peronaencript =base64_encode($personaId);// encriptamos los id para enviarlos por parametro
                         echo"<script>
                         swal({
                                 title: 'Hecho!',
@@ -125,7 +120,7 @@ if(isset($_POST['btnregister'])){
                                 type: 'success',
                                 icon: 'success'
                         }).then(function() {
-                                window.location = 'nuevo_prueba_paso2.php?persona=$peronaencript';
+                                window.location = 'nuevo_prueba_paso2.php?persona=$personaId';
                         });
                       </script>";
                       

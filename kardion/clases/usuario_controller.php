@@ -485,9 +485,6 @@ class usuario extends conexion{
          $contra = parent::get_random_string(4);
          $this->establecerpassword($contra,$UsuarioId);
       
-
-
-
         $direccionweb = $_SERVER['HTTP_HOST'];
         $url = "https://".$direccionweb . "/kardion/login.php" ;
 
@@ -614,7 +611,7 @@ class usuario extends conexion{
 
     public function EnviarMaiilProtecciondeDatos($email){
         ob_start();
-        require '../utilidades/mails/protecciondedatos.php';
+        require ('../utilidades/mails/protecciondedatos.php');
         $html = ob_get_clean();
         $para      = $email;
         $titulo    = 'Proteccion de Datos - KARDI-ON';

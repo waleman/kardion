@@ -92,7 +92,7 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
 
                 if($altura == 0 || $peso == 0){
                         /* peso y altura enviados en la prueba */
-                        $altura =(int)$Datos[0]['Altura'] ;
+                         $altura =(int)$Datos[0]['Altura'] ;
                          $peso =(int)$Datos[0]['Peso'] ;
                 }
 
@@ -115,6 +115,7 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                 $dolorpecho = $Datos[0]['DolorPecho'];
                 $palpitaciones = $Datos[0]['Palpitaciones'];
                 $desmayo = $Datos[0]['Desmayo'];
+                $comentario =$Datos[0]['Comentario'];
 
                 //verificar si el usurio ya habia guardado algun dato anteriormente
                  $ver = $pruebas->verificar_resultado($PruebaId);
@@ -270,23 +271,15 @@ if(isset($_POST['btnguardar'])){
 //finalizar 
 if(isset($_POST['btnfin'])){
      $finalizar =  $pruebas->finalizarprueba($PruebaId,$usuarioid);
-      //$finalizar = true;
        if($finalizar){
           $finalizar2=  $pruebas->finalizarPruebaasignada($PruebaId);
-          //$finalizar2 = true;
                 if($finalizar2){
-                        /* PRUEBA */
-
                         $mail = $pruebas->EnviarMaiilPruebaFinalizada($PruebaId,$mail);
-
-
-
                         echo"<script>
                              $.post( '../utilidades/pdf_finalizar.php?id=$PruebaId', function( data ) {
-                                $( '.result' ).html( data );
+                                $('.result' ).html( data );
                                 console.log(data);
                               });
-
                                  swal({
                                          title: 'Hecho!',
                                          text: 'Prueba finalizada correctamente!',
@@ -295,10 +288,9 @@ if(isset($_POST['btnfin'])){
                                          window.location = 'lista_pruebas_dr.php';
                                  });
                          </script>";
-
                 }else{
                         echo"<script>swal({
-                                title: 'Error al modificar el estado de la prueba asignada !',
+                                title: 'Error al modificar el estado de la prueba asignada!',
                                 icon: 'error',
                               })</script>";
                 }
@@ -592,6 +584,17 @@ if(isset($_POST['btnfin'])){
                                                                                          
                                                                             </div>
 
+                                                                </div>
+
+                                                                <div class="row-fluid">
+                                                                                <div  class='span8 '>
+                                                                                <div class="control-group">
+                                                                                        <label class="control-label" for="inputTextArea1">Comentarios sobre el entrenamiento</label>
+                                                                                        <div class="controls">
+                                                                                        <textarea id="mtxtentrenamiento" name="mtxtentrenamiento" placeholder="Metodo de entrenamiento" rows="5" style="margin: 0px; width: 100%; height: 110px;" disabled><?=$comentario?></textarea>
+                                                                                        </div>
+                                                                                </div>
+                                                                                </div>
                                                                 </div>
 
                                                                 <div class="row-fluid">
@@ -967,63 +970,63 @@ if(isset($_POST['btnfin'])){
                                                         <li  data-id='2'>
                                                            <a id='btndia2'>
                                                              <div class='lista'>        
-                                                                   <p> La frecuencia cardiaca mínima registrada de ____lpm y frecuencia máxima de ____ lpm. </p>
+                                                                   <p>La frecuencia cardiaca mínima registrada de ____lpm y frecuencia máxima de ____ lpm. </p>
                                                               </div>
                                                             </a>
                                                         </li>
                                                         <li  data-id='3'>
                                                            <a id='btndia3'>
                                                              <div class='lista'>        
-                                                                   <p>  Hubo varios picos de FC relacionados  con el tipo de actividad fisica registrada.</p>
+                                                                   <p>Hubo varios picos de FC relacionados  con el tipo de actividad fisica registrada.</p>
                                                               </div>
                                                             </a>
                                                         </li>
                                                         <li  data-id='4'>
                                                            <a id='btndia4'>
                                                              <div class='lista'>        
-                                                                   <p>  La tasa de recuperación de frecuencia cardíaca despues de finalizado el pico de esfuerzo final  fue de ____  lpm al 1er min y de ___  lpm al 2 min, considerada normal.</p>
+                                                                   <p>La tasa de recuperación de frecuencia cardíaca despues de finalizado el pico de esfuerzo final  fue de ____  lpm al 1er min y de ___  lpm al 2 min, considerada normal.</p>
                                                               </div>
                                                             </a>
                                                         </li>
                                                         <li  data-id='5'>
                                                            <a id='btndia5'>
                                                              <div class='lista'>        
-                                                                   <p> No se constatan arritmias significativas durante el estudio.</p>
+                                                                   <p>No se constatan arritmias significativas durante el estudio.</p>
                                                               </div>
                                                             </a>
                                                         </li>
                                                         <li  data-id='6'>
                                                            <a id='btndia6'>
                                                              <div class='lista'>        
-                                                                   <p> Extrasistoles ventriculares y supraventriculares aislados - frecuentes,  monomorfos,  durante el esfuerzo y la recuperacion.</p>
+                                                                   <p>Extrasistoles ventriculares y supraventriculares aislados - frecuentes,  monomorfos,  durante el esfuerzo y la recuperacion.</p>
                                                               </div>
                                                             </a>
                                                         </li>
                                                         <li  data-id='7'>
                                                            <a id='btndia7'>
                                                              <div class='lista'>        
-                                                                   <p> Salvas de taquicardia auricular autolimitada.</p>
+                                                                   <p>Salvas de taquicardia auricular autolimitada.</p>
                                                               </div>
                                                             </a>
                                                         </li>
                                                         <li  data-id='8'>
                                                            <a id='btndia8'>
                                                              <div class='lista'>        
-                                                                   <p> Salva de TV no sostenida.</p>
+                                                                   <p>Salva de TV no sostenida.</p>
                                                               </div>
                                                             </a>
                                                         </li>
                                                         <li  data-id='9'>
                                                            <a id='btndia9'>
                                                              <div class='lista'>        
-                                                                   <p>  Bloqueo rama derecha frecuencia dependiente.</p>
+                                                                   <p>Bloqueo rama derecha frecuencia dependiente.</p>
                                                               </div>
                                                             </a>
                                                         </li>
                                                         <li  data-id='10'>
                                                            <a id='btndia10'>
                                                              <div class='lista'>        
-                                                                   <p> Alteraciones de la repolarización significativos, con frecuencias elevadas y persisten despues de finalizado el esfuerzo.</p>
+                                                                   <p>Alteraciones de la repolarización significativos, con frecuencias elevadas y persisten despues de finalizado el esfuerzo.</p>
                                                               </div>
                                                             </a>
                                                         </li>
@@ -1034,7 +1037,7 @@ if(isset($_POST['btnfin'])){
                                                          <script>
                                                                  $('#btndia1').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Ritmo sinusal predominante durante el estudio. <br> \n';
+                                                                         valor = valor  + 'Ritmo sinusal predominante durante el estudio. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1046,7 +1049,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia2').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'La frecuencia cardiaca mínima registrada de <?=$frecuenciacardica?> lpm y frecuencia máxima de <?=$fcmomentomaximo?> lpm. <br> \n';
+                                                                         valor = valor + 'La frecuencia cardiaca mínima registrada de <?=$frecuenciacardica?> lpm y frecuencia máxima de <?=$fcmomentomaximo?> lpm. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1058,7 +1061,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia3').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + ' Hubo varios picos de FC relacionados  con el tipo de actividad fisica registrada. <br> \n';
+                                                                         valor = valor + 'Hubo varios picos de FC relacionados con el tipo de actividad fisica registrada. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1070,7 +1073,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia4').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + ' La tasa de recuperación de frecuencia cardíaca despues de finalizado el pico de esfuerzo final  fue de <?=$primermin?>  lpm al 1er min y de <?=$segundomin?> lpm al 2 min, considerada normal.<br> \n';
+                                                                         valor = valor +  'La tasa de recuperación de frecuencia cardíaca despues de finalizado el pico de esfuerzo final  fue de <?=$primermin?>  lpm al 1er min y de <?=$segundomin?> lpm al 2 min, considerada normal.<br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1082,7 +1085,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia5').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + ' No se constatan arritmias significativas durante el estudio. \n';
+                                                                         valor = valor + 'No se constatan arritmias significativas durante el estudio. \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1094,7 +1097,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia6').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Extrasistoles ventriculares y supraventriculares aislados - frecuentes,  monomorfos,  durante el esfuerzo y la recuperacion. <br> \n';
+                                                                         valor = valor + 'Extrasistoles ventriculares y supraventriculares aislados - frecuentes,  monomorfos,  durante el esfuerzo y la recuperacion. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1106,7 +1109,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia7').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Salvas de taquicardia auricular autolimitada. <br> \n';
+                                                                         valor = valor +'Salvas de taquicardia auricular autolimitada. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1118,7 +1121,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia8').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Salva de TV no sostenida. <br> \n';
+                                                                         valor = valor + 'Salva de TV no sostenida. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1130,7 +1133,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia9').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Bloqueo rama derecha frecuencia dependiente.<br> \n';
+                                                                         valor = valor + 'Bloqueo rama derecha frecuencia dependiente.<br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1142,7 +1145,7 @@ if(isset($_POST['btnfin'])){
                                                                  });
                                                                  $('#btndia10').click(function (){
                                                                          var valor =  $('#txtprediagnostico').val();
-                                                                         valor = valor + ' ' + 'Alteraciones de la repolarización significativos, con frecuencias elevadas y persisten despues de finalizado el esfuerzo. <br> \n';
+                                                                         valor = valor +'Alteraciones de la repolarización significativos, con frecuencias elevadas y persisten despues de finalizado el esfuerzo. <br> \n';
                                                                          $('#txtprediagnostico').val(valor);
                                                                          swal({
                                                                                                 title: 'Hecho!',
@@ -1191,7 +1194,7 @@ if(isset($_POST['btnfin'])){
                                                                         <script>
                                                                                 $('#btnconclusiones$id').click(function (){
                                                                                         var valor =  $('#txtrecomendaciones').val();
-                                                                                        valor = valor + ' ' + '$texto';
+                                                                                        valor = valor + '$texto' + '<br>';
                                                                                         $('#txtrecomendaciones').val(valor);
 
                                                                                         swal({
