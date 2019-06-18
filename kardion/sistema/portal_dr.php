@@ -115,7 +115,7 @@ $cantPruebasFinalizadasMes=$_dashboard->Dr_cantidad_pruebasfinalizadas_mes($usua
                                         <div class="box-content">
                                           <div class="row-fluid">
                                             <div class="span12 box-quick-link red-background">
-                                              <a>
+                                              <a href="problema_dr.php">
                                                 <div class="header">
                                                   <div class="icon-bug"></div>
                                                 </div>

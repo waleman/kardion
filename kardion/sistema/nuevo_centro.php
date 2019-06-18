@@ -329,7 +329,7 @@ $codigopostal ="";
             </form>
             <div id="snackbar">
                         <label id="errorMensaje"></label>
-                    </div>
+            </div>
                  
                
 

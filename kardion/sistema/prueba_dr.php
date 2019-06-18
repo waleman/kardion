@@ -3,12 +3,13 @@ require_once('../clases/cargar_dr.php');
 require_once('../clases/roles_controller.php');
 require_once('../clases/pruebas_controller.php');
 require_once('../clases/personas_controller.php');
-
+require_once('../clases/alertas_controller.php');
 
 $html = new cargardr;
 $roles = new roles;
 $pruebas = new pruebas;
 $personas = new personas;
+$_alertas = new alertas;
 
 
 $html->sessionDataSistem(); //iniciamos la sesion en el navegador
@@ -116,6 +117,9 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                 $palpitaciones = $Datos[0]['Palpitaciones'];
                 $desmayo = $Datos[0]['Desmayo'];
                 $comentario =$Datos[0]['Comentario'];
+  
+                $fechaenvio = date("d-m-Y", strtotime($Datos[0]['FC']));
+                
 
                 //verificar si el usurio ya habia guardado algun dato anteriormente
                  $ver = $pruebas->verificar_resultado($PruebaId);
@@ -165,7 +169,7 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
                         $a95 = ($fcmomentomaximo-$frecuenciacardica)*0.95+($frecuenciacardica);
                         $a100 = ($fcmomentomaximo-$frecuenciacardica)*1+($frecuenciacardica);
                         $primermin = $fcmomentomaximo - $fcprimerminuto;
-                        $segundomin =$fcprimerminuto -$fcsegundominuto;
+                        $segundomin =$fcmomentomaximo -$fcsegundominuto;
 
                          $indicecrono = round(((((int)$fcmomentomaximo)/(220-(int)$edad))*100),2);
                          $resumencrono = round(((((int)$fcmomentomaximo-(int)$frecuenciacardica)/((220-(int)$edad)-(int)$frecuenciacardica)) *100),2);
@@ -208,7 +212,7 @@ $usuarioid = $_SESSION['k6']['UsuarioId'];
 /* ---------------------------------*/   
 //Guardar 
 
-if(isset($_POST['btnguardar'])){
+if(isset($_POST['btnguardar']) || isset($_POST['btnguardar2'])){
        $verificar = $pruebas->verificar_resultado($PruebaId);
        if($verificar == 0){
         // Guardar
@@ -303,40 +307,68 @@ if(isset($_POST['btnfin'])){
 }
 
 
+if(isset($_POST['btnguardardescartar'])){
+       $motivo = $_POST['txtdescartar'];
+       $resp= $pruebas->DescartarPrueba($PruebaId,$motivo,$usuarioid);
+       $resp2= $pruebas->DescartarPrueba_asignada($PruebaId);
+       if($resp && $resp2){
+                echo $_alertas->successRedirect('Hecho','Prueba descartada exitosamente','lista_pruebas_dr.php');
+       }else{
+                echo $_alertas->error('Error','No hemos podido descartar la prueba');
+       }
+}
+
+
 
 
 /* ---------------------------------*/
 
 ?>
 <style>
-.lista{
-        border-color: #b1c3d1!important;
-         border-width:0.01em;
-          border-style: solid;
-          margin-bottom: 3px;
-           padding: 5px;
-}
+        .lista{
+                border-color: #b1c3d1!important;
+                border-width:0.01em;
+                border-style: solid;
+                margin-bottom: 3px;
+                padding: 5px;
+        }
 
-.lista:hover  {
-        background-color: #b2e8ff;
-}
+        .lista:hover  {
+                background-color: #b2e8ff;
+        }
 
-.redimportant{
-        background-color: #fef17c !important; 
-}
+        .redimportant{
+                background-color: #fef17c !important; 
+        }
 
-.greennotimportant{
-        background-color: #b9f5c0 !important;  
-}
-
-
-
+        .greennotimportant{
+                background-color: #b9f5c0 !important;  
+        }
 </style>
 
 <script>
     
+    function mostrar(texto) {
+              // Get the snackbar DIV
+              document.getElementById("errorMensaje").innerText= texto;
+              var x = document.getElementById("snackbar");
+              // Add the "show" class to DIV
+              x.className = "show";
+              // After 3 seconds, remove the show class from DIV
+              setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+      }
+
+
     $(document).ready(function(){
 
+        $('#btnguardardescartar').click(function(){
+                if(!$('#txtdescartar').val()){
+                   let val = "Debe escribir un motivo";
+                    mostrar(val);
+                    return false; 
+                }
+               
+        });
 
           $("#btnper").click(function(e){
                 $('#modalperfil').modal('show');
@@ -364,9 +396,9 @@ if(isset($_POST['btnfin'])){
 
           });
 
+
           $("#btnconclusioneslimpiar").click(function(){
-                
-                valor = '';
+                 valor = '';
                  $('#txtrecomendaciones').val(valor);
                  return false;
           })
@@ -377,7 +409,10 @@ if(isset($_POST['btnfin'])){
           })
 
 
-
+          $("#btndescartar").click(function (){
+                $('#modaldescartar').modal('show');
+                return false;
+          });
       
 
 
@@ -445,6 +480,11 @@ if(isset($_POST['btnfin'])){
                               <h1 class='pull-left'>
                                 <span>Datos de la prueba</span>
                               </h1>
+                              <p class="pull-right">
+                              enviada : 
+                              <?=$fechaenvio?>
+                             
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -539,7 +579,7 @@ if(isset($_POST['btnfin'])){
                                                                             </div>
                                                                            <div  class='span2 '>
                                                                                     <div class='control-group'>
-                                                                                                <label class='control-label'>Frecuencia cardiaca <strong>en reposo</strong>(lpm)</label>
+                                                                                                <label class='control-label'>Frecuencia cardiaca <strong>en reposo</strong></label>
                                                                                                 <div class='controls'>
                                                                                                 <input class='span12 redimportant' id='mtxtfc' name="mtxtfc" type='text' value="<?=$frecuenciacardica?>"  >
                                                                                                 </div>
@@ -548,18 +588,14 @@ if(isset($_POST['btnfin'])){
                                                                             </div>
                                                                             <div  class='span2 '>
                                                                                     <div class='control-group'>
-                                                                                                <label class='control-label'>FC momento <strong>máximo esfuerzo</strong> (lpm)</label>
+                                                                                                <label class='control-label'>FC momento <strong>máximo esfuerzo</strong> </label>
                                                                                                 <div class='controls'>
                                                                                                 <input class='span12 redimportant' id='mtxtfcmomento' name="mtxtfcmomento" type='text' value="<?=$fcmomentomaximo?>"  >
                                                                                                 </div>
                                                                                     </div>
                                                                                          
                                                                             </div>
-                                                                            <div  class='span2 text-center'>
-                                                                                <br>
-                                                                              <i class="icon-male"></i><br>
-                                                                              <button  class="btn btn-inverse" style="margin-bottom:5px"  name="btnper" id="btnper">Perfil del paciente</button>
-                                                                            </div>
+
                                                                 </div>
 
 
@@ -567,7 +603,7 @@ if(isset($_POST['btnfin'])){
                                                                            
                                                                             <div  class='span2 '>
                                                                                     <div class='control-group'>
-                                                                                                <label class='control-label'>FC primer minuto de recuperación(lpm)</label>
+                                                                                                <label class='control-label'>FC primer minuto de recuperación</label>
                                                                                                 <div class='controls'>
                                                                                                 <input class='span12 redimportant' id='mtxtfcprimerminuto' name="mtxtfcprimerminuto" type='text' value="<?=$fcprimerminuto?>"  >
                                                                                                 </div>
@@ -576,7 +612,7 @@ if(isset($_POST['btnfin'])){
                                                                             </div>
                                                                             <div  class='span2 '>
                                                                                     <div class='control-group'>
-                                                                                                <label class='control-label'>FC segundo minuto de recuperación(lpm)</label>
+                                                                                                <label class='control-label'>FC segundo minuto de recuperación</label>
                                                                                                 <div class='controls'>
                                                                                                 <input class='span12 redimportant' id='mtxtsegundomunuto' name="mtxtsegundomunuto" type='text' value="<?=$fcsegundominuto?>"  >
                                                                                                 </div>
@@ -585,6 +621,12 @@ if(isset($_POST['btnfin'])){
                                                                             </div>
 
                                                                 </div>
+                                                                <hr>
+                                                                <div class="text-center">
+                                                                        <input  class="btn btn-primary btn-large" name="btnguardar2" id="btnguardar2" value="Guardar" type="submit" />
+                                                                        <button  class="btn btn-inverse btn-large"  name="btnper" id="btnper">Ver perfil del paciente</button>
+                                                                </div>
+                                                                <hr>
 
                                                                 <div class="row-fluid">
                                                                                 <div  class='span8 '>
@@ -667,8 +709,16 @@ if(isset($_POST['btnfin'])){
                                                                                 <?php 
                                                                                         foreach ($archivos as $key => $value) {
                                                                                                 $ruta = $value['Archivo'];
-                                                                                                $direccion = "" . $personaId . "_". $ruta;
-                                                                                                echo" <a href='download.php?id=$direccion'  target='_blank'><img src='../assets/images/file.png' style='width: 80px'></a>";
+                                                                                                $ubicacion = $value['Ubicacion'];
+                                                                                                if($ubicacion == 1){
+                                                                                                        $direccion = "" . $personaId . "_". $ruta;
+                                                                                                        echo" <a href='download.php?id=$direccion'  target='_blank'><img src='../assets/images/file.png' style='width: 80px'></a>";
+                                                                                                }else{
+                                                                                                        $direccion =  $ruta;
+                                                                                                        echo" <a href='$direccion'  target='_blank'><img src='../assets/images/file.png' style='width: 80px'></a>";
+                                                                                                }
+                                                                                              
+                                                                                                
                                                                                                
                                                                                         }
                                                                                 
@@ -915,10 +965,8 @@ if(isset($_POST['btnfin'])){
                                                                                 <a style="display:none" id="btnvistaprevia"  class="btn btn-inverse btn-large" href="../utilidades/pdf.php?id=<?=$pruebaidEncripted?>" target="_blank">Vista previa</a>
                                                                                 <input  class="btn btn-primary btn-large" name="btnguardar" id="btnguardar" value="Guardar datos" type="submit" />
                                                                                 <input style="display:none"   class="btn btn-success btn-large" name="btnfinalizar" id="btnfinalizar" value="Finalizar" type="submit" />
-                                                                                <!-- <div class="btn btn-danger btn-large">
-                                                                                       Cancelar y devolver prueba
-                                                                                </div> -->
-                                                                        </div>
+                                                                                <input class="btn btn-danger btn-large" name ="btndescartar" id="btndescartar" value="Descartar" type="submit"/>
+                                                                                
                                                                 </div>
 
                                                              <!------------------- Modal Finalizar -------------------------------->
@@ -1347,8 +1395,45 @@ if(isset($_POST['btnfin'])){
                       </div>
                 </div>
 <!------------------- Modal Perfil ----------------------------------->
+<!------------------- Descartar -------------------------------------->
+                <div class='modal hide fade' id='modaldescartar' role='dialog' tabindex='-1'>
+                      <div class='modal-header'>
+                        <button class='close' data-dismiss='modal' type='button'>&times;</button>
+                        <h3>Descartar la prueba</h3>
+                      </div>
+                      <div class='modal-body'>
+                      <form method="post">
+                        <div class="box-content">
+                               <!-- cargar archivos -->
+                                 
+                                      <div class="control-group">
+                                    
+                                        <label class="control-label" for="txtdescartar">Motivo </label>
+                                        <div class="controls">
+                                        <textarea   id="txtdescartar" name="txtdescartar" placeholder="Escriba el por el cual descartara la prueba" rows="5" style="margin: 0px; width: 100%; height: 110px;" ><?php echo$diagnostico; ?></textarea>
+                                        </div>
+                                                                                     
+                                      </div>
+                           
+                                <!-- cargar archivos -->
+                        
+                        </div>
+                      </div>
+                      <div class='modal-footer'>
+                        <button class='btn btn-danger' data-dismiss='modal'>Cancelar</button>
+                        <input type="submit" class='btn btn-success' name="btnguardardescartar" id="btnguardardescartar" value="Descartar" />
+                      </div>
+                      </form>
+                </div>
+<!------------------- Descartar -------------------------------------->
+
               <div id="resp">
               </div>
+
+              <div id="snackbar">
+                        <label id="errorMensaje"></label>
+            </div>
+                 
 
     </div>
 </div>

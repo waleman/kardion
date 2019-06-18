@@ -46,10 +46,7 @@ if($rol == 6){
 if(empty($ListaPruebas)){
     $ListaPruebas =[];
 }
-
-
 ?>
-
 
 
 <div id='wrapper'>
@@ -105,11 +102,15 @@ if(empty($ListaPruebas)){
                                                       Prioridad
                                                   </th>
                                                   <th>
+                                                  Tipo de prueba
+                                                  </th>
+                                                  <th>
                                                       Centro
                                                   </th>
                                                   <th>
                                                       Estado
                                                   </th>
+                                                
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -123,12 +124,14 @@ if(empty($ListaPruebas)){
                                                         $Centro = $value['Centro'];
                                                         $estado = $value['Estado'];
                                                         $estadoId = $value['PruebaEstadoId']; 
+                                                        $clasificaicon = $value['Titulo'];
                                                             echo "  
                                                             <tr>
                                                               <td>$Persona</td>
                                                               <td>$Usuario</td>
                                                               <td>$Fecha</td>
                                                               <td>$Prioridad</td>
+                                                              <td>$clasificaicon</td>
                                                               <td>$Centro</td>";
                                                               echo "<td> ";
                                                               if( $estadoId == 1){

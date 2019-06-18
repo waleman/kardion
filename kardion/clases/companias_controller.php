@@ -63,6 +63,27 @@ class companias extends conexion{
   }
 
 
+  public function ListaCompanias(){
+      $query ="select MasterCompaniaId,Nombre,Estado from mastercompania order by Nombre ASC";
+      $datos = parent::ObtenerRegistros($query);
+        if(empty($datos)){
+            return false;
+        }else{
+            return $datos;
+        }
+  }
+
+  public function Compania($id){
+    $query ="select * from mastercompania where MasterCompaniaId='$id'";
+    $datos = parent::ObtenerRegistros($query);
+      if(empty($datos)){
+          return false;
+      }else{
+          return $datos;
+      }
+}
+
+
 
 
 

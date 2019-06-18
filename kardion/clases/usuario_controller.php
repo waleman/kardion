@@ -652,6 +652,17 @@ class usuario extends conexion{
     }
 
 
+    public function EditarMail($mail,$UsuarioId){
+        $query ="update usuarios set Usuario = '$mail' where UsuarioId = '$UsuarioId'";
+        $resp = parent::NonQuery($query);  
+        if ($resp == 1 ){
+            return true;
+        }else{
+            return false;
+        }  
+    }
+
+
  
 
 

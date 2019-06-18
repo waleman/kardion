@@ -89,6 +89,30 @@ class personas extends conexion{
         }
     }
 
+    public function EditarPersona2($datos = array() , $usuario){
+        $date = date('d-m-Y');
+        if(!empty($datos)){
+            $personaId = $datos['personaId'];
+            $genero = $datos['genero'];
+            $primernombre = $datos['primernombre'];
+            $segundonombre = $datos['segundonombre'];
+            $primerapellido = $datos['primerapellido'];
+            $segundoapellido = $datos['segundoapellido'];
+            $correo = $datos['correo'];
+            $query="UPDATE personas set
+             PrimerNombre = '$primernombre',SegundoNombre = '$segundonombre',PrimerApellido = '$primerapellido', SegundoApellido = '$segundoapellido',
+             Sexo = '$genero',Correo = '$correo',FM = '$date', UM = '$usuario' where PersonaId ='$personaId'";
+            $resp = parent::NonQuery($query);
+            if ($resp == 1 ){
+                return true;
+            }else{
+                return false;
+            }   
+        }else{
+            return false;
+        }
+    }
+
     public function GuardarPersona($datos = array()){
         $date = date('Y-m-d');
         if(!empty($datos)){
@@ -127,9 +151,8 @@ class personas extends conexion{
     }
 
 
-
     public function buscarCorreoenUso($correo){
-        $query="select count(*) as cantidad from personas where Correo ='$correo'";
+        $query="select count(*) as cantidad from usuarios where Usuario ='$correo'";
         $resp = parent::ObtenerRegistros($query);
         if(empty($resp)){
             return false;
@@ -179,8 +202,6 @@ class personas extends conexion{
         }
     }
 
-
-
  
     public function nuevapersona_register($primernombre,$primerapellido,$correo,$fechanac,$genero){
         $query ="insert into personas (PrimerNombre,PrimerApellido,Correo,FechaNacimiento,Sexo)values('$primernombre','$primerapellido','$correo','$fechanac','$genero')";
@@ -208,7 +229,7 @@ class personas extends conexion{
             }
     }
 
-    // para hacer busquedas
+    // para hacer busquedas de pacientes
     public function Like($parametro){
         $query="
         select  CONCAT(
@@ -231,6 +252,30 @@ class personas extends conexion{
         }
     }
 
+
+    public function buscarPersonasPorCompania($Master){
+        $query="
+        select u.UsuarioId,u.Usuario,u.Estado, CONCAT(
+                    IFNULL(CONCAT(p.PrimerNombre, ' '), ''),
+                    IFNULL(CONCAT(p.SegundoNombre, ' '), ''),
+                    IFNULL(CONCAT(p.PrimerApellido, ' '), ''),
+                    IFNULL(CONCAT(p.SegundoApellido, ' '), ''))As Nombre,
+                    p.PersonaId,
+                    u.FC
+        from usuarios  as u , personas as p
+        where u.UC in (select UsuarioId from usuarios where MasterCompaniaId = '$Master')
+        and p.PersonaId = u.PersonaId
+        and u.Estado = 'Pendiente'";
+        //print_r($query);
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp;
+        }
+    }
+
+ 
 }
 
 

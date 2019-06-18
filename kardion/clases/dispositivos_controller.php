@@ -14,7 +14,7 @@ public function dispositivos_companias($master){
      }else{
          return $datos;
      }
-}
+} 
 
 public function dispositivos_centros($CentroId){
     $query ="select Nombre from centros

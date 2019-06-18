@@ -168,6 +168,7 @@ if ($primermin < 12){
             margin-left : 25px;
             margin-right : 25px;
         }
+
         .check{
             height: 20px;
             width: 20px;
@@ -388,40 +389,49 @@ if ($primermin < 12){
     
 </div>
            
-     
+                              
 
 <page_footer>
+
+
 <div class='principal'>
-  <table >
-    <tr>
-                              
-                                <td  style="text-align:center; padding-left: 10px; padding-right: 30px;  padding-top:65px;">
-                                    <?php 
+
+
+    <div  style="position:absolute;
+    top:925px;
+    margin-left:550px;
+     ">
+                                     <?php       
                                         if($doctor_firma ){
-                                            echo "<img class='firmaimg'  src='../public/firmas/$doctor_firma'>";
+                                            echo "
+                                        
+                                            <img style='bottom:-25px' class='firmaimg'  src='../public/firmas/$doctor_firma'>
+                                      
+                                            ";
                                         }
-                                        if($doctor_nombre){
-                                            echo"<br>  Dr. $doctor_nombre <br>";
+                                        if($doctor_nombre && $doctor_titulo){
+                                            echo"<h6 style='margin-bottom: 0px; margin-top: -51px;'>
+                                             Dr. $doctor_nombre </h6> ";
                                         }
                                         if($doctor_titulo){
-                                            echo "$doctor_titulo <br>" ;
+                                            echo "<h6 style='margin-bottom: 0px; margin-top: 1px;'>$doctor_titulo</h6> " ;
                                         }
                                         if($doctor_nocolegiado){
-                                            echo "N° colegiado : $doctor_nocolegiado <br>";
+                                            echo " <h6 style='margin-bottom: 0px; margin-top: 1px;'>N° colegiado : $doctor_nocolegiado </h6>";
                                         }
                                         if($doctor_correo){
-                                            echo " $doctor_correo  ";
+                                            echo " <h6 style='margin-bottom: 0px; margin-top: 1px;'>$doctor_correo </h6> ";
                                         }
                                      ?>
-                                </td>
-                                <td style="width:500px; padding-top:155px">
-                                 <h6 style="color:#968f8f"><b>Nota:</b> La monitorización cardiaca remota es una prueba cardiológica complementaria en el estudio de alteraciones de ritmo cardiaco. Que aporta valor pronóstico y diagnóstico independiente. No sustituye a otras pruebas cardiológicas como el ECG de 12 derivaciones o la prueba de esfuerzo convencional. El resultado y las recomendaciones de esta prueba son específicas para este estudio y no deberian extrapolarse a otras. Para obtener un juicio clínico definitivo sobre su salud cardiovascular deberías consultar este resultado con tu médico.</h6>
-                                </td>
-                              
-                                
-    </tr>
-  </table>
-    
+    </div>
+
+    <div style="position:absolute;
+    margin-left : 0px;
+    width : 700px;
+    top:1050px;
+    text-align : center; ">
+    <h6 style="color:#968f8f;">La monitorización cardiaca remota es una prueba cardiológica complementaria en el estudio de alteraciones de ritmo cardiaco. Que aporta valor pronóstico y diagnóstico independiente. No sustituye a otras pruebas cardiológicas como el ECG de 12 derivaciones o la prueba de esfuerzo convencional. El resultado y las recomendaciones de esta prueba son específicas para este estudio y no deberian extrapolarse a otras. Para obtener un juicio clínico definitivo sobre su salud cardiovascular deberías consultar este resultado con tu médico.</h6>
+    </div>      
 </div>
 </page_footer>
 </page>

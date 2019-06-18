@@ -140,6 +140,8 @@ if(empty($ListaDispositivos)){
                                                                   echo "<span class='label label-warning'>$estado</span>";
                                                                 }else if( $tipoestado == 4){//En mal estado
                                                                   echo "<span class='label label-important'>$estado</span>";
+                                                                }else{
+                                                                  echo "<span class='label' style='background-color: #26b0a4'>$estado</span>";
                                                                 }
                                                                 
                                                             echo"   </td>

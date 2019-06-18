@@ -54,9 +54,10 @@ $datosDispositivos = $dispositivos->datosDispositivo($aparatoId);
         $imagen = "../assets/images/foto.png";
     }
     //Obtener los datos de la empresa si el dispositivo esta asignado
-    if($estado == 2 || $estado == 3){
+  
       $detalles = $dispositivos->verDatosdeAsignacion($aparatoId);
-    }else{
+    
+    if(empty($detalles)){
       $detalles = array();
     }
 
@@ -345,7 +346,7 @@ $datosDispositivos = $dispositivos->datosDispositivo($aparatoId);
 
                     <!-- estado del dispositivo --->
                     <?php 
-                      if($estado == 2 || $estado ==3 && !empty($detalles)){
+                      if(!empty($detalles)){
                           $compania = $detalles[0]['Nombre'];
                           $estado = $detalles[0]['Estado'] ;
                           $fc = $detalles[0]['FC'] ;

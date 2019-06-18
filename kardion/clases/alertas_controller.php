@@ -11,8 +11,8 @@ public function success($titulo,$texto){
     swal({
             title: '$titulo',
             text: '$texto',
-            type: 'error',
-            icon: 'error'
+            type: 'success',
+            icon: 'success'
     });
   </script>";
 }
@@ -33,8 +33,8 @@ public function info($titulo,$texto){
     swal({
             title: '$titulo',
             text: '$texto',
-            type: 'error',
-            icon: 'error'
+            type: 'info',
+            icon: 'info'
     });
   </script>";
 }
@@ -44,8 +44,8 @@ public function warning($titulo,$texto){
     swal({
             title: '$titulo',
             text: '$texto',
-            type: 'error',
-            icon: 'error'
+            type: 'warning',
+            icon: 'warning'
     });
   </script>";
 }
@@ -55,8 +55,8 @@ public function successRedirect($titulo,$texto,$enlace){
     swal({
             title: '$titulo',
             text: '$texto',
-            type: 'error',
-            icon: 'error'
+            type: 'success',
+            icon: 'success'
     }).then(function() {
             window.location = '$enlace';
     });
@@ -81,8 +81,8 @@ public function infoRedirect($titulo,$texto,$enlace){
     swal({
             title: '$titulo',
             text: '$texto',
-            type: 'error',
-            icon: 'error'
+            type: 'info',
+            icon: 'info'
     }).then(function() {
             window.location = '$enlace';
     });
@@ -94,8 +94,8 @@ public function warningRedirect($titulo,$texto,$enlace){
     swal({
             title: '$titulo',
             text: '$texto',
-            type: 'error',
-            icon: 'error'
+            type: 'warning',
+            icon: 'warning'
     }).then(function() {
             window.location = '$enlace';
     });

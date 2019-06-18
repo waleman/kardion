@@ -26,6 +26,8 @@ $usuarioId =$_SESSION['k6']['UsuarioId'];
 $listapaises = $pais->getPais();
 $listaDocumentos = $persona->TipoDocumento();
 
+
+
 /*Esta lineas de codigo muestran los nombres de los pacientes en la tabla buscar paciente*/
     $listaPersonas = $persona->buscarTodaslasPersonas();
     if(empty($listaPersonas)){$listaPersonas = [];}
@@ -87,7 +89,7 @@ if(isset($_POST['btnregister'])){
         $verificar =$persona->buscarCorreoenUso($correo);
 
         if ($verificar > 0){
-                     $person = $persona->BuscarId($correo);
+                     $personaId = $persona->BuscarId($correo);
                     
                      echo"<script>
                         swal({
@@ -96,7 +98,7 @@ if(isset($_POST['btnregister'])){
                                 type: 'info',
                                 icon: 'info'
                         }).then(function() {
-                                window.location = 'nuevo_prueba_paso2.php?persona=$person';
+                                window.location = 'nuevo_prueba_paso1.php?persona=$personaId';
                         });
                       </script>";
         }else{
@@ -120,7 +122,7 @@ if(isset($_POST['btnregister'])){
                                 type: 'success',
                                 icon: 'success'
                         }).then(function() {
-                                window.location = 'nuevo_prueba_paso2.php?persona=$personaId';
+                                window.location = 'nuevo_prueba_paso1.php?persona=$personaId';
                         });
                       </script>";
                       
@@ -334,9 +336,9 @@ if(isset($_POST['btnregister'])){
                         <div class='row-fluid'>
                           <div class='span12'>
                             <div class='page-header'>
-                              <h1 class='pull-left'>
+                              <h1 class='text-center'>
                                 <!-- <i class='icon-bar-chart'></i> -->
-                                <span>Nueva prueba</span>
+                                <span style="color:#009688" > Seleccione el paciente</span>
                               </h1>
                             </div>
                           </div>
@@ -344,7 +346,7 @@ if(isset($_POST['btnregister'])){
                        <!-- ----------------------------------------- -->
                        <div class="row-fluid">
                                     <a href="#" class=""  id="btnbuscar" name="btnbuscar" >
-                                            <div class="span3 box box-bordered  offset1 ">
+                                            <div class="span3 box box-bordered "  style=' margin-left: 10px'>
                                                 <div class="box-header box-header-large test" style="font-size:12px;background-color:#fff;text-align:center;">
                                                             <img style="height:100px" src="../assets/images/buscar.png" alt="">
                                                             <h4>Buscar paciente</h4>
@@ -352,13 +354,15 @@ if(isset($_POST['btnregister'])){
                                             </div>
                                     </a>
                                     <a href="#" class="" id="btnnuevo" name="btnnuevo">
-                                            <div class="span3 box box-bordered offset1 ">
+                                            <div class="span3 box box-bordered"  style=' margin-left: 10px'>
                                                 <div class="box-header box-header-small test" style="font-size:12px;background-color:#fff;text-align:center;">
                                                         <img style="height:100px" src="../assets/images/nuevo.png" alt="">
                                                             <h4>Crear paciente</h4>
                                                 </div>
                                             </div>
                                     </a>
+
+                                 
                         </div>
                         <br>
                        <!-- -------------------------------------------- -->
@@ -382,7 +386,7 @@ if(isset($_POST['btnregister'])){
                                              <div class='row-fluid '>
                                                  <div  class='span4 '>
                                                      <div class='control-group'>
-                                                         <label class='control-label'>Nombre o correo </label>
+                                                         <label class='control-label'>Nombre o Correo </label>
                                                          <div class='controls'>
                                                          <input class='span12' id='txtbuscartexto' name="txtbuscartexto" type='text' >
                                                          <p class='help-block'></p>
@@ -400,83 +404,10 @@ if(isset($_POST['btnregister'])){
 
                                 <!----------------------- Tabla ------------------------------------->   
                                 <div id="tabla">
-                                <div style="text-align:center">
-                                <h2>Escriba el nombre o el correo del paciente que busca.</h2>
-                                <img style="width:400px" src="../assets/images/running.png">
-                                </div>
-                               
-                                    <!-- <div class='responsive-table'>
-                                        <div class='scrollable-area'>
-                                            <table class='data-table table table-bordered table-striped' data-pagination-records='10' data-pagination-top-bottom='false' style='margin-bottom:0;'>
-                                            <thead>
-                                                <tr>
-                                                <th>
-                                                    Nombre
-                                                </th>
-                                                <th>
-                                                    Correo
-                                                </th>
-                                                <th>
-                                                    Estado
-                                                </th>
-                                                <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            
-                                                <?php 
-                                                    foreach ($listaPersonas as $key => $value) {
-                                                        $nombre = $value['Nombre'];
-                                                        $correo = $value['Correo'];
-                                                        $estado = $value['Estado'];
-                                                        $perid = $value['PersonaId'];
-                                                        $peronaencript = base64_encode($perid);// encriptamos los id para enviarlos por parametro
-                                                        echo "
-                                                        <tr>
-                                                            <td>$nombre</td>
-                                                            <td>$correo</td>
-                                                            <td> ";
-                                                                if($estado == 'Activo'){
-                                                                    echo "<span class='label label-success'>$estado</span>";
-                                                                }else{
-                                                                    echo "<span class='label label-important'>$estado</span>";
-                                                                }
-                                                            
-                                                        echo " </td>
-                                                            <td>
-                                                                    <div class='text-center'>
-                                                                    <a class='btn btn-primary' id='btn$perid' href='#'>
-                                                                        <i class='icon-ok'></i>
-                                                                        Seleccionar 
-                                                                    </a>
-                                                                    </div>
-                                                                </td>      
-                                                            </tr>
-                                                            
-                                                            <script>
-                                                                    $('#btn$perid').click(function (){
-                                                                            swal({
-                                                                                    title: 'Hecho!',
-                                                                                    text: 'Datos Guardados correctamente!',
-                                                                                    type: 'success',
-                                                                                    icon: 'success'
-                                                                            }).then(function() {
-                                                                                    window.location = 'nuevo_prueba_paso2.php?persona=$peronaencript';
-                                                                            });
-
-                                                                    });
-                                                            </script>
-                                                        ";
-                                                    
-
-                                                    }
-                                                
-                                                ?>
-                                            
-                                            </tbody>
-                                            </table>
-                                        </div>
-                                    </div>  -->
+                                    <div style="text-align:center">
+                                    <h2>Escriba el nombre o el correo del paciente que busca.</h2>
+                                    <img style="width:200px" src="../assets/images/running.png">
+                                    </div>
                                 </div>                                    
                                 <!----------------------- Tabla ------------------------------------->   
                         </div>
@@ -485,7 +416,7 @@ if(isset($_POST['btnregister'])){
                         <button class='btn btn-danger' data-dismiss='modal'>Cancelar</button>
                       </div>
                 </div>
-<!------------------- Modal Conclusiones ----------------------------->
+<!------------------- Modal buscar ----------------------------->
 
 <!------------------- Modal Nuevo paciente ----------------------------->
 <div class='modal hide fade' id='modalnuevo' role='dialog' tabindex='-1'>

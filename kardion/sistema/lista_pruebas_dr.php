@@ -99,6 +99,9 @@ if(empty($ListaPruebas)){
                                                       Prioridad
                                                   </th>
                                                   <th>
+                                                    Tipo de prueba
+                                                  </th>
+                                                  <th>
                                                       Centro
                                                   </th>
                                                   <th>
@@ -116,11 +119,13 @@ if(empty($ListaPruebas)){
                                                         $Centro = $value['Centro'];
                                                         $estado = $value['Estado'];
                                                         $estadoId = $value['PruebaEstadoId']; 
+                                                        $clasificacion = $value['Titulo'];
                                                             echo "  
                                                             <tr>
                                                               <td>$Persona</td>
                                                               <td>$Fecha</td>
                                                               <td>$Prioridad</td>
+                                                              <td>$clasificacion</td>
                                                               <td>$Centro</td>
                                                               <td><span class='label label-success'>Pendiente</span</td>
                                                             </td> 

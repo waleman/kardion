@@ -36,10 +36,11 @@ class pruebas extends conexion{
             $palpitaciones = $datos['palpitaciones'];
             $desmayo = $datos['desmayo'];
             $comentario = $datos['comentario'];
+            $clasificacion = $datos['clasificacion'];
         $date = date('Y-m-d');
         $query= "insert into pruebas
-        (codigo,PersonaId,CentroId,Fecha,PruebaEstadoId,PruebaTipoId,AparatoId,Altura,Peso,Tension,FrecuenciaCardiaca,MomentoMaximo,FCMomentoMaximo,FCPrimerMinuto,FCSegundoMinuto,FC,UC,Sintomas,DolorCabeza,Mareo,Nauseas,FaltaAire,DolorPecho,Palpitaciones,Desmayo,Comentario)
-        values('$codigo','$personaid','$centroid','$fecha','2','$pruebatipoid','$aparatoid','$altura','$peso','$tension','$frecuenciacardiaca','$momentomaximo','$fcmomemento','$fcprimerminuto','$fcsegudnominuto','$date','$usuarioid','$sintomas','$dolorcabeza','$mareo','$nauseas','$faltaaire','$dolorpecho','$palpitaciones','$desmayo','$comentario')";
+        (codigo,PersonaId,CentroId,Fecha,PruebaEstadoId,PruebaTipoId,AparatoId,Altura,Peso,Tension,FrecuenciaCardiaca,MomentoMaximo,FCMomentoMaximo,FCPrimerMinuto,FCSegundoMinuto,FC,UC,Sintomas,DolorCabeza,Mareo,Nauseas,FaltaAire,DolorPecho,Palpitaciones,Desmayo,Comentario,ClasificacionId)
+        values('$codigo','$personaid','$centroid','$fecha','2','$pruebatipoid','$aparatoid','$altura','$peso','$tension','$frecuenciacardiaca','$momentomaximo','$fcmomemento','$fcprimerminuto','$fcsegudnominuto','$date','$usuarioid','$sintomas','$dolorcabeza','$mareo','$nauseas','$faltaaire','$dolorpecho','$palpitaciones','$desmayo','$comentario','$clasificacion')";
         //print_r($query);
         $datos = parent::NonQuery($query);
         if ($datos == 1 ){
@@ -50,7 +51,7 @@ class pruebas extends conexion{
             return false;
         }
     }
-
+ 
 
     public function VerPruebasPendientes($master){
         $query="select pru.PruebaId,CONCAT(per.PrimerNombre,' ',per.PrimerApellido) as Persona,pru.Fecha,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,us.Usuario
@@ -60,19 +61,20 @@ class pruebas extends conexion{
         and pru.CentroId = c.CentroId
         and pru.PruebaEstadoId = pe.PruebaEstadoId
         and per.PersonaId = us.PersonaId
-        and (pru.PruebaEstadoId  = '1' or  pru.PruebaEstadoId  = '2' or  pru.PruebaEstadoId  = '3')
+        and ( pru.PruebaEstadoId  = '2' or  pru.PruebaEstadoId  = '3')
         and c.MasterCompaniaId = '$master'";
     }
 
     public function VerPruebasPendientesPorCentro($master){
-        $query="select pru.PruebaId,CONCAT(per.PrimerNombre,' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado, pru.PruebaEstadoId,us.Usuario
-        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe,usuarios as us
+        $query="select pru.PruebaId,CONCAT(per.PrimerNombre,' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado, pru.PruebaEstadoId,us.Usuario, clas.Titulo
+        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe,usuarios as us, pruebas_clasificacion as clas
         where pru.PersonaId = per.PersonaId
         and pru.PruebaTipoId = pt.PruebaTipoId
         and pru.CentroId = c.CentroId
         and pru.PruebaEstadoId = pe.PruebaEstadoId
         and per.PersonaId = us.PersonaId
-        and (pru.PruebaEstadoId  = '1' or  pru.PruebaEstadoId  = '2' or  pru.PruebaEstadoId  = '3')
+        and pru.ClasificacionId = clas.ClasificacionId
+        and ( pru.PruebaEstadoId  = '2' or  pru.PruebaEstadoId  = '3')
         and c.MasterCompaniaId = '$master'";
        // print_r($query);
         $resp = parent::ObtenerRegistros($query);
@@ -86,8 +88,8 @@ class pruebas extends conexion{
 
     
     public function VerPruebasFinalizadas($master){
-        $query="select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado, pru.PruebaEstadoId,pru.FM,us.Usuario as UC
-        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe , pruebas_resueltas as pr,usuarios as us 
+        $query="select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado, pru.PruebaEstadoId,pru.FM,us.Usuario as UC, clas.Titulo
+        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe , pruebas_resueltas as pr,usuarios as us , pruebas_clasificacion as clas
         where pru.PersonaId = per.PersonaId
         and pru.PruebaTipoId = pt.PruebaTipoId
         and pru.CentroId = c.CentroId
@@ -95,6 +97,7 @@ class pruebas extends conexion{
         and pru.PruebaId = pr.PruebaId
         and pru.UC = us.UsuarioId 
         and pru.PruebaEstadoId  = '5'
+        and pru.ClasificacionId = clas.ClasificacionId
         and c.MasterCompaniaId = '$master'";
        // print_r($query);
         $resp = parent::ObtenerRegistros($query);
@@ -108,8 +111,9 @@ class pruebas extends conexion{
 
     public function VerPruebasFinalizadasPorCentrosPermitidos($master,$usuario){
         $query="
-        select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId,pru.FM ,us.Usuario as UC
-        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe,usuarios as us 
+        select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId,pru.FM ,us.Usuario as UC, clas.Titulo
+        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe,usuarios as us , pruebas_clasificacion as clas
+        where pru.PersonaId = per.PersonaId 
         where pru.PersonaId = per.PersonaId 
         and pru.PruebaTipoId = pt.PruebaTipoId 
         and pru.CentroId = c.CentroId 
@@ -117,6 +121,7 @@ class pruebas extends conexion{
         and pru.UC = us.UsuarioId 
         and pru.PruebaEstadoId = '5' 
         and c.MasterCompaniaId = '$master' 
+        and pru.ClasificacionId = clas.ClasificacionId
         and c.CentroId in (select CentroId from usuarios_permisos_centros where UsuarioId= '$usuario')";
         $resp = parent::ObtenerRegistros($query);
       // print_r($query);
@@ -129,15 +134,16 @@ class pruebas extends conexion{
 
 
     public function VerPruebasPendientesPorCentrosPermitidos($master,$usuario){
-        $query="select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId,us.Usuario
-        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe,usuarios as us
+        $query="select pru.PruebaId,CONCAT(per.PrimerNombre, ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId,us.Usuario, clas.Titulo
+        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe,usuarios as us, pruebas_clasificacion as clas
         where pru.PersonaId = per.PersonaId
         and pru.PruebaTipoId = pt.PruebaTipoId
         and pru.CentroId = c.CentroId
         and pru.PruebaEstadoId = pe.PruebaEstadoId
         and per.PersonaId = us.PersonaId
-        and (pru.PruebaEstadoId  = '1' or  pru.PruebaEstadoId  = '2' or  pru.PruebaEstadoId  = '3')
+        and ( pru.PruebaEstadoId  = '2' or  pru.PruebaEstadoId  = '3')
         and c.MasterCompaniaId = '$master'
+        and pru.ClasificacionId = clas.ClasificacionId
         and c.CentroId in (select CentroId from usuarios_permisos_centros where UsuarioId= '$usuario')";
         $resp = parent::ObtenerRegistros($query);
         //print_r($query);
@@ -149,13 +155,14 @@ class pruebas extends conexion{
     }
 
     public function VerPruebasDR(){
-        $query="select pru.PruebaId,CONCAT(per.PrimerNombre,  ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId,pru.PruebaTipoId
-        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe
+        $query="select pru.PruebaId,CONCAT(per.PrimerNombre,  ' ',per.PrimerApellido) as Persona,pru.FC,pt.Nombre as Prioridad ,c.Nombre as Centro,pe.Nombre as Estado,pru.PruebaEstadoId,pru.PruebaTipoId, clas.Titulo
+        from pruebas as pru,personas as per,pruebas_tipos as pt,centros as c,pruebas_estados as pe, pruebas_clasificacion as clas
         where pru.PersonaId = per.PersonaId
         and pru.PruebaTipoId = pt.PruebaTipoId
         and pru.CentroId = c.CentroId
         and pru.PruebaEstadoId = pe.PruebaEstadoId
         and pru.PruebaEstadoId  = '2'
+        and pru.ClasificacionId = clas.ClasificacionId
         order by pru.PruebaTipoId asc,pru.FC asc
         ";
         $resp = parent::ObtenerRegistros($query);
@@ -198,7 +205,7 @@ class pruebas extends conexion{
             return $resp[0]["cantidad"];
         }
     }
-
+ 
 
     public function asignar($usuariId){
         $query="select PruebaId from pruebas where PruebaEstadoId =2 and (PruebaTipoId = 2 or PruebaTipoId = 3) order by PruebaTipoId asc,FC asc limit 1";
@@ -325,6 +332,22 @@ class pruebas extends conexion{
             return true;
         }else{
             return false;
+        }
+    }
+
+    public function pruebaporid2($id){
+        $query = "select pru.PruebaId,pru.FC,pru.FM,p.Sexo,p.FechaNacimiento,p.Correo,pe.Nombre as Estado,C.Nombre as Centro,CONCAT(p.PrimerNombre, ' ' ,p.PrimerApellido) as Persona,p.Correo,pru.Motivo,u.Usuario 
+        from pruebas as pru , personas as p , centros as c,pruebas_estados as pe , usuarios as u
+        where pru.PersonaId = p.PersonaId
+        and u.UsuarioId = pru.UC
+        and pru.CentroId = c.CentroId
+        and pe.PruebaEstadoId = pru.PruebaEstadoId
+        and pru.PruebaId ='$id'";
+        $datos =  parent::ObtenerRegistros($query);
+        if(empty($datos)){
+            return false;
+        }else{
+            return $datos;
         }
     }
 
@@ -574,8 +597,94 @@ class pruebas extends conexion{
     }
 
 
+
+    public function DescartarPrueba($pruebaid,$motivo,$usuarioid){
+        $date = date('Y-m-d');
+        $query = "update pruebas set PruebaEstadoId='1',Motivo='$motivo',FM='$date',UM='$usuarioid' where PruebaId ='$pruebaid'";
+        $datos = parent::NonQuery($query);
+        if ($datos == 1 ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function DescartarPrueba_asignada($pruebaid){
+        $query = "update pruebas_asignadas set AsignadasEstadoId='5' where PruebaId ='$pruebaid'";
+        $datos= parent::NonQuery($query);
+        if ($datos == 1 ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    public function ListaPruebasDescartadas_Master(){
+        $query = "select pru.PruebaId,pru.FC,pru.FM,pe.Nombre as Estado,c.Nombre as Centro,CONCAT(p.PrimerNombre, ' ' ,p.PrimerApellido) as Persona,p.Correo
+        from pruebas as pru , personas as p , centros as c,pruebas_estados as pe
+        where pru.PersonaId = p.PersonaId
+        and pru.CentroId = c.CentroId
+        and pe.PruebaEstadoId = pru.PruebaEstadoId
+        and pru.PruebaEstadoId = 1";
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp;
+        }
+    }
   
 
+
+    public function ReciclarPrueba($pruebaid,$motivo,$usuarioid){
+        $date = date('Y-m-d');
+        $query = "update pruebas set PruebaEstadoId='2',Motivo='$motivo',FM='$date',UM='$usuarioid' where PruebaId ='$pruebaid'";
+        $datos = parent::NonQuery($query);
+        if ($datos == 1 ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    public function ListaPruebasDescartadasEmpresa($master){
+        $query = "select pru.PruebaId,pru.FC,pru.FM,pe.Nombre as Estado,c.Nombre as Centro,CONCAT(p.PrimerNombre, ' ' ,p.PrimerApellido) as Persona,p.Correo , u.Usuario as enviado
+        from pruebas as pru , personas as p , centros as c,pruebas_estados as pe,usuarios as u
+        where pru.PersonaId = p.PersonaId
+        and u.UsuarioId = pru.UC
+        and pru.CentroId = c.CentroId
+        and pe.PruebaEstadoId = pru.PruebaEstadoId
+        and pru.PruebaEstadoId = 1
+        and u.MasterCompaniaId = '$master'";
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp;
+        }
+    }
+
+
+    public function ListaPruebasDescartadasPorUsuario($master,$usuariId){
+        $query = "select pru.PruebaId,pru.FC,pru.FM,pe.Nombre as Estado,c.Nombre as Centro,CONCAT(p.PrimerNombre, ' ' ,p.PrimerApellido) as Persona,p.Correo , u.Usuario as enviado
+        from pruebas as pru , personas as p , centros as c,pruebas_estados as pe,usuarios as u
+        where pru.PersonaId = p.PersonaId
+        and u.UsuarioId = pru.UC
+        and u.UsuarioId = pru.UC
+        and pru.CentroId = c.CentroId
+        and pe.PruebaEstadoId = pru.PruebaEstadoId
+        and pru.PruebaEstadoId = 1
+        and pru.UC = '$usuariId";
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp;
+        }
+    }
+  
 
 
 }

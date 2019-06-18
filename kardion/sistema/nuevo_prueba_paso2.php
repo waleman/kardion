@@ -4,43 +4,16 @@ require_once("../clases/roles_controller.php");
 require_once("../clases/personas_controller.php");
 require_once("../clases/centros_controller.php");
 require_once("../clases/pruebas_controller.php");
+require_once("../clases/alertas_controller.php");
+require_once("../clases/clasificacion_controller.php");
 $pruebas = new pruebas;
+$roles = new roles;
 $html = new cargar;
 $personas = new personas;
 $centros = new centros;
-$html->sessionDataSistem(); //iniciamos la sesion en el navegador
-//Buscamos los permisos para entrar en esta pantalla
-$roles = new roles;
-//definimos los permisos para esta pantalla;
-$permisos = array(4,5,6);
-$rol = $_SESSION['k6']['RolId'];
-$permiso = $roles->buscarpermisos($rol,$permisos);
-if(!$permiso){
- // header("Location: accesoprohibido.php");
-  echo"<script>
-  swal({
-          title: 'Wow!',
-          text: 'No tienes permiso para acceder a este modulo',
-          type: 'error',
-          icon: 'error'
-  }).then(function() {
-          window.location = 'accesoprohibido.php';
-  });
- </script>";
-}
-//buscamos el codigo master para seleccionar los centros asociados al usuario
-$master = $_SESSION['k6']['MasterCompaniaId'];
-$userData = $_SESSION['k6'];
-$usuarioId =$userData['UsuarioId']; // Codigo del usuario
-
-//buscar los centros permitidos 
-$listaCentros = array();
-if($rol == 6){
-  $listaCentros = $centros->getcentrosPermitidos($usuarioId);
-}else{
-  $listaCentros = $centros->getCentros($master);
-}
-
+$_alertas = new alertas;
+$_clasificacion = new clasificacion;
+$html->sessionDataSistem(); 
 echo $html->PrintHead(); //Cargamos en header
 echo $html->LoadCssSystem("sistema"); // cargamos todas las librerias css del sistema interno
 echo $html->LoadJquery("sistema"); //cargamos todas las librerias Jquery del sistema interno 
@@ -50,28 +23,46 @@ echo $html->loadFileuploadCSS("sistema");
 echo $html->PrintBodyOpen(); //cargamos la primera parte del body
 echo $html->PrintHeader(); //cargamos el header
 
-$datospersonales= array();
-if(isset($_GET['persona'])){
+//definimos los permisos para esta pantalla;
+$permisos = array(4,5,6);
+$rol = $_SESSION['k6']['RolId'];
+$permiso = $roles->buscarpermisos($rol,$permisos);
+$master = $_SESSION['k6']['MasterCompaniaId'];
+$userData = $_SESSION['k6'];
+$usuarioId =$userData['UsuarioId']; // Codigo del usuario
+
+if(!$permiso){
+  echo $_alertas->errorRedirect("Wow","No tienes permiso para acceder a esta pagina","accesoprohibido.php");
+  die();
+}
+if(!isset($_GET['persona']) || !isset($_GET['id']) ){
+  echo $_alertas->infoRedirect("Volvamos un paso atras","Aun no a seleccionado el tipo de prueba","nuevo_prueba.php");
+  die();
+}
+
+
+
+
+
+//buscar los centros permitidos 
+$listaCentros = array();
+if($rol == 6){
+  $listaCentros = $centros->getcentrosPermitidos($usuarioId);
+}else{
+  $listaCentros = $centros->getCentros($master);
+}
+
+
+   $clasificacionId = $_GET['id'];
+   $nombreClasificacion = $_clasificacion->NombreClasificacion($clasificacionId);
    $personaId =$_GET['persona'];
-   //$usuarioPruebaId =base64_decode($_GET['usuario']);
    $datospersonales = $personas->BuscarUna($personaId);
    $nombre =  "". $datospersonales["PrimerNombre"] . " " . $datospersonales["SegundoNombre"] . " ". $datospersonales["PrimerApellido"] . " " . $datospersonales["SegundoApellido"] ;
+   $correo = $datospersonales['Correo'];
    $fecha = date('Y-m-d');
    $codigo = $personas->get_random_string(5); // generamos el codigo para la pruebas
    $codigoArchivo = $personaId . "_".$codigo;
-}else{
-  //Redirigir
-      echo"<script>
-      swal({
-              title: 'Wow!',
-              text: 'Tenemos problemas con este modulo porfavor complete el paso 1',
-              type: 'error',
-              icon: 'error'
-      }).then(function() {
-              window.location = 'lista_pruebas.php';
-      });
-     </script>";
-}
+
 
 
 if(isset($_POST['btnenviar'])){
@@ -128,14 +119,13 @@ if(isset($_POST['btnenviar'])){
               if(isset($_POST['txtdesmayo'])){
                 $desmayo =$_POST['txtdesmayo'];
               }
-           
-
+          
           $datos = array(
             "codigo" => $_POST["codigo"],
             "personaid" => $personaId,
             "centroid" => $_POST['cbocentro'],
             "aparatoid" => $_POST['cbodispositivo'],
-            "fecha" => $_POST['txtfecha'],
+            "fecha" => $fecha,
             "altura" => $altura,
             "peso" => $peso,
             "tension" => $tension,
@@ -154,7 +144,8 @@ if(isset($_POST['btnenviar'])){
             "dolorpecho" => $dolorpecho,
             "palpitaciones" => $palpitaciones,
             "desmayo" => $desmayo,
-            "comentario" => $_POST['txtentrenamiento']
+            "comentario" => $_POST['txtentrenamiento'],
+            "clasificacion" => $clasificacionId
           );
 
           $verificarArchivo = $pruebas->VefiricarArchivo($_POST["codigo"]);
@@ -229,11 +220,7 @@ if(isset($_POST['btnenviar'])){
           });
 
           $('#btnenviar').click(function(){
-            if( !document.getElementById('txtfecha').value){
-                    let val = "Debe escribir o seleccionar una fecha en formato año/mes/dia";
-                    mostrar(val);
-                    return false;
-             }else if(document.getElementById('cbocentro').value == 0){
+             if(document.getElementById('cbocentro').value == 0){
                     let val = "Debe seleccionar un centro";
                     mostrar(val);
                     return false;
@@ -271,7 +258,7 @@ if(isset($_POST['btnenviar'])){
                                 <div class='span12'>
                                     <div class='page-header '>
                                     <h1 class='pull-left title'>
-                                        Nueva prueba
+                                        Nueva prueba - <div style="display:inline; color:#009688"><?=$nombreClasificacion ?></div> 
                                     </h1>
                                     </div>
                                 </div>
@@ -279,25 +266,10 @@ if(isset($_POST['btnenviar'])){
                             
                             <form class='form' method="POST" id="frm_filtrar" style='margin-bottom: 0;' autocomplete="off">
                             <input type="hidden" name="codigo" name="codigo" value="<?=$codigoArchivo?>">
+                          
+                               
                                     <div class='row-fluid'>
-
-
-
-                                                 <div  class='span3 '>
-                                                           <div class='control-group'>
-                                                                    <label class='control-label'>Paciente</label>
-                                                                    <div class='controls'>
-                                                                    <input class='span12' id='txtprimernombre' name="txtnombre" type='text' value="<?=$nombre?>" disabled >
-                                                                    <p class='help-block'></p>
-                                                                    </div>
-                                                           </div>
-                                                            
-                                                        
-                                                </div>
-                                    
-                                            
-
-                                              <div  class='span2 '>
+                                              <div  class='span3 '>
                                                             <div class='control-group'>
                                                                 <label class='control-label'>Centro</label>
                                                                 <div class='controls'>
@@ -313,30 +285,8 @@ if(isset($_POST['btnenviar'])){
                                                                 </select>
                                                                 </div>
                                                             </div>
-
                                               </div>
-
-                                              <div  class='span2 offset1 '>
-                                                        <div class='control-group'>
-                                                               <label class='control-label'>Fecha de la prueba</label>
-                                                                <div>
-                                                                    <div class="datepicker input-append" id="datepicker">
-                                                                    <input name="txtfecha"  id="txtfecha" class="input-medium" data-format="yyyy-MM-dd" placeholder="Seleccione la fecha" type="text" value="<?=$fecha?>">
-                                                                    <span class="add-on">
-                                                                        <i data-date-icon="icon-calendar" data-time-icon="icon-time" class="icon-calendar"></i>
-                                                                    </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>     
-                                              </div>
-                                            
-                                    </div>
-
-
-
-                                    <div class="row-fluid">
-
-                                    <div  class='span3  '>
+                                              <div  class='span3'>
                                                             <div class='control-group' id="resp">
                                                                 <label class='control-label'>Dispositivo</label>
                                                                 <div class='controls' >
@@ -345,10 +295,9 @@ if(isset($_POST['btnenviar'])){
                                                                   </select>
                                                                 </div>
                                                             </div>
+                                              </div>   
 
-                                              </div>
-
-                                         <div  class='span2 '>
+                                              <div  class='span2 '>
                                                             <div class='control-group'>
                                                                 <label class='control-label'>Prioridad (Entrega)</label>
                                                                 <div class='controls' >
@@ -360,8 +309,39 @@ if(isset($_POST['btnenviar'])){
                                                                 </div>
                                                             </div>
                                               </div>
+                                    </div>
+                                    <hr>
 
-                                              <div  class='span1 offset1'>
+                                    <div class='row-fluid'>
+                                                 <div  class='span4 '>
+                                                           <div class='control-group'>
+                                                                    <label class='control-label'>Paciente</label>
+                                                                    <div class='controls'>
+                                                                    <input class='span12' id='txtprimernombre' name="txtnombre" type='text' value="<?=$nombre?>" disabled >
+                                                                    <p class='help-block'></p>
+                                                                    </div>
+                                                           </div>                                                        
+                                                </div>
+                                                <div  class='span3 '>
+                                                           <div class='control-group'>
+                                                                    <label class='control-label'>Correo</label>
+                                                                    <div class='controls'>
+                                                                    <input class='span12' id='txtmail' name="txtmail" type='text' value="<?=$correo?>" disabled >
+                                                                    <p class='help-block'></p>
+                                                                    </div>
+                                                           </div>                                                        
+                                                </div>
+                                    </div> 
+
+
+
+                                    <div class="row-fluid">
+
+                                      
+
+                                       
+
+                                              <div  class='span1 '>
                                                         <div class='control-group'>
                                                             <label class='control-label'>Altura</label>
                                                             <div class='controls'>
@@ -380,13 +360,6 @@ if(isset($_POST['btnenviar'])){
                                                         </div>
                                                     </div>
 
-                                      
-                                             
-                                    </div>
-
-
-                                    <div class='row-fluid'>   
-                                                   
                                                     <div  class='span2 '>
                                                         <div class='control-group'>
                                                             <label class='control-label'>Tension arterial</label>
@@ -396,6 +369,15 @@ if(isset($_POST['btnenviar'])){
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                      
+                                             
+                                    </div>
+
+
+                                    <div class='row-fluid'>   
+                                                   
+                                                   
                                                     <div  class='span2 '>
                                                         <div class='control-group'>
                                                             <label class='control-label'> Frecuencia cardiaca</label>
@@ -553,11 +535,48 @@ if(isset($_POST['btnenviar'])){
                         <div class="box-content">
                                <!-- cargar archivos -->
                                  
-                                    <div class="control-group">
-                                           <form id="myawesomedropzone" action="../utilidades/pruebasupload.php?id=<?=$personaId?>&codigo=<?=$codigo?>" class="dropzone">
-                                          
-                                          </form>
-                                      </div>
+                                   
+
+                                      <div class="control-group">
+                                        <form id="cuadro" action="" class="dropzone">
+
+                                        </form>
+                                        <p id="texto_carga" style="color: #009688; display:none">Espera mientras se procesa el archivo...</p> 
+                                    </div>
+
+                                    <script type="text/javascript">
+                                    var errors = false;
+                                      var Dropzone = new Dropzone("#cuadro", {
+                                                url: "../utilidades/pruebasupload.php?id=<?=$personaId?>&codigo=<?=$codigo?>",
+                                                acceptedFiles: ".EDF,.edf,.pdf,.PDF,.rar,.RAR,.jpg,.png,.gif",
+                                                maxFiles: 1,
+                                                error:function(){
+                                                    errors = true;
+                                                },
+                                                processing:function(){
+                                                    $('#texto_carga').show();
+                                                },
+                                                queuecomplete:function(){
+                                                    if(errors){
+                                                      swal({
+                                                            title: 'Error al cargar el achivo!',
+                                                            text: 'Ha ocurrido un error al intentar cargar el archivo. Póngase en contacto con el administrador del sistema',
+                                                            type: 'error',
+                                                            icon: 'error'
+                                                        });
+                                                        $('#texto_carga').hide();
+                                                    }else{
+                                                      swal({
+                                                            title: 'Carga completa!',
+                                                            text: 'Hemos cargado el archivo de la prueba exitosamente',
+                                                            type: 'success',
+                                                            icon: 'success'
+                                                        });
+                                                        $('#texto_carga').hide();
+                                                    }
+                                                }
+                                              });
+                                      </script>
                            
                                 <!-- cargar archivos -->
                         

@@ -65,7 +65,7 @@ class cargar extends conexion {
             'fullcalendar.min.js',
             'jquery.dataTables.min.js',
             'jquery.dataTables.columnFilter.js',
-           // 'wysihtml5.min.js',
+            'wysihtml5.min.js',
             'bootstrap-wysihtml5.js',
             'select2.js',
             'bootstrap-colorpicker.min.js',
@@ -89,7 +89,6 @@ class cargar extends conexion {
             'jquery.jgrowl.min.js',
             'bootbox.min.js',
             'bootstrap-editable.min.js',
-            'wysihtml5.js',
             'jquery.dynatree.min.js',
             'bootstrap-datetimepicker.js',
             'moment.min.js',
@@ -232,8 +231,6 @@ class cargar extends conexion {
             'plugins/bootstrap_switch/bootstrap-switch.css',
             'plugins/xeditable/bootstrap-editable.css',
             'plugins/common/bootstrap-wysihtml5.css',
-            'plugins/common/bootstrap-wysihtml5.css',
-            'plugins/common/bootstrap-wysihtml5.css',
             'plugins/jquery_fileupload/jquery.fileupload-ui.css',
             'plugins/fullcalendar/fullcalendar.css',
             'plugins/select2/select2.css',
@@ -354,6 +351,12 @@ class cargar extends conexion {
                                 </a>
                             </li>
                             <li class=''>
+                                <a href='lista_empresas_master.php'  class='color-azul'>
+                                    <i class='icon-building'></i>
+                                    <span>Empresas</span>
+                                </a>
+                            </li>
+                            <li class=''>
                                 <a href='lista_dispositivos_master.php'  class='color-azul'>
                                     <i class='icon-bolt'></i>
                                     <span>Dispositivos</span>
@@ -371,12 +374,23 @@ class cargar extends conexion {
                                  <span>Pacientes</span>
                              </a>
                              </li>
+
                              <li class=''>
-                             <a href='historial_pruebas_master.php'  class='color-azul'>
-                                 <i class='icon-bar-chart'></i>
-                                 <span>Historial de pruebas</span>
-                             </a>
-                             </li>
+                             <a class='dropdown-collapse' href='#'><i class='icon-folder-open-alt'></i>
+                               <span>Pruebas</span>
+                               <i class='icon-angle-down angle-down'></i>
+                               </a>
+                               <ul class='nav nav-stacked'>
+                                   <li class=''>
+                                       <a href='lista_pruebas_descartadas_master.php'>
+                                           <i class='icon-caret-right'></i>
+                                           <span>Pruebas descartadas</span>
+                                       </a>
+                                    </li>
+                               </ul>
+                               </li>
+                            
+                       
                           <li class=''>
                               <a class='dropdown-collapse' href='#'><i class='icon-cogs'></i>
                                 <span>Configuracion</span>
@@ -390,13 +404,13 @@ class cargar extends conexion {
                                             <span>Notificaicones</span>
                                         </a>
                                      </li>
-                                    <!-- <li class=''>
-                                    <a href='form_components.html'>
+                                    <li class=''>
+                                    <a href='lista_tipo_prueba_master.php'>
                                         <i class='icon-caret-right'></i>
-                                        <span>Form components</span>
+                                        <span>Tipos de pruebas</span>
                                     </a>
                                     </li>
-                                    <li class=''>
+                                    <!--  <li class=''>
                                     <a href='validations.html'>
                                         <i class='icon-caret-right'></i>
                                         <span>Validations</span>
@@ -422,3 +436,7 @@ class cargar extends conexion {
 }
 
 ?>
+
+
+
+                      

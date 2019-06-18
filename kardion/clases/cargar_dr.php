@@ -7,8 +7,10 @@
 //Todos los derechos reservados ®
 
 require_once('conexion.php');
+require_once('problemas_controller.php');
 
 class cargardr extends conexion {
+
 
     public function salir(){
         session_unset($_SESSION['k6']);
@@ -294,50 +296,70 @@ class cargardr extends conexion {
 
 
     public function PrintSideMenu(){
-        return "
-        
-                        <nav class='main-nav-fixed' id='main-nav'>
-                        <div class='navigation'>
-                  
-                        <ul class='nav nav-stacked'>
-                            <li class=''>
-                                <a href='portal_dr.php'>
-                                    <i class='icon-dashboard'></i>
-                                    <span>Inicio</span>
-                                </a>
-                            </li>
-                            <li>
-                            <a href='perfil_dr.php'>
-                               <i class='icon-stethoscope'></i>
-                               <span>Mi perfil medico</span>
-                            </a>
-                           </li>
-                            <li>
-                            <a href='lista_pruebas_dr.php'>
-                               <i class='icon-file-alt'></i>
-                               <span>Lista de pruebas</span>
-                            </a>
-                           </li>
-                           <li>
-                           <a href='prueba_dr.php'>
-                              <i class='icon-eye-open'></i>
-                              <span>Prueba asignada</span>
-                           </a>
-                          </li>
-                           <li>
-                           <a href='pruebas_dr_enviadas.php'>
-                              <i class='icon-time'></i>
-                              <span>Pruebas finalizadas</span>
-                           </a>
-                          </li>
-                      
-                          
-                        </ul>
-                        </div>
-                    </nav>
-        
-        
-        ";
+    if(isset($_SESSION['k6'])){
+            $usuarioId = $_SESSION['k6']['UsuarioId'];
+            $_problemas = new problemas;
+            $cantidad = $_problemas->ProblemaRespuestasEstado($usuarioId);
+    }else{
+            $cantidad = 0;
+    }     
+
+
+    $menu =   "
+
+    <nav class='main-nav-fixed' id='main-nav'>
+    <div class='navigation'>
+
+    <ul class='nav nav-stacked'>
+        <li class=''>
+            <a href='portal_dr.php'>
+                <i class='icon-dashboard'></i>
+                <span>Inicio</span>
+            </a>
+        </li>
+        <li>
+        <a href='perfil_dr.php'>
+           <i class='icon-stethoscope'></i>
+           <span>Mi perfil medico</span>
+        </a>
+       </li>
+        <li>
+        <a href='lista_pruebas_dr.php'>
+           <i class='icon-file-alt'></i>
+           <span>Lista de pruebas</span>
+        </a>
+       </li>
+       <li>
+       <a href='prueba_dr.php'>
+          <i class='icon-eye-open'></i>
+          <span>Prueba asignada</span>
+       </a>
+      </li>
+       <li>
+       <a href='pruebas_dr_enviadas.php'>
+          <i class='icon-time'></i>
+          <span>Pruebas finalizadas</span>
+       </a>
+      </li>
+      <li>
+      <a href='problema_notificaciones_dr.php'>
+         <i class='icon-bell'></i>
+         <span>Notificaciones</span>
+    ";
+
+
+
+    if($cantidad > 0){
+        $menu .= "<span class='label label-important' style='color:#FFF'>1</span>";
+    }
+
+    $menu .= "</a>
+    </li>
+   </ul>
+   </div>
+</nav>";
+    
+        return $menu;
     }
 
 

@@ -75,9 +75,8 @@ if(isset($_POST['txtbuscartexto'])){
                                             type: 'success',
                                             icon: 'success'
                                     }).then(function() {
-                                            window.location = 'nuevo_prueba_paso2.php?persona=$perid';
+                                            window.location = 'nuevo_prueba_paso1.php?persona=$perid';
                                     });
-
                             });
                     </script>
                 ";

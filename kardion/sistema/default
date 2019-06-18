@@ -1,24 +1,29 @@
 <?php
-require_once("../clases/cargar.php");
+require_once("../clases/cargar_dr.php");
 require_once("../clases/centros_controller.php");
 require_once("../clases/roles_controller.php");
-$html = new cargar;
+require_once("../clases/alertas_controller.php");
+$html = new cargardr;
 $centros= new centros;
 $roles = new roles;
+$_alertas = new alertas;
 $html->sessionDataSistem();
 echo $html->PrintHead();
 echo $html->LoadCssSystem("sistema");
 echo $html->LoadJquery("sistema");
+echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>";
 echo $html->PrintBodyOpen();
 echo $html->PrintHeader();
 
 //definimos los permisos para esta pantalla;
-$permisos = array(4,5);
+$permisos = array(3);
 $rol = $_SESSION['k6']['RolId'];
 $permiso = $roles->buscarpermisos($rol,$permisos);
 if(!$permiso){
-  header("Location: accesoprohibido.php");
+    echo $_alertas->errorRedirect("Error","No tiene permiso para acceder a esta pagina","accesoprohibido.php");
 }
+
+
 //buscamos el codigo master para seleccionar los centros asociados al usuario
 $master = $_SESSION['k6']['MasterCompaniaId'];
 $usuarioId =$_SESSION['k6']['UsuarioId']; // Codigo del usuario

@@ -18,8 +18,7 @@ class cargar extends conexion {
     public function sessionDataSistem(){
         session_start();
     }
-
-    
+   
 
     public function compdata(){
         if(isset($_SESSION['k6'])){
@@ -360,14 +359,18 @@ class cargar extends conexion {
             $centros ="lista_centros.php";
             $pruebas = "lista_pruebas.php";
             $finalizadas ="lista_pruebas_finalizadas.php";
+            $descartadas ="lista_pruebas_descartadas.php";
             $usuarios ="lista_usuarios.php'";
             $aparatos ="lista_dispositivos.php";
+            $clientes ="lista_personas.php";
             $lock = "";
         }else if($rol == 5){ //asistente
             $dash ="dashboard.php";
             $centros ="#";
             $pruebas = "lista_pruebas.php";
             $finalizadas ="lista_pruebas_finalizadas.php";
+            $descartadas ="lista_pruebas_descartadas.php";
+            $clientes ="lista_personas.php";
             $usuarios ="#'";
             $aparatos ="#";
             $lock = " <i class='icon-lock text-right' style ='color:#FFBF00'></i>";
@@ -376,6 +379,8 @@ class cargar extends conexion {
             $centros ="#";
             $pruebas = "lista_pruebas.php";
             $finalizadas ="lista_pruebas_finalizadas.php";
+            $descartadas ="lista_pruebas_descartadas.php";
+            $clientes ="lista_personas.php";
             $usuarios ="#'";
             $aparatos ="#";
             $lock =  "<i class='icon-lock text-right' style ='color:#FFBF00'></i>";
@@ -407,17 +412,42 @@ class cargar extends conexion {
                             <a href='$pruebas'  class='color-verde'>
                                <i class='icon-file-alt'></i>
                                <span>Pruebas</span>
-                            
+                           
                             </a>
                            </li>
 
-                           <li>
-                           <a href='$finalizadas' class='color-amarillo'>
-                           <i class='icon-ok'></i>
-                              <span>Pruebas finalizadas</span>
-                             
-                           </a>
-                          </li>
+
+                           <li class=''>
+                           <a class='dropdown-collapse' href='#'><i class='icon-paper-clip'></i>
+                             <span>Gestion de pruebas</span>
+                             <i class='icon-angle-down angle-down'></i>
+                             </a>
+                     
+                             <ul class='nav nav-stacked'>
+                                 <li class=''>
+                                     <a href='$finalizadas'>
+                                         <i class='icon-caret-right'></i>
+                                         <span>Pruebas finalizadas</span>
+                                     </a>
+                                  </li>
+                                 <li class=''>
+                                 <a href='$descartadas'>
+                                     <i class='icon-caret-right'></i>
+                                     <span>Pruebas descartadas</span>
+                                 </a>
+                                 </li>
+                             </ul>
+                             </li>
+
+
+                    
+                          <li>
+                          <a href='$clientes' class='color-amarillo'>
+                          <i class='icon-folder-open-alt'></i>
+                             <span>Clientes</span>
+                            
+                          </a>
+                         </li>
                           <li class=''>
                           <a href='$usuarios  class='color-naranja'>
                               <i class='icon-user'></i>
