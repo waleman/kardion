@@ -91,6 +91,21 @@ class dashboard extends conexion{
         }
     }
 
+    public function Emp_cantidad_pruebasDescartadas_mes($master,$inico ,$fin){  
+        $query="select count(*) as cantidad from pruebas  as pru , centros as ct
+        where  pru.CentroId = ct.CentroId
+        and MasterCompaniaId = '$master'
+        and pru.PruebaEstadoId  = '1'
+        and pru.FC  between  '$inico' and '$fin'";
+        // print_r($query);
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp[0]['cantidad'];
+        }
+    }
+
     // Dashboard doctores
     
     public function Dr_cantidad_pruebasfinalizadas($usuarioId){

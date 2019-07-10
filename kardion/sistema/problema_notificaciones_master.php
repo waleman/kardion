@@ -1,9 +1,9 @@
 <?php
-require_once("../clases/cargar_dr.php");
+require_once("../clases/cargar_master.php");
 require_once("../clases/problemas_controller.php");
 require_once("../clases/roles_controller.php");
 require_once("../clases/alertas_controller.php");
-$html = new cargardr;
+$html = new cargar;
 $_problemas= new problemas;
 $roles = new roles;
 $_alertas = new alertas;
@@ -16,7 +16,7 @@ echo $html->PrintBodyOpen();
 echo $html->PrintHeader();
 
 //definimos los permisos para esta pantalla;
-$permisos = array(3);
+$permisos = array(1,2);
 $rol = $_SESSION['k6']['RolId'];
 $usuarioId =$_SESSION['k6']['UsuarioId']; 
 $permiso = $roles->buscarpermisos($rol,$permisos);
@@ -24,7 +24,7 @@ if(!$permiso){
     echo $_alertas->errorRedirect("Error","No tiene permiso para acceder a esta pagina","accesoprohibido.php");
 }
 
-$Listaproblemas = $_problemas->ListaProblemas($usuarioId);
+$Listaproblemas = $_problemas->ListaProblemas_master();
 if(empty($Listaproblemas)){
   $Listaproblemas = array();
 }
@@ -94,7 +94,9 @@ echo $html->PrintSideMenu();
                                                         $texto = $value['Texto'];
                                                         $estado= $value['Estado'];
                                                         $fecha= $value['Fecha'];
-                                                        $tipo = $value['ProblemaTipo'];                                                                                              
+                                                        $tipo = $value['ProblemaTipo'];                                       
+                                                         
+                                                       
                                                             echo "  
                                                             <tr>
                                                                 <td>PR00$id </td>
@@ -111,7 +113,7 @@ echo $html->PrintSideMenu();
                                                             echo"   </td>
                                                                 <td>
                                                                     <div class='text-center'>
-                                                                    <a class='btn btn-success btn-medium' href='problema_detalle_dr.php?id=$id'>
+                                                                    <a class='btn btn-success btn-medium' href='problema_detalle_master.php?id=$id'>
                                                                     <i class='icon-eye-open'></i>
                                                                         Ver
                                                                     </a>

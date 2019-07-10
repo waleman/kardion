@@ -127,6 +127,16 @@ public function vincular($master,$aparatoid,$usuario){
     }
 }
 
+public function ActualizarEstado($aparatoid,$usuario){
+    $date = date('Y-m-d');
+    $query= "update aparatos set TipoEstadoId='5',UM='$usuario',FM='$date' where AparatoId = 5";
+    $datos = parent::NonQuery($query);
+    if ($datos == 1 ){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 
 

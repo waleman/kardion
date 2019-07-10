@@ -1,9 +1,9 @@
 <?php
-require_once("../clases/cargar_dr.php");
+require_once("../clases/cargar.php");
 require_once("../clases/roles_controller.php");
 require_once("../clases/alertas_controller.php");
 require_once("../clases/problemas_controller.php");
-$html = new cargardr;
+$html = new cargar;
 $roles = new roles;
 $_alertas = new alertas;
 $_problema = new problemas;
@@ -16,7 +16,7 @@ echo $html->PrintBodyOpen();
 echo $html->PrintHeader();
 
 //definimos los permisos para esta pantalla;
-$permisos = array(3);
+$permisos = array(4,5,6);
 $rol = $_SESSION['k6']['RolId'];
 $master = $_SESSION['k6']['MasterCompaniaId'];
 $usuarioId =$_SESSION['k6']['UsuarioId']; 
@@ -34,7 +34,7 @@ if(isset($_POST['btnenviar'])){
       );
       $resp = $_problema->GuardarProblema($datos);
       if($resp){
-         echo $_alertas->successRedirect("Hecho","Datos guardados correctamente","portal_dr.php");
+         echo $_alertas->successRedirect("Hecho","Datos guardados correctamente","dashboard.php");
       }else{
         echo $_alertas->error("Error","No hemos podido guardar su solicitud");
       }
@@ -141,7 +141,7 @@ echo $html->PrintSideMenu();
                                  <div class="form-actions text-center" >
             
                                               <input type="submit" value="Enviar" name="btnenviar" id="btnenviar" class="btn btn-primary btn-large"/>
-                                              <a href="portal_dr.php" name="btncancelar" id="btncancelar" class="btn btn-danger btn-large">Cancelar</a>
+                                              <a href="dashboard.php" name="btncancelar" id="btncancelar" class="btn btn-danger btn-large">Cancelar</a>
                                          
                                  </div>
                             </div>

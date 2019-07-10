@@ -83,8 +83,78 @@ class companias extends conexion{
       }
 }
 
+public function ListaPruebasFinalizadasCompania($master){
+    $query= "select count(*) as Cantidad from pruebas 
+    where UC in (select UsuarioId from usuarios where MasterCompaniaId = '$master')
+    and PruebaEstadoId = 5";
+    $datos = parent::ObtenerRegistros($query);
+    if(empty($datos)){
+        return false;
+    }else{
+        return $datos[0]['Cantidad'];
+   }
+}
+
+public function ListaPruebasDescartadasCompania($master){
+    $query= "select count(*) as Cantidad from pruebas 
+    where UC in (select UsuarioId from usuarios where MasterCompaniaId = '$master')
+    and PruebaEstadoId = 1";
+    $datos = parent::ObtenerRegistros($query);
+    if(empty($datos)){
+        return false;
+    }else{
+        return $datos[0]['Cantidad'];
+   } 
+}
+
+public function ListaPruebasPendientesCompania($master){
+    $query= "select count(*) as Cantidad from pruebas 
+    where UC in (select UsuarioId from usuarios where MasterCompaniaId = '$master')
+    and (PruebaEstadoId = 2 or PruebaEstadoId = 3 or PruebaEstadoId = 4) ";
+    $datos = parent::ObtenerRegistros($query);
+    if(empty($datos)){
+        return false;
+    }else{
+        return $datos[0]['Cantidad'];
+   }
+}
 
 
+
+public function ListaCentros($master){
+    $query= "select count(*) as Cantidad from centros where MasterCompaniaId= '$master'";
+    $datos = parent::ObtenerRegistros($query);
+    if(empty($datos)){
+        return false;
+    }else{
+        return $datos[0]['Cantidad'];
+   }
+
+}
+
+public function Listapersonas($master){
+    $query= "select count(*) as Cantidad from usuarios where UC in (select UsuarioId from usuarios where MasterCompaniaId = '$master')";
+    $datos = parent::ObtenerRegistros($query);
+    if(empty($datos)){
+        return false;
+    }else{
+        return $datos[0]['Cantidad'];
+   }
+
+}
+
+public function ListaUsuarios($master){
+    $query= "select count(*) as Cantidad from usuarios where MasterCompaniaId = '$master'";
+    $datos = parent::ObtenerRegistros($query);
+    if(empty($datos)){
+        return false;
+    }else{
+        return $datos[0]['Cantidad'];
+   }
+
+}
+
+ 
 
 
 

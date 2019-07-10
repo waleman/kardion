@@ -248,119 +248,117 @@ class cargardr extends conexion {
     public function PrintHeader(){
       //  $compania = $this->compdata();
         $user = $this->userdata();
-     return "    
-      <header>
-                <div class='navbar navbar-fixed-top'>
-                <div class='navbar-inner'>
-                    <div class='container-fluid'>
-                    <a class='brand' href='#'>
-                        <i class='icon-heart'></i>
-                        <span class='hidden-phone'>Kardi-on</span>
-                    </a>
-                    <a class='toggle-nav btn pull-left' href='#'>
-                        <i class='icon-reorder'></i>
-                    </a>
-                    <ul class='nav pull-right'>
-                        <li class='dropdown light only-icon'>
-                        <a  name='btnperfil' id='btnperfil' class='dropdown-toggle' data-toggle='dropdown' href='perfil_doctores.php'>
-                            <i class='icon-user'> </i> 
-                            $user
-                        </a>
-                        </li>
+        return "    
+            <header>
+                        <div class='navbar navbar-fixed-top'>
+                        <div class='navbar-inner'>
+                            <div class='container-fluid'>
+                            <a class='brand' href='#'>
+                                <i class='icon-heart'></i>
+                                <span class='hidden-phone'>Kardi-on</span>
+                            </a>
+                            <a class='toggle-nav btn pull-left' href='#'>
+                                <i class='icon-reorder'></i>
+                            </a>
+                            <ul class='nav pull-right'>
+                                <li class='dropdown light only-icon'>
+                                <a  name='btnperfil' id='btnperfil' class='dropdown-toggle' data-toggle='dropdown' href='perfil_doctores.php'>
+                                    <i class='icon-user'> </i> 
+                                    $user
+                                </a>
+                                </li>
 
-                        <li class='dropdown light only-icon'>
-                        <a name='btnsalir' id='btnsalir' class='dropdown-toggle' data-toggle='dropdown' href='../login.php'>
-                            <i class='icon-signout'> </i> 
-                            Salir
-                        </a>
-                        </li>
-                    </ul>
-                    </div>
-                </div>
-                </div>
-      </header>
+                                <li class='dropdown light only-icon'>
+                                <a name='btnsalir' id='btnsalir' class='dropdown-toggle' data-toggle='dropdown' href='../login.php'>
+                                    <i class='icon-signout'> </i> 
+                                    Salir
+                                </a>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                        </div>
+            </header>
 
-      <script>
-      $(document).ready(function(){
-          $('#btnsalir').click(function(){
-              window.location='../login.php';
-          });
-          $('#btnperfil').click(function(){
-            window.location='perfil_doctores.php';
-          });
-      });
-    </script>
+            <script>
+            $(document).ready(function(){
+                $('#btnsalir').click(function(){
+                    window.location='../login.php';
+                });
+                $('#btnperfil').click(function(){
+                    window.location='perfil_doctores.php';
+                });
+            });
+            </script>
 
       ";
     }
 
 
     public function PrintSideMenu(){
-    if(isset($_SESSION['k6'])){
-            $usuarioId = $_SESSION['k6']['UsuarioId'];
-            $_problemas = new problemas;
-            $cantidad = $_problemas->ProblemaRespuestasEstado($usuarioId);
-    }else{
-            $cantidad = 0;
-    }     
+            if(isset($_SESSION['k6'])){
+                    $usuarioId = $_SESSION['k6']['UsuarioId'];
+                    $_problemas = new problemas;
+                    $cantidad = $_problemas->ProblemaRespuestasEstado($usuarioId);
+            }else{
+                    $cantidad = 0;
+            }     
 
 
-    $menu =   "
+            $menu =   "
 
-    <nav class='main-nav-fixed' id='main-nav'>
-    <div class='navigation'>
+            <nav class='main-nav-fixed' id='main-nav'>
+            <div class='navigation'>
 
-    <ul class='nav nav-stacked'>
-        <li class=''>
-            <a href='portal_dr.php'>
-                <i class='icon-dashboard'></i>
-                <span>Inicio</span>
+            <ul class='nav nav-stacked'>
+                <li class=''>
+                    <a href='portal_dr.php'>
+                        <i class='icon-dashboard'></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                <a href='perfil_dr.php'>
+                <i class='icon-stethoscope'></i>
+                <span>Mi perfil medico</span>
+                </a>
+            </li>
+                <li>
+                <a href='lista_pruebas_dr.php'>
+                <i class='icon-file-alt'></i>
+                <span>Lista de pruebas</span>
+                </a>
+            </li>
+            <li>
+            <a href='prueba_dr.php'>
+                <i class='icon-eye-open'></i>
+                <span>Prueba asignada</span>
             </a>
-        </li>
-        <li>
-        <a href='perfil_dr.php'>
-           <i class='icon-stethoscope'></i>
-           <span>Mi perfil medico</span>
-        </a>
-       </li>
-        <li>
-        <a href='lista_pruebas_dr.php'>
-           <i class='icon-file-alt'></i>
-           <span>Lista de pruebas</span>
-        </a>
-       </li>
-       <li>
-       <a href='prueba_dr.php'>
-          <i class='icon-eye-open'></i>
-          <span>Prueba asignada</span>
-       </a>
-      </li>
-       <li>
-       <a href='pruebas_dr_enviadas.php'>
-          <i class='icon-time'></i>
-          <span>Pruebas finalizadas</span>
-       </a>
-      </li>
-      <li>
-      <a href='problema_notificaciones_dr.php'>
-         <i class='icon-bell'></i>
-         <span>Notificaciones</span>
-    ";
+            </li>
+            <li>
+            <a href='pruebas_dr_enviadas.php'>
+                <i class='icon-time'></i>
+                <span>Pruebas finalizadas</span>
+            </a>
+            </li>
+            <li>
+            <a href='problema_notificaciones_dr.php'>
+                <i class='icon-bell'></i>
+                <span>Notificaciones</span>
+            ";
 
+            if($cantidad > 0){
+                $menu .= "<span class='label label-important' style='color:#FFF'>1</span>";
+            }
 
-
-    if($cantidad > 0){
-        $menu .= "<span class='label label-important' style='color:#FFF'>1</span>";
-    }
-
-    $menu .= "</a>
-    </li>
-   </ul>
-   </div>
-</nav>";
-    
-        return $menu;
-    }
+                    $menu .= "</a>
+                    </li>
+                </ul>
+                </div>
+                </nav>";
+            
+                return $menu;
+            }
 
 
 }

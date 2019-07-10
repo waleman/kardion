@@ -537,7 +537,7 @@ if(isset($_POST['btnenviar'])){
                                  
                                    
 
-                                      <div class="control-group">
+                                   <div class="control-group">
                                         <form id="cuadro" action="" class="dropzone">
 
                                         </form>
@@ -556,7 +556,7 @@ if(isset($_POST['btnenviar'])){
                                                 processing:function(){
                                                     $('#texto_carga').show();
                                                 },
-                                                queuecomplete:function(){
+                                                complete:function(){
                                                     if(errors){
                                                       swal({
                                                             title: 'Error al cargar el achivo!',

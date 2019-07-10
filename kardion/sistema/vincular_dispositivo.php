@@ -49,11 +49,12 @@ if(isset($_POST["btnregister"])){
     $cantidad = $existe[0]['cantidad'];//debe ser = a 1 
     $aparatoid= $existe[0]['AparatoId'];// id del aparato
 
-    if($cantidad > 0){
+    if($cantidad > 0){ 
         $verificar = $dispositivos->verificarNoVinculado($serie);
         if($verificar == 0){
             $vincular = $dispositivos->vincular($master,$aparatoid,$usuarioid);
             if($vincular){
+               $dispositivos->ActualizarEstado($aparatoid,$usuarioid);
                 echo"<script>
                 swal({
                         title: 'Hecho!',

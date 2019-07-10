@@ -1018,21 +1018,21 @@ if(isset($_POST['btnguardardescartar'])){
                                                         <li  data-id='2'>
                                                            <a id='btndia2'>
                                                              <div class='lista'>        
-                                                                   <p>La frecuencia cardiaca mínima registrada de ____lpm y frecuencia máxima de ____ lpm. </p>
+                                                                   <p>La frecuencia cardiaca mínima registrada fué de ____lpm y la frecuencia máxima fué de ____ lpm. </p>
                                                               </div>
                                                             </a>
                                                         </li>
                                                         <li  data-id='3'>
                                                            <a id='btndia3'>
                                                              <div class='lista'>        
-                                                                   <p>Hubo varios picos de FC relacionados  con el tipo de actividad fisica registrada.</p>
+                                                                   <p>Hubo varios picos de FC relacionados con el tipo de actividad física registrada.</p>
                                                               </div>
                                                             </a>
                                                         </li>
                                                         <li  data-id='4'>
                                                            <a id='btndia4'>
                                                              <div class='lista'>        
-                                                                   <p>La tasa de recuperación de frecuencia cardíaca despues de finalizado el pico de esfuerzo final  fue de ____  lpm al 1er min y de ___  lpm al 2 min, considerada normal.</p>
+                                                                   <p>La tasa de recuperación de frecuencia cardíaca después de finalizado el pico de esfuerzo final fué de ____  lpm al 1er min y de ___  lpm al 2 min, considerada normal.</p>
                                                               </div>
                                                             </a>
                                                         </li>
@@ -1046,7 +1046,7 @@ if(isset($_POST['btnguardardescartar'])){
                                                         <li  data-id='6'>
                                                            <a id='btndia6'>
                                                              <div class='lista'>        
-                                                                   <p>Extrasistoles ventriculares y supraventriculares aislados - frecuentes,  monomorfos,  durante el esfuerzo y la recuperacion.</p>
+                                                                   <p>Extrasistoles ventriculares y supraventriculares aislados - frecuentes,  monomorfos, durante el esfuerzo y la recuperación.</p>
                                                               </div>
                                                             </a>
                                                         </li>
@@ -1074,7 +1074,7 @@ if(isset($_POST['btnguardardescartar'])){
                                                         <li  data-id='10'>
                                                            <a id='btndia10'>
                                                              <div class='lista'>        
-                                                                   <p>Alteraciones de la repolarización significativos, con frecuencias elevadas y persisten despues de finalizado el esfuerzo.</p>
+                                                                   <p>Alteraciones de la repolarización significativos, con frecuencias elevadas y persisten después de finalizado el esfuerzo.</p>
                                                               </div>
                                                             </a>
                                                         </li>

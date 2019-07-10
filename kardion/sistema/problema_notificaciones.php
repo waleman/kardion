@@ -1,9 +1,9 @@
 <?php
-require_once("../clases/cargar_dr.php");
+require_once("../clases/cargar.php");
 require_once("../clases/problemas_controller.php");
 require_once("../clases/roles_controller.php");
 require_once("../clases/alertas_controller.php");
-$html = new cargardr;
+$html = new cargar;
 $_problemas= new problemas;
 $roles = new roles;
 $_alertas = new alertas;
@@ -16,7 +16,7 @@ echo $html->PrintBodyOpen();
 echo $html->PrintHeader();
 
 //definimos los permisos para esta pantalla;
-$permisos = array(3);
+$permisos = array(4,5,6);
 $rol = $_SESSION['k6']['RolId'];
 $usuarioId =$_SESSION['k6']['UsuarioId']; 
 $permiso = $roles->buscarpermisos($rol,$permisos);
@@ -88,7 +88,6 @@ echo $html->PrintSideMenu();
                                             </thead>
                                             <tbody>
                                             <?php
-                                         
                                                     foreach ($Listaproblemas as $key => $value) {
                                                         $id = $value['ProblemaId'];
                                                         $texto = $value['Texto'];
@@ -111,7 +110,7 @@ echo $html->PrintSideMenu();
                                                             echo"   </td>
                                                                 <td>
                                                                     <div class='text-center'>
-                                                                    <a class='btn btn-success btn-medium' href='problema_detalle_dr.php?id=$id'>
+                                                                    <a class='btn btn-success btn-medium' href='problema_detalle.php?id=$id'>
                                                                     <i class='icon-eye-open'></i>
                                                                         Ver
                                                                     </a>
@@ -119,10 +118,8 @@ echo $html->PrintSideMenu();
                                                                 </td>
                                                             </tr>
                                                             ";
-                                                        
                                                     }
                                             ?>
-                                            
                                             </tbody>
                                             </table>
                                         </div>

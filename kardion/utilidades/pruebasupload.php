@@ -1,15 +1,32 @@
 <?php
 require_once '../clases/conexion.php';
+require_once '../clases/servidor_archivos_controller.php';
 require_once "../terceros/dropbox/vendor/autoload.php";
 use Kunnu\Dropbox\Dropbox;
 use Kunnu\Dropbox\DropboxApp;
 use Kunnu\Dropbox\DropboxFile;
 $conexion = new conexion;
+$_servidor = new servidorArchivos;
 
-$dropboxKey ='foos99p3kmwwj82';
-$dropboxSecret ='leurwpvfj39reae';
-$acessToken = "2aiX2w1ONaAAAAAAAAAAEpbdEoW5fJkmZEMBTfc4AZ6otH44jJ2zB9Jlv-kBL6wZ";
-$appName='Kardion';
+
+$data = $_servidor->buscarConexion();
+$dropboxKey = "";
+$dropboxSecret = "";
+$acessToken = "";
+$appName= "";
+$megas = "";
+
+if(empty($data)){
+    $megas = 2000;
+}else{
+    $dropboxKey = $data[0]['Keyapp'];
+    $dropboxSecret = $data[0]['Secret'];
+    $acessToken = $data[0]['Token'];
+    $appName= $data[0]['Appname'];
+    $megas = $data[0]['Megas'];
+    $megas = ($megas * 1024) * 1024 ;
+}
+
 set_error_handler('error');
 
 $app = new DropboxApp($dropboxKey,$dropboxSecret,$acessToken);
@@ -30,13 +47,14 @@ if (!empty($_FILES)) {
         $nombredropbox = "/". $nombre .'.'.$ext; 
         $tama = explode(".", $_FILES['file']['size']); 
 
-        if($tama[0]>4189792){
+        if($tama[0]>$megas){
             try{
                 $file = $dropbox->simpleUpload($tempFile,$nombredropbox, ['autorename' => true]);
                 $response = $dropbox->postToAPI("/sharing/create_shared_link_with_settings", ["path" => $nombredropbox, "settings" => ['requested_visibility' => 'public']]);
                 $data = $response->getDecodedBody();
+                print_r($data);
                 $link = $data['url'];
-                $query = "insert into pruebas_archivos (Codigo,Archivo,Ubicacion)values('$savecodge','$link','2')";
+                $query = "insert into pruebas_archivos (Codigo,Archivo,Ubicacion)values('$savecodge','$nombredropbox','2')";
                 $datos=  $conexion->NonQuery($query); 
                 http_response_code(200);
              }catch(\EXCEPTION $e){

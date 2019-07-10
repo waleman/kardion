@@ -7,6 +7,7 @@
 //Todos los derechos reservados ®
 
 require_once('conexion.php');
+require_once('problemas_controller.php');
 
 class cargar extends conexion {
 
@@ -353,6 +354,14 @@ class cargar extends conexion {
 
 
     public function PrintSideMenu(){
+        if(isset($_SESSION['k6'])){
+            $usuarioId = $_SESSION['k6']['UsuarioId'];
+            $_problemas = new problemas;
+            $cantidad = $_problemas->ProblemaRespuestasEstado($usuarioId);
+        }else{
+                $cantidad = 0;
+        }     
+
         $rol =$this->roldata();
         if($rol ==  4){ //propietario
             $dash ="dashboard.php";
@@ -386,8 +395,7 @@ class cargar extends conexion {
             $lock =  "<i class='icon-lock text-right' style ='color:#FFBF00'></i>";
         }
 
-        return "
-        
+        $menu = "
                         <nav class='main-nav-fixed' id='main-nav'>
                         <div class='navigation'>
                   
@@ -438,9 +446,6 @@ class cargar extends conexion {
                                  </li>
                              </ul>
                              </li>
-
-
-                    
                           <li>
                           <a href='$clientes' class='color-amarillo'>
                           <i class='icon-folder-open-alt'></i>
@@ -462,12 +467,28 @@ class cargar extends conexion {
                               $lock
                           </a>
                       </li>
-                      
+                      <li>
+                      <a href='problema_notificaciones.php'>
+                          <i class='icon-bell'></i>
+                          <span>Notificaciones</span>
+                      ";
+                      if($cantidad > 0){
+                        $menu .= "<span class='label label-important' style='color:#FFF'>1</span>";
+                      }
+        
+                            $menu .= "</a>
+                            </li>
                         </ul>
                         </div>
-                    </nav>
+                        </nav>";
+
+                      
+                        
         
-        ";
+        
+
+
+        return $menu;
     }
 
 

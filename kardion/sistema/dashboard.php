@@ -170,7 +170,7 @@ echo $html->PrintHeader(); //cargamos el header
                                                         </div>
                                                       </div>
                                                     </div>
-                                                    <!-- <div class="span3 box">
+                                                     <!-- <div class="span3 box">
                                                       <div class="box-content">
                                                         <div class="row-fluid">
                                                           <div class="span12 box-quick-link green-background">
@@ -185,12 +185,12 @@ echo $html->PrintHeader(); //cargamos el header
                                                         
                                                         </div>
                                                       </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="span3 box">
                                                       <div class="box-content">
                                                         <div class="row-fluid">
                                                           <div class="span12 box-quick-link red-background">
-                                                            <a>
+                                                            <a href="problema.php">
                                                               <div class="header">
                                                                 <div class="icon-bug"></div>
                                                               </div>
@@ -201,7 +201,7 @@ echo $html->PrintHeader(); //cargamos el header
                                                         
                                                         </div>
                                                       </div>
-                                                    </div> -->
+                                                    </div> 
                                                   </div>
                                               </div>
 

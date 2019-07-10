@@ -7,6 +7,7 @@
 //Todos los derechos reservados ®
 
 require_once('conexion.php');
+require_once('problemas_controller.php');
 
 class cargar extends conexion {
 
@@ -338,7 +339,17 @@ class cargar extends conexion {
 
 
     public function PrintSideMenu(){
-        return "
+        if(isset($_SESSION['k6'])){
+            $usuarioId = $_SESSION['k6']['UsuarioId'];
+            $_problemas = new problemas;
+            $cantidad = $_problemas->ProblemaRespuestasEstado($usuarioId);
+        }else{
+            $cantidad = 0;
+        }     
+
+
+
+        $menu = "
         
                         <nav class='main-nav-fixed' id='main-nav'>
                         <div class='navigation'>
@@ -410,13 +421,13 @@ class cargar extends conexion {
                                         <span>Tipos de pruebas</span>
                                     </a>
                                     </li>
-                                    <!--  <li class=''>
-                                    <a href='validations.html'>
+                                    <li class=''>
+                                    <a href='editar_servidor_archivos.php'> 
                                         <i class='icon-caret-right'></i>
-                                        <span>Validations</span>
+                                        <span>Servidor de archivos</span>
                                     </a>
                                     </li>
-                                    <li class=''>
+                                    <!--<li class=''>
                                     <a href='wizard.html'>
                                         <i class='icon-caret-right'></i>
                                         <span>Wizard</span>
@@ -425,11 +436,25 @@ class cargar extends conexion {
                                 </ul>
                                 </li>
                              <li>
-                        </ul>
-                        </div>
-                    </nav>
-        
-        ";
+
+                             <li class=''>
+                                <a href='problema_notificaciones_master.php'  class='color-azul'>
+                                    <i class='icon-bug'></i>
+                                    <span>Problemas</span>";
+
+                                    if($cantidad > 0){
+                                        $menu .= "<span class='label label-important' style='color:#FFF'>1</span>";
+                                    }
+                        
+                                    $menu .= 
+                                    "</a>
+                                            </li>
+                                        </ul>
+                                        </div>
+                                        </nav>
+                                    ";
+
+        return $menu;
     }
 
 
