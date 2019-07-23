@@ -67,6 +67,8 @@ if($rol == 6){
 
 if(isset($_POST['btnenviar'])){
 
+  $code = $_POST["singlecode"];
+
               $fcprimermin ="";
               if(isset($_POST['txtfcprimerminuto'])){
                 $fcprimermin = $_POST['txtfcprimerminuto'];
@@ -119,6 +121,7 @@ if(isset($_POST['btnenviar'])){
               if(isset($_POST['txtdesmayo'])){
                 $desmayo =$_POST['txtdesmayo'];
               }
+              $centroId = $_POST['cbocentro'];
           
           $datos = array(
             "codigo" => $_POST["codigo"],
@@ -148,100 +151,17 @@ if(isset($_POST['btnenviar'])){
             "clasificacion" => $clasificacionId
           );
 
-          $verificarArchivo = $pruebas->VefiricarArchivo($_POST["codigo"]);
-          if($verificarArchivo == 0){
-               echo"<script>
-               swal({
-                       title: 'Atención!',
-                       text: 'Debe adjuntar el archvio de la prueba, localizado en su dispositivo ECG',
-                       type: 'error',
-                       icon: 'error'
-               });
-             </script>";
-          }else{
+
               $resp = $pruebas->CrearPrueba($datos);
               if($resp){
-                echo"<script>
-                swal({
-                        title: 'Hecho!',
-                        text: 'Prueba enviada',
-                        type: 'success',
-                        icon: 'success'
-                }).then(function() {
-                        window.location = 'lista_pruebas.php';
-                });
-              </script>";
+                echo $_alertas->successRedirect('Hecho!','Prueba enviada',"nuevo_prueba_paso3.php?personaid=$personaId&codigoprueba=$code&centroid=$centroId");
               }else{
-                echo"<script>
-                swal({
-                        title: 'Error!',
-                        text: 'Error al enviar la prueba',
-                        type: 'error',
-                        icon: 'error'
-                });
-              </script>";
+                echo $_alertas->error("Error!","Error al enviar la prueba");
               }
-          }
-
-        
-    
-
-
 }
 
-
-
 ?>
-<script>
- $(document).ready(function(){
 
-
-                 function mostrar(texto) {
-                    // Get the snackbar DIV
-                    document.getElementById("errorMensaje").innerText= texto;
-                    var x = document.getElementById("snackbar");
-                    // Add the "show" class to DIV
-                    x.className = "show";
-                    // After 3 seconds, remove the show class from DIV
-                    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-                }
-
-          $('#cbocentro').on('change', function() {
-                     var url = "../utilidades/dispositivos.php";
-                     $.ajax({
-                         type:"POST",
-                         url: url,
-                         data: $("#frm_filtrar").serialize(),
-                         success: function(data){
-                                 $("#resp").html(data);
-                         }
-                     });
-                     return false;
-          });
-
-          $('#btnenviar').click(function(){
-             if(document.getElementById('cbocentro').value == 0){
-                    let val = "Debe seleccionar un centro";
-                    mostrar(val);
-                    return false;
-             }else if(document.getElementById('cbodispositivo').value == 0){
-                    let val = "Debe seleccionar un dispositivo";
-                    mostrar(val);
-                    return false;
-             }else{
-              return true;
-             } 
-          });
-
-          $("#btnanexos").click(function(){
-                $('#modaluploadanexos').modal('show');
-                    return false;
-          });
-
-
-  });
-
-</script>
 
 
 
@@ -266,7 +186,7 @@ if(isset($_POST['btnenviar'])){
                             
                             <form class='form' method="POST" id="frm_filtrar" style='margin-bottom: 0;' autocomplete="off">
                             <input type="hidden" name="codigo" name="codigo" value="<?=$codigoArchivo?>">
-                          
+                            <input type="hidden" name="singlecode" name="singlecode" value="<?=$codigo?>">
                                
                                     <div class='row-fluid'>
                                               <div  class='span3 '>
@@ -336,11 +256,6 @@ if(isset($_POST['btnenviar'])){
 
 
                                     <div class="row-fluid">
-
-                                      
-
-                                       
-
                                               <div  class='span1 '>
                                                         <div class='control-group'>
                                                             <label class='control-label'>Altura</label>
@@ -368,10 +283,7 @@ if(isset($_POST['btnenviar'])){
                                                             <p class='help-block'></p>
                                                             </div>
                                                         </div>
-                                                    </div>
-
-                                      
-                                             
+                                                    </div>     
                                     </div>
 
 
@@ -500,24 +412,10 @@ if(isset($_POST['btnenviar'])){
                                     </div>
 
                                     <br>                                                                  
-                   
-
-                   <div class="row-fluid">
-                                    <a href="#" class=""  id="btnanexos" name="btnanexos" >
-                                            <div class="span3 box box-bordered  offset1 ">
-                                                <div class="box-header box-header-large test" style="font-size:12px;background-color:#fff;text-align:center;">
-                                                            <img style="height:100px" src="../assets/images/upload.png" alt="">
-                                                            <h4>Adjuntar archivo de la prueba</h4>
-                                                </div>
-                                            </div>
-                                    </a>
-                                 
-                        </div>
-                   <br> 
+                                    <br> 
                                     <div class="form-actions" style="margin-bottom: 0;">
                                        <div class="text-center">
-                                            <input type="submit" class="btn btn-primary btn-large" value="Guardar y enviar prueba" name="btnenviar" id="btnenviar"/>
-                                            
+                                              <input type="submit" class="btn btn-primary btn-large" value="Guardar" name="btnenviar" id="btnenviar"/>    
                                               <a href="lista_pruebas.php" class="btn btn-danger btn-large" >Cancelar</a>                                  
                                         </div>
                                     </div>
@@ -525,74 +423,12 @@ if(isset($_POST['btnenviar'])){
 
                 </section>
 
-<!------------------- Modal Upload ----------------------------------->
-                  <div class='modal hide fade' id='modaluploadanexos' role='dialog' tabindex='-1'>
-                      <div class='modal-header'>
-                        <button class='close' data-dismiss='modal' type='button'>&times;</button>
-                        <h3>Agregar anexos</h3>
-                      </div>
-                      <div class='modal-body'>
-                        <div class="box-content">
-                               <!-- cargar archivos -->
-                                 
-                                   
-
-                                   <div class="control-group">
-                                        <form id="cuadro" action="" class="dropzone">
-
-                                        </form>
-                                        <p id="texto_carga" style="color: #009688; display:none">Espera mientras se procesa el archivo...</p> 
-                                    </div>
-
-                                    <script type="text/javascript">
-                                    var errors = false;
-                                      var Dropzone = new Dropzone("#cuadro", {
-                                                url: "../utilidades/pruebasupload.php?id=<?=$personaId?>&codigo=<?=$codigo?>",
-                                                acceptedFiles: ".EDF,.edf,.pdf,.PDF,.rar,.RAR,.jpg,.png,.gif",
-                                                maxFiles: 1,
-                                                error:function(){
-                                                    errors = true;
-                                                },
-                                                processing:function(){
-                                                    $('#texto_carga').show();
-                                                },
-                                                complete:function(){
-                                                    if(errors){
-                                                      swal({
-                                                            title: 'Error al cargar el achivo!',
-                                                            text: 'Ha ocurrido un error al intentar cargar el archivo. Póngase en contacto con el administrador del sistema',
-                                                            type: 'error',
-                                                            icon: 'error'
-                                                        });
-                                                        $('#texto_carga').hide();
-                                                    }else{
-                                                      swal({
-                                                            title: 'Carga completa!',
-                                                            text: 'Hemos cargado el archivo de la prueba exitosamente',
-                                                            type: 'success',
-                                                            icon: 'success'
-                                                        });
-                                                        $('#texto_carga').hide();
-                                                    }
-                                                }
-                                              });
-                                      </script>
-                           
-                                <!-- cargar archivos -->
-                        
-                        </div>
-                      </div>
-                      <div class='modal-footer'>
-                        <button class='btn btn-danger' data-dismiss='modal'>Finalizar</button>
-                      </div>
-                </div>
-<!------------------- Modal Upload ----------------------------------->
          
                 <div id="snackbar">
                      <label id="errorMensaje"></label>
                </div>
 </div>
-
+<script src="nuevo_prueba_paso2.js"></script>
 <?php 
 
 echo $html->loadJS("sistema");

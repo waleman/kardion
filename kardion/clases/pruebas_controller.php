@@ -11,6 +11,18 @@ require_once("conexion.php");
 
 class pruebas extends conexion{
 
+    public function actualizarPrueba($codigo,$centroid){
+        $query ="update pruebas set PruebaEstadoId = '2' where Codigo='$codigo' ";
+        $datos = parent::NonQuery($query);
+        if ($datos == 1 ){
+            $this->EnviarMailPruebaPublicada($centroid);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
     public function CrearPrueba($datos = array()){
             $codigo= $datos["codigo"];
             $personaid= $datos["personaid"];
@@ -40,11 +52,10 @@ class pruebas extends conexion{
         $date = date('Y-m-d');
         $query= "insert into pruebas
         (codigo,PersonaId,CentroId,Fecha,PruebaEstadoId,PruebaTipoId,AparatoId,Altura,Peso,Tension,FrecuenciaCardiaca,MomentoMaximo,FCMomentoMaximo,FCPrimerMinuto,FCSegundoMinuto,FC,UC,Sintomas,DolorCabeza,Mareo,Nauseas,FaltaAire,DolorPecho,Palpitaciones,Desmayo,Comentario,ClasificacionId)
-        values('$codigo','$personaid','$centroid','$fecha','2','$pruebatipoid','$aparatoid','$altura','$peso','$tension','$frecuenciacardiaca','$momentomaximo','$fcmomemento','$fcprimerminuto','$fcsegudnominuto','$date','$usuarioid','$sintomas','$dolorcabeza','$mareo','$nauseas','$faltaaire','$dolorpecho','$palpitaciones','$desmayo','$comentario','$clasificacion')";
+        values('$codigo','$personaid','$centroid','$fecha','6','$pruebatipoid','$aparatoid','$altura','$peso','$tension','$frecuenciacardiaca','$momentomaximo','$fcmomemento','$fcprimerminuto','$fcsegudnominuto','$date','$usuarioid','$sintomas','$dolorcabeza','$mareo','$nauseas','$faltaaire','$dolorpecho','$palpitaciones','$desmayo','$comentario','$clasificacion')";
         //print_r($query);
         $datos = parent::NonQuery($query);
         if ($datos == 1 ){
-            $this->EnviarMailPruebaPublicada($centroid);
             return true;
             
         }else{
@@ -627,6 +638,21 @@ class pruebas extends conexion{
         and pru.CentroId = c.CentroId
         and pe.PruebaEstadoId = pru.PruebaEstadoId
         and pru.PruebaEstadoId = 1";
+        $resp = parent::ObtenerRegistros($query);
+        if(empty($resp)){
+            return false;
+        }else{
+            return $resp;
+        }
+    }
+
+    public function ListaPruebas_Master(){
+        $query = "select pru.PruebaId,pru.FC,pru.FM,pe.Nombre as Estado,c.Nombre as Centro,CONCAT(p.PrimerNombre, ' ' ,p.PrimerApellido) as Persona,p.Correo
+        from pruebas as pru , personas as p , centros as c,pruebas_estados as pe
+        where pru.PersonaId = p.PersonaId
+        and pru.CentroId = c.CentroId
+        and pe.PruebaEstadoId = pru.PruebaEstadoId
+        and (pru.PruebaEstadoId = 2 or pru.PruebaEstadoId = 3 or pru.PruebaEstadoId = 4 )";
         $resp = parent::ObtenerRegistros($query);
         if(empty($resp)){
             return false;

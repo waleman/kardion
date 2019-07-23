@@ -398,6 +398,12 @@ class cargar extends conexion {
                                            <span>Pruebas descartadas</span>
                                        </a>
                                     </li>
+                                    <li class=''>
+                                        <a href='lista_pruebas_master.php'>
+                                            <i class='icon-caret-right'></i>
+                                            <span>Pruebas pendientes</span>
+                                        </a>
+                                     </li>
                                </ul>
                                </li>
                             

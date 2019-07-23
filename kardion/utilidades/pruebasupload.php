@@ -8,7 +8,6 @@ use Kunnu\Dropbox\DropboxFile;
 $conexion = new conexion;
 $_servidor = new servidorArchivos;
 
-
 $data = $_servidor->buscarConexion();
 $dropboxKey = "";
 $dropboxSecret = "";
@@ -47,16 +46,20 @@ if (!empty($_FILES)) {
         $nombredropbox = "/". $nombre .'.'.$ext; 
         $tama = explode(".", $_FILES['file']['size']); 
 
-        if($tama[0]>$megas){
+        if($tama[0]>=$megas || $megas == 0){
             try{
+                
                 $file = $dropbox->simpleUpload($tempFile,$nombredropbox, ['autorename' => true]);
                 $response = $dropbox->postToAPI("/sharing/create_shared_link_with_settings", ["path" => $nombredropbox, "settings" => ['requested_visibility' => 'public']]);
                 $data = $response->getDecodedBody();
-                print_r($data);
                 $link = $data['url'];
-                $query = "insert into pruebas_archivos (Codigo,Archivo,Ubicacion)values('$savecodge','$nombredropbox','2')";
+                $query = "insert into pruebas_archivos (Codigo,Archivo,Ubicacion)values('$savecodge','$link','2')";
                 $datos=  $conexion->NonQuery($query); 
-                http_response_code(200);
+                if($datos >= 1 ){
+                    http_response_code(200);
+                }else{
+                    http_response_code(400);
+                }
              }catch(\EXCEPTION $e){
                 ERROR('001',$E);
                  http_response_code(400);
