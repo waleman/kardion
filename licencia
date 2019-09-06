@@ -1,0 +1,180 @@
+ Licencia Apache Versión 2.0
+
+   TÉRMINOS Y CONDICIONES DE USO, REPRODUCCIÓN Y DISTRIBUCIÓN
+
+   1. Definiciones.
+
+      "Licencia" significará los términos y condiciones de uso, reproducción,
+      y distribución como se define en las Secciones 1 a 9 de este documento.
+
+      "Licenciante" se refiere al propietario de los derechos de autor o entidad autorizada por
+      el propietario de los derechos de autor que otorga la Licencia.
+
+      "Entidad legal" significará la unión de la entidad actuante y todos
+      otras entidades que controlan, son controladas o están en común
+      control con esa entidad. A los fines de esta definición,
+      "control" significa (i) el poder, directo o indirecto, para causar la
+      dirección o gestión de dicha entidad, ya sea por contrato o
+      de lo contrario, o (ii) propiedad del cincuenta por ciento (50%) o más del
+      acciones en circulación, o (iii) titularidad de dicha entidad.
+
+      "Usted" (o "Su") significará una persona física o jurídica
+      ejercer los permisos otorgados por esta Licencia.
+
+      El formulario "fuente" significará el formulario preferido para realizar modificaciones,
+      incluidos, entre otros, el código fuente del software, la documentación
+      fuente y archivos de configuración.
+
+      La forma de "objeto" significará cualquier forma resultante de la mecánica
+      transformación o traducción de un formulario fuente, que incluye pero
+      no limitado al código objeto compilado, documentación generada,
+      y conversiones a otros tipos de medios.
+
+      "Trabajo" significará el trabajo de autoría, ya sea en Fuente o
+      Formulario de objeto, disponible bajo la Licencia, como lo indica un
+      aviso de copyright incluido o adjunto a la obra
+      (se proporciona un ejemplo en el apéndice a continuación).
+
+      "Trabajos derivados" significará cualquier trabajo, ya sea en Fuente u Objeto
+      forma, que se basa en (o deriva de) el Trabajo y para el cual
+      revisiones editoriales, anotaciones, elaboraciones u otras modificaciones
+      representan, en su conjunto, una obra original de autoría. Para los fines
+      de esta Licencia, los Trabajos derivados no incluirán trabajos que permanezcan
+      separable de, o simplemente enlace (o enlace por nombre) a las interfaces de,
+      el trabajo y trabajos derivados del mismo.
+
+      "Contribución" significará cualquier trabajo de autoría, incluyendo
+      La versión original de la Obra y cualquier modificación o adición.
+      a ese trabajo o trabajos derivados del mismo, que es intencionalmente
+      enviado al Licenciante para su inclusión en el Trabajo por el propietario de los derechos de autor
+      o por una persona física o jurídica autorizada a presentar en nombre de
+      El propietario de los derechos de autor. A los efectos de esta definición, "presentado"
+      significa cualquier forma de comunicación electrónica, verbal o escrita enviada
+      al Licenciante o sus representantes, incluidos, entre otros,
+      comunicación en listas de correo electrónico, sistemas de control de código fuente,
+      y sistemas de seguimiento de problemas gestionados por, o en nombre de,
+      Licenciante con el propósito de discutir y mejorar el Trabajo, pero
+      excluyendo la comunicación que está marcada de manera notoria o de otra manera
+      designado por escrito por el propietario de los derechos de autor como "No es una contribución".
+
+      "Colaborador" significa el Licenciante y cualquier persona física o jurídica.
+      en nombre de quién ha recibido una Contribución el Licenciante y
+      posteriormente incorporado dentro del Trabajo.
+
+   2. Concesión de licencia de copyright. Sujeto a los términos y condiciones de
+      esta Licencia, cada Colaborador por la presente le otorga un perpetuo,
+      mundial, no exclusivo, sin cargo, libre de regalías, irrevocable
+      licencia de copyright para reproducir, preparar trabajos derivados de,
+      mostrar públicamente, realizar públicamente, sublicenciar y distribuir el
+      Trabajo y tales trabajos derivados en forma de fuente u objeto.
+
+   3. Concesión de licencia de patente. Sujeto a los términos y condiciones de
+      esta Licencia, cada Colaborador por la presente le otorga un perpetuo,
+      mundial, no exclusivo, sin cargo, libre de regalías, irrevocable
+      (excepto como se indica en esta sección) licencia de patente para hacer, haber hecho,
+      usar, ofrecer vender, vender, importar y transferir el Trabajo,
+      donde dicha licencia se aplica solo a aquellas solicitudes de patente con licencia
+      por dicho Colaborador que necesariamente son infringidos por su
+      Contribuciones solo o en combinación de sus Contribuciones
+      con el trabajo al que se enviaron tales contribuciones. Si tu
+      instituir litigios de patentes contra cualquier entidad (incluida una
+      reclamación cruzada o contrademanda en una demanda) alegando que el Trabajo
+      o una Contribución incorporada dentro del Trabajo constituye directa
+      o infracción de patente contributiva, entonces cualquier licencia de patente
+      otorgado a Usted bajo esta Licencia para que el Trabajo terminará
+      a partir de la fecha en que se presenta dicho litigio.
+
+   4. Redistribución. Puede reproducir y distribuir copias de
+      Trabajo o trabajos derivados del mismo en cualquier medio, con o sin
+      modificaciones, y en forma de Fuente u Objeto, siempre que Usted
+      cumplir las siguientes condiciones:
+
+      (a) Debe entregar a cualquier otro destinatario del Trabajo o
+          Derivado trabaja una copia de esta licencia; y
+
+      (b) Debe hacer que los archivos modificados lleven avisos destacados
+          declarando que ha cambiado los archivos; y
+
+      (c) Debe retener, en la forma Fuente de cualquier Obra Derivada
+          que usted distribuye, todos los derechos de autor, patentes, marcas registradas y
+          avisos de atribución de la forma Fuente del Trabajo,
+          excluyendo aquellos avisos que no pertenecen a ninguna parte de
+          las obras derivadas; y
+
+      (d) Si el Trabajo incluye un archivo de texto "AVISO" como parte de su
+          distribución, entonces cualquier obra derivada que distribuya debe
+          incluir una copia legible de los avisos de atribución contenidos
+          dentro de dicho archivo de AVISO, excluyendo aquellos avisos que no
+          pertenecer a cualquier parte de las Obras Derivadas, en al menos una
+          de los siguientes lugares: dentro de un archivo de texto AVISO distribuido
+          como parte de los trabajos derivados; dentro del formulario Fuente o
+          documentación, si se proporciona junto con los Trabajos derivados; o,
+          dentro de una pantalla generada por los trabajos derivados, si y
+          dondequiera que aparezcan dichos avisos de terceros. Los contenidos
+          del archivo AVISO son solo para fines informativos y
+          No modifique la licencia. Puede agregar su propia atribución
+          avisos dentro de obras derivadas que distribuye, junto con
+          o como una adición al texto de AVISO del Trabajo, siempre que
+          que dichos avisos de atribución adicionales no pueden interpretarse
+          como modificar la licencia.
+
+      Puede agregar su propia declaración de derechos de autor a sus modificaciones y
+      puede proporcionar términos y condiciones de licencia adicionales o diferentes
+      para uso, reproducción o distribución de sus modificaciones, o
+      para tales trabajos derivados en su conjunto, siempre que su uso,
+      la reproducción y distribución de la Obra cumple con
+      las condiciones establecidas en esta Licencia.
+
+   5. Presentación de contribuciones. A menos que usted indique explícitamente lo contrario,
+      cualquier Contribución enviada intencionalmente para su inclusión en el Trabajo
+      por Usted al Licenciante estará bajo los términos y condiciones de
+      esta Licencia, sin términos ni condiciones adicionales.
+      Sin perjuicio de lo anterior, nada de lo aquí contenido sustituirá o modificará
+      los términos de cualquier acuerdo de licencia por separado que pueda haber ejecutado
+      con el Licenciante con respecto a tales Contribuciones.
+
+   6. Marcas registradas. Esta licencia no otorga permiso para usar el comercio
+      nombres, marcas comerciales, marcas de servicio o nombres de productos del Licenciante,
+      excepto según sea necesario para un uso razonable y habitual al describir el
+      origen del Trabajo y reproducción del contenido del archivo AVISO.
+
+   7. Descargo de responsabilidad de la garantía. A menos que lo exija la ley aplicable o
+      acordado por escrito, el Licenciante proporciona el Trabajo (y cada
+      El Colaborador proporciona sus Contribuciones) "TAL CUAL",
+      SIN GARANTÍAS O CONDICIONES DE NINGÚN TIPO, ya sea expreso o
+      implícito, incluidas, entre otras, garantías o condiciones
+      de TÍTULO, NO INFRACCIÓN, COMERCIABILIDAD O APTITUD PARA UN
+      PROPÓSITO PARTICULAR. Usted es el único responsable de determinar el
+      conveniencia de usar o redistribuir el Trabajo y asumir cualquier
+      riesgos asociados con su ejercicio de permisos bajo esta Licencia.
+
+   8. Limitación de responsabilidad. En ningún caso y bajo ninguna teoría legal,
+      ya sea en agravio (incluyendo negligencia), contrato o de otra manera,
+      a menos que lo exija la ley aplicable (como deliberado y grosero
+      actos negligentes) o acordado por escrito, cualquier contribuyente será
+      responsable ante usted por daños, incluidos los directos, indirectos, especiales,
+      daños incidentales o consecuentes de cualquier carácter que surjan como
+      resultado de esta Licencia o fuera del uso o incapacidad para usar el
+      Trabajo (incluidos, entre otros, daños por pérdida de buena voluntad,
+      paro laboral, falla de la computadora o mal funcionamiento, o cualquiera
+      otros daños o pérdidas comerciales), incluso si dicho Colaborador
+      ha sido advertido de la posibilidad de tales daños.
+
+   9. Aceptación de la garantía o responsabilidad adicional. Mientras se redistribuye
+      el trabajo o los trabajos derivados del mismo, puede optar por ofrecer,
+      y cobrar una tarifa por la aceptación del soporte, la garantía, la indemnización,
+      u otras obligaciones de responsabilidad y / o derechos consistentes con esto
+      Licencia. Sin embargo, al aceptar tales obligaciones, solo puede actuar
+      en su propio nombre y bajo su exclusiva responsabilidad, no en nombre de
+      de cualquier otro colaborador, y solo si acepta indemnizar,
+      defender y eximir de responsabilidad a cada colaborador
+      incurrido por, o reclamaciones afirmadas en contra, de dicho Colaborador por razón
+      de su aceptación de dicha garantía o responsabilidad adicional.
+
+   FIN DE TÉRMINOS Y CONDICIONES
+
+
+
+   Copyright 2019 VITALSIS HEALTH EUROPE SL
+
+  
